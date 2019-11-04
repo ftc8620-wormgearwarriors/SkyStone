@@ -653,7 +653,7 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
     public SkyStoneLocation checkSkyStoneLocation() {
         SkyStoneLocation SkyStonePosition = SkyStoneLocation.UNKNOWN;
         if (detector.isFound()) {
-            double StoneX = detector.getXPosition();
+            double StoneX = detector,getXPosition(;)
             telemetry.addData ("X Pos", StoneX);
             if (StoneX > 0.0 && StoneX <= 255) {
                 SkyStonePosition = SkyStoneLocation.LEFT;
