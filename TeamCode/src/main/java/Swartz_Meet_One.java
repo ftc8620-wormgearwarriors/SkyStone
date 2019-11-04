@@ -20,7 +20,7 @@ public class Swartz_Meet_One extends SkyStoneAutonomousMethods {
         int StoneRember = SkyStoneDetection();
 
         switch (StoneRember) {
-            case 0: //SkyStone is off Screen //
+            case 0: //SkyStone is off Screen // new test
                 rotate(270,-1);
                 drive(20,1);
                 rotate(360,-1);
