@@ -20,22 +20,22 @@ public class Swartz_Meet_One extends SkyStoneAutonomousMethods {
         int StoneRember = SkyStoneDetection();
 
         switch (StoneRember) {
-            case 0: //SkyStone is off Screen // new test
+            case 0: //SkyStone is off Screen
                 rotate(270,-1);
                 drive(20,1);
                 rotate(360,-1);
-                //telemetry.addLine("OffScreen");
+                telemetry.addLine("OffScreen");
                 break;
             case 1: //SkyStone is on the left
                 //strafe(30,1); //Strafe over to the skystone
-                //telemetry.addLine(":Left");
+                telemetry.addLine(":Left");
                 break;
             case 2:  //SkyStone is on the right
                 //strafe(25,-0.5); //Strafe over to the skystone
                 rotate(90,1);
                 drive(20,1);
                 rotate(0,-1);
-                //telemetry.addLine("Right");
+                telemetry.addLine("Right");
                 break;
         }
         telemetry.update();
