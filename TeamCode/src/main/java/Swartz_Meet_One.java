@@ -19,7 +19,7 @@ public class Swartz_Meet_One extends SkyStoneAutonomousMethods {
 
         switch (StoneRember) {
             case 0: //SkyStone is off Screen
-                rotate(270,-1);  // figure out the straffe!
+                rotate(270,-1);  // figure out the straffe
                 drive(20,1);
                 rotate(360,-1);
                 telemetry.addLine("OffScreen");
