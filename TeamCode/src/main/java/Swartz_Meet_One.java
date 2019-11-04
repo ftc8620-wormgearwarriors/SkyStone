@@ -13,7 +13,7 @@ public class Swartz_Meet_One extends SkyStoneAutonomousMethods {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-
+//test
         drive(50,1);
         int StoneRember = SkyStoneDetection();
 
