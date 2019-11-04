@@ -28,7 +28,7 @@ public class Swartz_Test_auto extends SkyStoneAutonomousMethods {
         drive(61,1);
         strafe(61,1);
         rotate(90,.5); */
-        grabBlock();
+        grabBlock();        // grab the stone in front of robot
     }
 }
 
