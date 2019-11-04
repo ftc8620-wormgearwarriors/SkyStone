@@ -745,5 +745,118 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
     return SkyStonePosition;
     }
 */
+
+    final double highLimit = 1.368;
+    final double lowLimit = 0.68;
+    public double armTilt(double position, double speed){
+        if (position <lowLimit  ||  position >highLimit){
+            telemetry.addLine("armTilt out of allowed limits");
+            telemetry.update ();
+            return 0 ;
+        }
+        double volts = robot.armPosInput.getVoltage();
+        while (volts<(position-0.01)  ||  volts>(position+0.01))  {
+            if (volts>position )
+                robot.LiftMotor.setPower(-Math.abs(speed));
+            else if (volts<position )
+                robot.LiftMotor.setPower(Math.abs(speed));
+            else
+                break ;
+            volts = robot.armPosInput.getVoltage();
+        }
+        robot.LiftMotor.setPower(0);
+        return volts;
+    }
+
+
+    public double armExt(double ticks, double speed){
+        if (ticks <0  ||  ticks >5000){
+            telemetry.addLine("armExt out of allowed extension ");
+            telemetry.update ();
+            return 0 ;
+        }
+        double current = -robot.ExtendMotor.getCurrentPosition();
+        while (current<(ticks-100)  ||  current>(ticks+100))  {
+            if (current>ticks )
+                robot.ExtendMotor.setPower(Math.abs(speed));
+            else if (current<ticks )
+                robot.ExtendMotor.setPower(-Math.abs(speed));
+            else
+                break ;
+            current = -robot.ExtendMotor.getCurrentPosition();
+        }
+        robot.ExtendMotor.setPower(0);
+        return current;
+    }
+
+
+    public boolean grabBlock() {
+        armTilt(0.997,0.5);         //tilt up to level so the claw clears the base
+        armExt (3750,0.5);
+        robot.TwistServo.setPosition(0.0);
+        robot.OpenServo.setPosition(0.36);
+        armTilt(1.302,0.5);
+        robot.OpenServo.setPosition(0.68);
+        armTilt(1.245,0.5);
+        sleep(2000);
+        return true;
+    }
+
+
+
+
+
+
+/*
+
+    public boolean grabBlock () {
+        tiltArm(0.945, 0.5);
+    }
+
+
+    final double highLimit = 1.368;
+    final double lowLimit  = 0.368;
+    public boolean tiltArm(float position, float speed) {
+
+        // first check the desired position to be sure in range or exit with error
+        if (position < lowLimit || position > highLimit) {
+            telemetry.addLine("Error - requested arm tilt out of range");
+            telemetry.update();
+            return false;           // let caller know we could not complete
+        }
+
+        double v = robot.armPosInput.getVoltage();
+        while ( (v < (position - 0.01)) ||  (v > (position + 0.01))) {
+            if (v < position)
+
+        }
+    }
+
+  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 

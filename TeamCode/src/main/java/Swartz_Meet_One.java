@@ -1,6 +1,4 @@
 
-import android.widget.Switch;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 @Autonomous (name = "Swartz_MeetOne -")
