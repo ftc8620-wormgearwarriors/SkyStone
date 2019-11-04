@@ -14,7 +14,9 @@ public class Swartz_Test_auto extends SkyStoneAutonomousMethods {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        drive(95,100);
+        drive(61,1);
+        strafe(61,1);
+        rotate(90,.5);
     }
 }
 

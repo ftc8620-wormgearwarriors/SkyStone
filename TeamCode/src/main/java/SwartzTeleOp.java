@@ -43,7 +43,10 @@ public class SwartzTeleOp extends OpMode {
      */
     @Override
     public void init_loop() {
+
+
     }
+
 
     /*
      * Code to run ONCE when the driver hits PLAY
@@ -118,6 +121,11 @@ public class SwartzTeleOp extends OpMode {
         robot.backLeftDrive.setPower(backLeft);
         robot.backRightDrive.setPower(backRight);
 
+        if (gamepad1.y)  {
+            robot.imu.resetHeading();
+        }
+
+        /************* Read game pad 2 *************/
         if (gamepad2.a) {
             robot.TwistServo.setPosition(0.5);
         }
@@ -142,7 +150,7 @@ public class SwartzTeleOp extends OpMode {
         robot.OpenServo.setPosition(openServoPos);
 
         if (gamepad2.dpad_down && (robot.armPosInput.getVoltage() < 1.368)) {
-            robot.LiftMotor.setPower(0.1);
+            robot.LiftMotor.setPower(1);
         }
             else if (gamepad2.dpad_up && (robot.armPosInput.getVoltage() > 0.68)) {
             robot.LiftMotor.setPower(-1);
@@ -151,7 +159,7 @@ public class SwartzTeleOp extends OpMode {
             robot.LiftMotor.setPower(0);
         }
 
-            robot.ExtendMotor.setPower(gamepad2.left_stick_x);
+            robot.ExtendMotor.setPower(gamepad2.right_stick_y);
 
 
 
