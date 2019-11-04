@@ -18,7 +18,7 @@ public class Swartz_Meet_One extends SkyStoneAutonomousMethods {
 
         drive(50,1);
         int StoneRember = SkyStoneDetection();
-
+//
         switch (StoneRember) {
             case 0: //SkyStone is off Screen
                 strafe(56,-1); //Strafe over to the skystone
