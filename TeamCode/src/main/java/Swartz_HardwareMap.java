@@ -69,6 +69,9 @@ public class Swartz_HardwareMap
         backRightDrive.setZeroPowerBehavior (DcMotor.ZeroPowerBehavior.BRAKE);
 
 
+        ExtendMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
 
         // Set all motors to zero power
         frontLeftDrive.setPower(0);
@@ -77,6 +80,9 @@ public class Swartz_HardwareMap
         backRightDrive.setPower(0);
         ExtendMotor.setPower(0);
         LiftMotor.setPower(0);
+        TwistServo.setPosition(0.5);
+        OpenServo.setPosition(0.6);
+
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.

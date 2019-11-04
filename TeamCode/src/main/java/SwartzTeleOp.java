@@ -61,6 +61,7 @@ public class SwartzTeleOp extends OpMode {
     double maxVel = 0.5;
     double dropServoPos = 1.1;
     double openServoPos = 0.5;
+    double twistServoPos = 0.5;
 
     @Override
     public void loop() {
@@ -94,6 +95,8 @@ public class SwartzTeleOp extends OpMode {
         telemetry.addData("Gyro Heading", gyroHeading);
         telemetry.addData("Arm Position", robot.armPosInput.getVoltage() );
         telemetry.addData("Claw Position",openServoPos);
+        telemetry.addData("Extension ticks",robot.ExtendMotor.getCurrentPosition());
+        telemetry.addData("twist position",twistServoPos);
         telemetry.update();
 
         // Run wheels in POV mode (note: The joystick goes negative when pushed forwards, so negate it)
@@ -127,12 +130,19 @@ public class SwartzTeleOp extends OpMode {
 
         /************* Read game pad 2 *************/
         if (gamepad2.a) {
-            robot.TwistServo.setPosition(0.5);
+             twistServoPos = 0.5;
         }
 
         if (gamepad2.b) {
-            robot.TwistServo.setPosition(0);
+            twistServoPos = 0;
         }
+        if (gamepad2.x) {
+            twistServoPos += 0.01;
+        }
+        if (gamepad2.y) {
+            twistServoPos -= 0.01;
+        }
+        robot.TwistServo.setPosition(twistServoPos);
 
    /*     if (gamepad2.right_trigger > .1) {
             robot.OpenServo.setPosition(0.0);
@@ -152,10 +162,10 @@ public class SwartzTeleOp extends OpMode {
         if (gamepad2.dpad_down && (robot.armPosInput.getVoltage() < 1.368)) {
             robot.LiftMotor.setPower(1);
         }
-            else if (gamepad2.dpad_up && (robot.armPosInput.getVoltage() > 0.68)) {
+        else if (gamepad2.dpad_up && (robot.armPosInput.getVoltage() > 0.68)) {
             robot.LiftMotor.setPower(-1);
         }
-            else {
+        else {
             robot.LiftMotor.setPower(0);
         }
 
