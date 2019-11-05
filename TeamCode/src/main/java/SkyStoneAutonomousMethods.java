@@ -30,11 +30,11 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
 
     // private GoldAlignDetector detector;
 
-    public enum SkyStoneLocation{
-                UNKNOWN,
-                LEFT,
-                CENTER,
-                RIGHT,
+    public enum SkyStoneLocation {
+        UNKNOWN,
+        LEFT,
+        CENTER,
+        RIGHT,
     }
 
 
@@ -61,7 +61,8 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
 
     public void motorTest() {
         /*        robot.frontLeftDrive;
-        while(!gamepad1.a);
+
+        (!gamepad1.a);
         while(gamepad1.a);
         robot.frontLeftDrive.setPower(0);
 
@@ -114,11 +115,12 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
         telemetry.update();
         while (robot.backRightDrive.getCurrentPosition() < 100)
             robot.backRightDrive.setPower(0.1);
-       robot.backRightDrive.setPower(0);
+        robot.backRightDrive.setPower(0);
 
     }
 
-    /**0
+    /**
+     * 0
      * Function to drive straight forward or backward
      * Pass:
      * distance = distance to travel (cm)
@@ -232,8 +234,8 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
         double targetTicks = distance * (1 / circumference) * gearRatio * ticksPerRotation;
         double targetHeading = robot.imu.getHeading();
         double kpTurn = 0.01;
-        double kpDistance = 0.0003;
-        double minVel = 0.05;
+        double kpDistance = 0.01;
+        double minVel = 0.1;
         double accel = 0.03;      //0.01;
         double vel = minVel;
         double oldVel = minVel;
@@ -402,10 +404,10 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
     }
 
     public double currentPositionAverage() {
-        return ((Math.abs(robot.frontLeftDrive.getCurrentPosition())  +
-                 Math.abs(robot.frontRightDrive.getCurrentPosition()) +
-                 Math.abs(robot.backLeftDrive.getCurrentPosition())   +
-                 Math.abs(robot.backRightDrive.getCurrentPosition())    )   / 4);
+        return ((Math.abs(robot.frontLeftDrive.getCurrentPosition()) +
+                Math.abs(robot.frontRightDrive.getCurrentPosition()) +
+                Math.abs(robot.backLeftDrive.getCurrentPosition()) +
+                Math.abs(robot.backRightDrive.getCurrentPosition())) / 4);
 
     }
 
@@ -445,10 +447,17 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
         return error;
     }
 
-    public int SkyStoneDetection() {
+    VuforiaTrackables targetsSkyStone =null ;
+    boolean targetVisible = false;
+    List<VuforiaTrackable> allTrackables =null;
+    OpenGLMatrix lastLocation = null;
+    final float mmPerInch = 25.4f;
+
+    //public int SkyStoneDetection() {
+        public int VuforiaInit() {
         final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
         final boolean PHONE_IS_PORTRAIT = false;
-        int StonePosition = 0;
+        //int StonePosition = 0;
         /*
          * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
          * 'parameters.vuforiaLicenseKey' is initialized is for illustration only, and will not function.
@@ -466,7 +475,6 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
 
         // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
         // We will define some constants and conversions here
-        final float mmPerInch = 25.4f;
         final float mmTargetHeight = (6) * mmPerInch;          // the height of the center of the target image above the floor
 
         // Constant for Stone Target
@@ -484,9 +492,7 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
         final float quadField = 36 * mmPerInch;
 
         // Class Members
-        OpenGLMatrix lastLocation = null;
         VuforiaLocalizer vuforia = null;
-        boolean targetVisible = false;
         float phoneXRotate = 0;
         float phoneYRotate = 0;
         float phoneZRotate = 0;
@@ -509,7 +515,7 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
 
         // Load the data sets for the trackable objects. These particular data
         // sets are stored in the 'assets' part of our application.
-        VuforiaTrackables targetsSkyStone = vuforia.loadTrackablesFromAsset("Skystone");
+         targetsSkyStone = vuforia.loadTrackablesFromAsset("Skystone");
 
         VuforiaTrackable stoneTarget = targetsSkyStone.get(0);
         stoneTarget.setName("Stone Target");
@@ -539,7 +545,7 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
         rear2.setName("Rear Perimeter 2");
 
         // For convenience, gather together all the trackable objects in one easily-iterable collection */
-        List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
+       allTrackables = new ArrayList<VuforiaTrackable>();
         allTrackables.addAll(targetsSkyStone);
 
         /**
@@ -657,6 +663,9 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
         for (VuforiaTrackable trackable : allTrackables) {
             ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(robotFromCamera, parameters.cameraDirection);
         }
+        return 0;
+    }
+
 
         // WARNING:
         // In this sample, we do not wait for PLAY to be pressed.  Target Tracking is started immediately when INIT is pressed.
@@ -670,10 +679,13 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
         // AFTER you hit Init on the Driver Station, use the "options menu" to select "Camera Stream"
         // Tap the preview window to receive a fresh image.
 
-        CameraDevice.getInstance().setFlashTorchMode( true );
+    public int SkyStoneDetection() {
+                int StonePosition = 0;
+
+    CameraDevice.getInstance().setFlashTorchMode(true);
         targetsSkyStone.activate();
         long startTime = System.currentTimeMillis();
-        while (!targetVisible  && (System.currentTimeMillis()-startTime)<10000) {
+        while (opModeIsActive() && (!targetVisible && (System.currentTimeMillis() - startTime) < 10000)) {
             // check all the trackable targets to see which one (if any) is visible.
             targetVisible = false;
             for (VuforiaTrackable trackable : allTrackables) {
@@ -701,10 +713,10 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
                 // express the rotation of the robot in degrees.
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
                 telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
-                if (translation.get(1)<0) {
+                if (translation.get(1) < 0) {
                     telemetry.addLine("Left");
                     StonePosition = 1;
-                }else {
+                } else {
                     telemetry.addLine("Right");
                     StonePosition = 2;
                 }
@@ -717,11 +729,12 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
 
         // Disable Tracking when we are done;
         targetsSkyStone.deactivate();
-        CameraDevice.getInstance().setFlashTorchMode( false );
+        CameraDevice.getInstance().setFlashTorchMode(false);
         return StonePosition;
 
 
     }
+
 /*
     public SkyStoneLocation checkSkyStoneLocation() {
         SkyStoneLocation SkyStonePosition = SkyStoneLocation.UNKNOWN;
@@ -755,7 +768,7 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
             return 0 ;
         }
         double volts = robot.armPosInput.getVoltage();
-        while (volts<(position-0.01)  ||  volts>(position+0.01))  {
+        while (opModeIsActive() && (volts<(position-0.01)  ||  volts>(position+0.01)))  {
             if (volts>position )
                 robot.LiftMotor.setPower(-Math.abs(speed));
             else if (volts<position )
@@ -776,7 +789,7 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
             return 0 ;
         }
         double current = -robot.ExtendMotor.getCurrentPosition();
-        while (current<(ticks-100)  ||  current>(ticks+100))  {
+        while (opModeIsActive () && (current<(ticks-100)  ||  current>(ticks+100)))  {
             if (current>ticks )
                 robot.ExtendMotor.setPower(Math.abs(speed));
             else if (current<ticks )

@@ -11,9 +11,10 @@ public class Swartz_Meet_One extends SkyStoneAutonomousMethods {
          */
         Init();     //  init robot hardware
 
+        VuforiaInit(); //init camera
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-//test
+
         drive(50,1);
         int StoneRember = SkyStoneDetection();
 
@@ -22,20 +23,24 @@ public class Swartz_Meet_One extends SkyStoneAutonomousMethods {
                 rotate(270,-1);  // figure out the straffe
                 drive(20,1);
                 rotate(360,-1);
+                grabBlock();
                 telemetry.addLine("OffScreen");
                 break;
             case 1: //SkyStone is on the left
-                //strafe(30,1); //Strafe over to the skystone
+                grabBlock();
                 telemetry.addLine(":Left");
                 break;
             case 2:  //SkyStone is on the right
                 //strafe(25,-0.5); //Strafe over to the skystone
-                rotate(90,1);
-                drive(20,1);
-                rotate(0,-1);
                 telemetry.addLine("Right");
+                strafe(30,-1);
+                //strafe(60,-1);
                 break;
         }
+        grabBlock();
+        armTilt(1.24,1);
+        armExt(2000,1);
+
         telemetry.update();
     }
 }
