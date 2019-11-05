@@ -685,7 +685,7 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
     CameraDevice.getInstance().setFlashTorchMode(true);
         targetsSkyStone.activate();
         long startTime = System.currentTimeMillis();
-        while (opModeIsActive() && (!targetVisible && (System.currentTimeMillis() - startTime) < 10000)) {
+        while (opModeIsActive() && (!targetVisible && (System.currentTimeMillis() - startTime) < 5000))  { // was 10,000
             // check all the trackable targets to see which one (if any) is visible.
             targetVisible = false;
             for (VuforiaTrackable trackable : allTrackables) {
