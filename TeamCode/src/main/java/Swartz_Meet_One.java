@@ -12,11 +12,14 @@ public class Swartz_Meet_One extends SkyStoneAutonomousMethods {
         Init();     //  init robot hardware
 
         VuforiaInit(); //init camera
+
+
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        drive(50,1);
-        int StoneRember = SkyStoneDetection();
+        drive(50,1);            // Drive to be in range to see skystone
+
+        int StoneRember = SkyStoneDetection();  // look for skystone
 
         switch (StoneRember) {
             case 0: //SkyStone is off Screen
@@ -39,6 +42,21 @@ public class Swartz_Meet_One extends SkyStoneAutonomousMethods {
         armExt(2000,1);
 
         telemetry.update();
+
+        drive(16,  -1);     //Drive Back
+        strafe(100, -0.8);  //Sideways Under Bridge
+
+        robot.OpenServo.setPosition(0.36);  // Open Claw
+        sleep(3000);            // Sleeping to drop block
+        strafe(171, 0.8);  // Going Back to grab another block
+        drive(16,    1);   // Going forward to grab block
+
+        grabBlock();
+
+
+
+
+
     }
 }
 

@@ -3,6 +3,7 @@
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -58,10 +59,10 @@ public class Swartz_HardwareMap
 
         armPosInput       = hwMap.analogInput.get("armPos");
 
-        frontLeftDrive.setDirection(DcMotor.Direction.REVERSE); // Set to FORWARD if using AndyMark motors
-        frontRightDrive.setDirection(DcMotor.Direction.FORWARD);// Set to REVERSE if using AndyMark motors
-        backLeftDrive.setDirection(DcMotor.Direction.REVERSE); //  Set to FORWARD if using AndyMark motors
-        backRightDrive.setDirection(DcMotor.Direction.FORWARD);//  Set to FORWARD if using AndyMark motors
+        frontLeftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
+        frontRightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE if using AndyMark motors
+        backLeftDrive.setDirection(DcMotor.Direction.FORWARD); //  Set to FORWARD if using AndyMark motors
+        backRightDrive.setDirection(DcMotor.Direction.REVERSE);//  Set to FORWARD if using AndyMark motors
 
         frontLeftDrive.setZeroPowerBehavior (DcMotor.ZeroPowerBehavior.BRAKE);
         frontRightDrive.setZeroPowerBehavior (DcMotor.ZeroPowerBehavior.BRAKE);

@@ -30,11 +30,11 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
 
     // private GoldAlignDetector detector;
 
-    public enum SkyStoneLocation {
-        UNKNOWN,
-        LEFT,
-        CENTER,
-        RIGHT,
+    public enum SkyStoneLocation{
+                UNKNOWN,
+                LEFT,
+                CENTER,
+                RIGHT,
     }
 
 
@@ -61,8 +61,7 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
 
     public void motorTest() {
         /*        robot.frontLeftDrive;
-
-        (!gamepad1.a);
+        while(!gamepad1.a);
         while(gamepad1.a);
         robot.frontLeftDrive.setPower(0);
 
@@ -119,8 +118,7 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
 
     }
 
-    /**
-     * 0
+    /**0
      * Function to drive straight forward or backward
      * Pass:
      * distance = distance to travel (cm)
@@ -319,9 +317,9 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
      */
     public double rotate(double targetHeading, double maxVel) {
 
-        double kpRotate = 0.01;
-        double minVel = 0.05;
-        double accel = 0.03;       //0.01;
+        double kpRotate = 0.015;                        //0.01;
+        double minVel = 0.1;
+        double accel = 0.02;       //0.01;
         double vel = minVel;
         double oldVel = minVel;
         double headingError = 500;  // force into while loop first time through
@@ -404,10 +402,10 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
     }
 
     public double currentPositionAverage() {
-        return ((Math.abs(robot.frontLeftDrive.getCurrentPosition()) +
-                Math.abs(robot.frontRightDrive.getCurrentPosition()) +
-                Math.abs(robot.backLeftDrive.getCurrentPosition()) +
-                Math.abs(robot.backRightDrive.getCurrentPosition())) / 4);
+        return ((Math.abs(robot.frontLeftDrive.getCurrentPosition())  +
+                 Math.abs(robot.frontRightDrive.getCurrentPosition()) +
+                 Math.abs(robot.backLeftDrive.getCurrentPosition())   +
+                 Math.abs(robot.backRightDrive.getCurrentPosition())    )   / 4);
 
     }
 
@@ -768,13 +766,15 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
             return 0 ;
         }
         double volts = robot.armPosInput.getVoltage();
-        while (opModeIsActive() && (volts<(position-0.01)  ||  volts>(position+0.01)))  {
-            if (volts>position )
+        while (opModeIsActive() && (  (volts<(position-0.01)) ||  (volts>(position+0.01) ) ) )  {
+            if (volts>position ) {
                 robot.LiftMotor.setPower(-Math.abs(speed));
-            else if (volts<position )
+            } else if (volts<position) {
                 robot.LiftMotor.setPower(Math.abs(speed));
-            else
-                break ;
+            } else {
+                robot.LiftMotor.setPower(0);
+                break;
+            }
             volts = robot.armPosInput.getVoltage();
         }
         robot.LiftMotor.setPower(0);
