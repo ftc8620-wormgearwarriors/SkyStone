@@ -804,14 +804,15 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
 
 
     public boolean grabBlock() {
-        armTilt(0.997,0.5);         //tilt up to level so the claw clears the base
-        armExt (3750,0.5);
+        armTilt(0.997,0.8);         //tilt up to level so the claw clears the base
+        armExt (3800,0.8); //ticks was 3750
         robot.TwistServo.setPosition(0.0);
-        robot.OpenServo.setPosition(0.36);
-        armTilt(1.302,0.5);
-        robot.OpenServo.setPosition(0.68);
-        armTilt(1.245,0.5);
-        sleep(2000);
+        robot.OpenServo.setPosition(0.16); //was .36 open claw
+        armTilt(1.35,0.8); //tilt to clear the skystone
+        robot.OpenServo.setPosition(0.68); // close claw
+        sleep(300);
+        armTilt(1.25,0.8); //tilt to clear the skybridge
+        sleep(300); //was 300
         return true;
     }
 
