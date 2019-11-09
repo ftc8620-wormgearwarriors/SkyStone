@@ -22,18 +22,18 @@ public class Swartz_Meet_One_Red extends SkyStoneAutonomousMethods {
         int StoneRember = SkyStoneDetection();  // look for skystone
 
         switch (StoneRember) {
-            case 0: //SkyStone is off Screen
-              strafe(12,1);
+            case 0: //SkyStone is offscreen
+              strafe(12,1); //was 12
                 telemetry.addLine("OffScreen");
                 break;
-            case 1: //SkyStone is on the left
+            case 1: //SkyStone is on left
                 telemetry.addLine(":Left");
                 strafe(8,-1);
                 break;
             case 2:  //SkyStone is on the right
                 //strafe(25,-0.5); //Strafe over to the skystone
                 telemetry.addLine("Right");
-                strafe(30,-1);
+                strafe(33,-1);
                 //strafe(60,-1);
                 break;
         }
@@ -51,7 +51,7 @@ public class Swartz_Meet_One_Red extends SkyStoneAutonomousMethods {
                 robot.OpenServo.setPosition(0.36);  // Open Claw
                 sleep(150);     //way to big was 7 00     // Sleeping to drop block
                 strafe(169, 1);  // Going Back to grab another block
-                drive(20, 1);   // Going forward to grab block //was 16
+                drive(23, 1);   // Going forward to grab block //was 16
 
                 grabBlock();
 

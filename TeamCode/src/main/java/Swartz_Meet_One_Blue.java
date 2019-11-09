@@ -23,7 +23,7 @@ public class Swartz_Meet_One_Blue extends SkyStoneAutonomousMethods {
 
         switch (StoneRember) {
             case 2: //SkyStone is off Screen
-                strafe(2, -1);
+                strafe(26, -1);
                 telemetry.addLine("OffScreen");
                 break;
             case 1: //SkyStone is on the right
