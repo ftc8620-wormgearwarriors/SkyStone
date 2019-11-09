@@ -63,6 +63,7 @@ public class SwartzTeleOp extends OpMode {
     double openServoPos = 0.5;
     double twistServoPos = 0.5;
 
+
     @Override
     public void loop() {
         double markerServoPos = .72;
@@ -110,6 +111,8 @@ public class SwartzTeleOp extends OpMode {
             maxVel = 0.5;
         else if (gamepad1.right_trigger > .05)
             maxVel = 1.0;
+        else if (gamepad1.left_bumper)
+            maxVel = 0.25;
         // Normalize the values so neither exceed +/- 1.0
         max = Math.max(Math.max(Math.abs(frontLeft), Math.abs(backLeft)), Math.max(Math.abs(frontRight), Math.abs(backRight)));
         if (max > 1) {

@@ -1,8 +1,8 @@
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous (name = "Swartz_MeetOne -")
-public class Swartz_Meet_One extends SkyStoneAutonomousMethods {
+@Autonomous (name = "Swartz_MeetOne_Red -")
+public class Swartz_Meet_One_Red extends SkyStoneAutonomousMethods {
 
     public void runOpMode() {
         /*

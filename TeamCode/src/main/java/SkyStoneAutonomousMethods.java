@@ -808,7 +808,7 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
         armExt (3800,0.8); //ticks was 3750
         robot.TwistServo.setPosition(0.0);
         robot.OpenServo.setPosition(0.16); //was .36 open claw
-        armTilt(1.35,0.8); //tilt to clear the skystone
+        armTilt(1.29,0.8); //tilt to clear the skystone
         robot.OpenServo.setPosition(0.68); // close claw
         sleep(300);
         armTilt(1.25,0.8); //tilt to clear the skybridge
