@@ -25,6 +25,7 @@ public class Swartz_HardwareMap
     /* Public Servos */
     public Servo OpenServo  = null;
     public Servo TwistServo = null;
+    public Servo DragServo = null;
 
     //public sensors
     public AnalogInput armPosInput=null;
@@ -56,6 +57,7 @@ public class Swartz_HardwareMap
 
         OpenServo         = hwMap.get(Servo.class, "OpenServo");
         TwistServo        = hwMap.get(Servo.class, "TwistServo");
+        DragServo         = hwMap.get(Servo.class, "DragServo");
 
         armPosInput       = hwMap.analogInput.get("armPos");
 
@@ -83,6 +85,7 @@ public class Swartz_HardwareMap
         LiftMotor.setPower(0);
         TwistServo.setPosition(0.5);
         OpenServo.setPosition(0.6);
+        DragServo.setPosition (0);
 
 
         // Set all motors to run without encoders.

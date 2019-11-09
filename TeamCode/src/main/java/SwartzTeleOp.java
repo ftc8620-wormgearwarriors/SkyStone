@@ -130,6 +130,13 @@ public class SwartzTeleOp extends OpMode {
         if (gamepad1.y)  {
             robot.imu.resetHeading();
         }
+        if (gamepad1.a)   {
+            robot.DragServo.setPosition(0);
+        }
+
+        if (gamepad1.b) {
+            robot.DragServo.setPosition(1);
+        }
 
         /************* Read game pad 2 *************/
         if (gamepad2.a) {
