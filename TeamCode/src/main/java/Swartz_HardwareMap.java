@@ -25,7 +25,7 @@ public class Swartz_HardwareMap
     /* Public Servos */
     public Servo OpenServo  = null;
     public Servo TwistServo = null;
-    public Servo DragServo = null;
+    public Servo DragServo = null;  // new servo
 
     //public sensors
     public AnalogInput armPosInput=null;
