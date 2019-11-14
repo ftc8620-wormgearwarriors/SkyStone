@@ -17,7 +17,7 @@ public class Swartz_Meet_One_Blue extends SkyStoneAutonomousMethods {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        drive(50, 1);            // Drive to be in range to see skystone
+        drive(55, 1);            // Drive to be in range to see skystone was 50
 
         int StoneRember = SkyStoneDetection();  // look for skystone
 
