@@ -36,7 +36,10 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
                 CENTER,
                 RIGHT,
     }
-
+public enum sensorSide {
+        LEFT,
+        RIGHT
+}
 
     public void Init() {
         robot.init(hardwareMap);
@@ -817,11 +820,114 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
     }
 
 
+    public double gap (double distance, double maxVel, double gapDistance, sensorSide side) {
+        double  diameter            = 10.16;
+        double  circumference       = diameter * Math.PI;
+        double  gearRatio           = 20.36;
+        int     ticksPerRotation    = 28;
+        double  targetTicks         = distance * (1 / circumference) * gearRatio * ticksPerRotation;
+        double  targetHeading       = robot.imu.getHeading();
+        double  kpTurn              = 0.01;
+        double  kpDistance          = 0.0003;
+        double  kpGap               = 0.05;
+        double  minVel              = 0.05;
+        double  accel               = 0.03;
+        double  vel                 = minVel;
+        double  oldVel              = minVel;
+
+        //Restart tick count from encoders
+        robot.frontLeftDrive    .setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.frontRightDrive   .setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.backLeftDrive     .setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.backRightDrive    .setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        robot.frontLeftDrive    .setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.frontRightDrive   .setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.backLeftDrive     .setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.backRightDrive    .setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        // Loop until average motor ticks reaches specified number of ticks
+        while (opModeIsActive() && targetTicks > currentPositionAverage() ) {
+            double distanceError = targetTicks - currentPositionAverage();
+            vel = distanceError * kpDistance;
+
+
+
+            if (vel > (oldVel + accel))
+
+                vel = oldVel + accel;
+
+            if (vel > (Math.abs(maxVel))) {
+                vel = (Math.abs(maxVel));
+            }
+
+            if (vel < minVel) {
+                vel = minVel;
+
+            }
+            oldVel = vel;
+
+            if(maxVel < 0)
+                vel = -vel;
+
+            double error = angleErrorDrive(targetHeading, robot.imu.getHeading());
+
+            double gap_err;
+            if (side == sensorSide.RIGHT)
+                gap_err = robot.rightRangeSensor.cmUltrasonic() - gapDistance;
+            else
+                gap_err = - (robot.leftRangeSensor.cmUltrasonic() - gapDistance);
+
+
+
+            // Set motors to specified power
+            double  frontLeftPower      = vel - (error * kpTurn)  + (gap_err * kpGap);
+            double  frontRightPower     = vel + (error * kpTurn)  - (gap_err * kpGap);
+            double  backLeftPower       = vel - (error * kpTurn)  - (gap_err * kpGap);
+            double  backRightPower      = vel + (error * kpTurn)  + (gap_err * kpGap);
+
+            double max = Math.max(Math.max(Math.abs(frontLeftPower), Math.abs(backLeftPower)),
+                    Math.max(Math.abs(frontRightPower), Math.abs(backRightPower)));
+            if (max > 1.0) {
+                frontLeftPower  /= max;
+                frontRightPower /= max;
+                backLeftPower   /= max;
+                backRightPower  /= max;
+            }
+
+            robot.frontLeftDrive.setPower (frontLeftPower);
+            robot.frontRightDrive.setPower(frontRightPower);
+            robot.backLeftDrive.setPower  (backLeftPower);
+            robot.backRightDrive.setPower (backRightPower);
+
+            telemetry.addData("front right: ", robot.frontRightDrive.getCurrentPosition());
+            telemetry.addData("front left:", robot.frontLeftDrive.getCurrentPosition());
+            telemetry.addData("back right:", robot.backRightDrive.getCurrentPosition());
+            telemetry.addData("back left:", robot.backLeftDrive.getCurrentPosition());
+            telemetry.addData("FR Speed:", robot.frontRightDrive.getPower());
+            telemetry.addData("FL Speed:", robot.frontLeftDrive.getPower());
+            telemetry.addData("BR Speed", robot.backRightDrive.getPower());
+            telemetry.addData("BL Speed:", robot.backLeftDrive.getPower());
+            telemetry.addData("right GAP", robot.rightRangeSensor.cmUltrasonic());
+            //telemetry.addData("left GAP", robot.leftRangeSensor.cmUltrasonic());
+            telemetry.update();
+        }
+
+        // Turn off motors
+        robot.frontLeftDrive    .setPower(0);
+        robot.frontRightDrive   .setPower(0);
+        robot.backLeftDrive     .setPower(0);
+        robot.backRightDrive    .setPower(0);
+
+        // Return average total ticks traveled
+        return currentPositionAverage();
+    }   // gap()
 
 
 
 
-/*
+
+    /*
 
     public boolean grabBlock () {
         tiltArm(0.945, 0.5);

@@ -1,6 +1,7 @@
 //SkyStoneAlignDetectorimport
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -13,6 +14,10 @@ public class Swartz_HardwareMap
     /* Public Sensors */
     public WGWIMU2018 imu;
     public BNO055IMU wgwIMU2018        = null;
+
+    public ModernRoboticsI2cRangeSensor leftRangeSensor = null;
+    public ModernRoboticsI2cRangeSensor rightRangeSensor = null;
+
 
     /* Public Motors */
     public DcMotor  frontLeftDrive         = null;
