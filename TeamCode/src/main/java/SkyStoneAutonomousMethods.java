@@ -815,6 +815,25 @@ public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
     }
 
 
+    public boolean motorTest2() {
+        robot.frontLeftDrive.setPower(0.5);     // test one motor at a time
+        sleep(1000);
+        robot.frontLeftDrive.setPower(0);
+
+        robot.frontRightDrive.setPower(0.5);     // test one motor at a time
+        sleep(1000);
+        robot.frontRightDrive.setPower(0);
+
+        robot.backRightDrive.setPower(0.5);     // test one motor at a time
+        sleep(1000);
+        robot.backRightDrive.setPower(0);
+
+        robot.backLeftDrive.setPower(0.5);     // test one motor at a time
+        sleep(1000);
+        robot.backLeftDrive.setPower(0);
+    return true;
+    }
+
 
 
 

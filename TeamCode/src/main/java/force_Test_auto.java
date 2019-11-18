@@ -14,6 +14,9 @@ public class force_Test_auto extends SkyStoneAutonomousMethods {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
+
+        motorTest2();        // test teh drive motors
+
         /*armTilt(1,0.25);
         sleep(2000);
         armTilt(1.302,0.25);
@@ -28,7 +31,7 @@ public class force_Test_auto extends SkyStoneAutonomousMethods {
         drive(61,1);
         strafe(61,1);
         rotate(90,.5); */
-        grabBlock();        // grab the stone in front of robot
+        //grabBlock();        // grab the stone in front of robot
     }
 }
 
