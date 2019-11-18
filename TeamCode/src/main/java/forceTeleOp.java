@@ -20,12 +20,12 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="SwartzTeleOp", group="Pushbot")
+@TeleOp(name="forceTeleOp", group="Pushbot")
 
-public class SwartzTeleOp extends OpMode {
+public class forceTeleOp extends OpMode {
 
     /* Declare OpMode members. */
-    Swartz_HardwareMap robot = new Swartz_HardwareMap(); // use the class created to define a Pushbot's hardware
+    force_HardwareMap robot = new force_HardwareMap(); // use the class created to define a Pushbot's hardware
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -79,10 +79,18 @@ public class SwartzTeleOp extends OpMode {
         double theta = Math.toRadians(-robot.imu.getHeading());
         double gyroHeading = robot.imu.getHeading();
 
+        /*
         robot.frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+*/
+
+        robot.frontLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.backLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
 
         //  Find robot's current axes in relation to original axes
         x_prime = x_axis * Math.cos(theta) + y_axis * Math.sin(theta);

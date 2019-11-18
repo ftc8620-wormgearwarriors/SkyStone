@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-public class Swartz_HardwareMap
+public class force_HardwareMap
 {
     /* Public Sensors */
     public WGWIMU2018 imu;
@@ -34,7 +34,7 @@ public class Swartz_HardwareMap
     private ElapsedTime period  = new ElapsedTime();
 
     /* Constructor */
-    public Swartz_HardwareMap(){
+    public force_HardwareMap(){
 
     }
 

@@ -2,7 +2,7 @@
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 @Autonomous (name = "Straight_Swartz")
-public class Swartz_Test_auto extends SkyStoneAutonomousMethods {
+public class force_Test_auto extends SkyStoneAutonomousMethods {
 
     public void runOpMode() {
         /*
