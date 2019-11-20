@@ -72,7 +72,7 @@ public class forceTeleOp extends OpMode {
         double frontRight;
         double backRight;
         double max;
-        double x_axis = gamepad1.left_stick_x * maxVel;
+        double x_axis = -gamepad1.left_stick_x * maxVel;
         double y_axis = -gamepad1.left_stick_y * maxVel;
         double x_prime;
         double y_prime;

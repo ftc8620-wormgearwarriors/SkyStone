@@ -17,6 +17,7 @@ public class force_Test_auto extends SkyStoneAutonomousMethods {
 
         motorTest2();        // test teh drive motors
 
+        
         /*armTilt(1,0.25);
         sleep(2000);
         armTilt(1.302,0.25);
