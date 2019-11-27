@@ -156,13 +156,13 @@ public class SwartzTeleOp extends OpMode {
         }
         robot.TwistServo.setPosition(twistServoPos);
 
-   /*     if (gamepad2.right_trigger > .1) {
-            robot.OpenServo.setPosition(0.0);
+        if (gamepad2.right_bumper) {
+            openServoPos = 0.4;
         }
-        if (gamepad2.left_trigger > .1) {
-            robot.OpenServo.setPosition(1);
+        if (gamepad2.left_bumper) {
+            openServoPos = 0.58;
         }
-*/
+
         if (gamepad2.right_trigger > .1) {
             openServoPos -= 0.01;
         }
@@ -173,15 +173,19 @@ public class SwartzTeleOp extends OpMode {
 
         if (gamepad2.dpad_down && (robot.armPosInput.getVoltage() < 1.368)) {
             robot.LiftMotor.setPower(1);
-        }
-        else if (gamepad2.dpad_up && (robot.armPosInput.getVoltage() > 0.68)) {
+        } else if (gamepad2.dpad_up && (robot.armPosInput.getVoltage() > 0.68)) {
             robot.LiftMotor.setPower(-1);
-        }
-        else {
+        } else if (gamepad2.dpad_right) {
+            if (robot.armPosInput.getVoltage() > 1.16) {
+                robot.LiftMotor.setPower(1);
+            } else if (robot.armPosInput.getVoltage() < 1.15) {
+                robot.LiftMotor.setPower(-1);
+            }
+        } else {
             robot.LiftMotor.setPower(0);
         }
 
-            robot.ExtendMotor.setPower(gamepad2.right_stick_y);
+        robot.ExtendMotor.setPower(gamepad2.right_stick_y);
 
 
 
