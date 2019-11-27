@@ -15,8 +15,8 @@ public class Swartz_HardwareMap
     public WGWIMU2018 imu;
     public BNO055IMU wgwIMU2018        = null;
 
-    public ModernRoboticsI2cRangeSensor leftRangeSensor = null;
-    public ModernRoboticsI2cRangeSensor rightRangeSensor = null;
+    public ModernRoboticsI2cRangeSensor leftRangeSensor;
+    public ModernRoboticsI2cRangeSensor rightRangeSensor;
 
 
     /* Public Motors */
@@ -63,6 +63,9 @@ public class Swartz_HardwareMap
         OpenServo         = hwMap.get(Servo.class, "OpenServo");
         TwistServo        = hwMap.get(Servo.class, "TwistServo");
         DragServo         = hwMap.get(Servo.class, "DragServo");
+
+        rightRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "rightRangeSensor");
+        leftRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "leftRangeSensor");
 
         armPosInput       = hwMap.analogInput.get("armPos");
 

@@ -23,6 +23,9 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
+
 public abstract class SkyStoneAutonomousMethods extends LinearOpMode {
     Swartz_HardwareMap robot = new Swartz_HardwareMap();
 
@@ -815,9 +818,11 @@ public enum sensorSide {
         robot.OpenServo.setPosition(0.68); // close claw
         sleep(300);
         armTilt(1.25,0.8); //tilt to clear the skybridge
+
         sleep(300); //was 300
         return true;
     }
+
 
 
     public double gap (double distance, double maxVel, double gapDistance, sensorSide side) {
@@ -873,18 +878,19 @@ public enum sensorSide {
             double error = angleErrorDrive(targetHeading, robot.imu.getHeading());
 
             double gap_err;
-            if (side == sensorSide.RIGHT)
-                gap_err = robot.rightRangeSensor.cmUltrasonic() - gapDistance;
+            if (side == sensorSide.LEFT)
+                gap_err = robot.leftRangeSensor.cmUltrasonic() - gapDistance;
             else
-                gap_err = - (robot.leftRangeSensor.cmUltrasonic() - gapDistance);
+                gap_err = - (robot.rightRangeSensor.cmUltrasonic() - gapDistance);
+
 
 
 
             // Set motors to specified power
-            double  frontLeftPower      = vel - (error * kpTurn)  + (gap_err * kpGap);
-            double  frontRightPower     = vel + (error * kpTurn)  - (gap_err * kpGap);
-            double  backLeftPower       = vel - (error * kpTurn)  - (gap_err * kpGap);
-            double  backRightPower      = vel + (error * kpTurn)  + (gap_err * kpGap);
+            double  frontLeftPower      = vel - (error * kpTurn)  - (gap_err * kpGap);
+            double  frontRightPower     = vel + (error * kpTurn)  + (gap_err * kpGap);
+            double  backLeftPower       = vel - (error * kpTurn)  + (gap_err * kpGap);
+            double  backRightPower      = vel + (error * kpTurn)  - (gap_err * kpGap);
 
             double max = Math.max(Math.max(Math.abs(frontLeftPower), Math.abs(backLeftPower)),
                     Math.max(Math.abs(frontRightPower), Math.abs(backRightPower)));
@@ -909,7 +915,7 @@ public enum sensorSide {
             telemetry.addData("BR Speed", robot.backRightDrive.getPower());
             telemetry.addData("BL Speed:", robot.backLeftDrive.getPower());
             telemetry.addData("right GAP", robot.rightRangeSensor.cmUltrasonic());
-            //telemetry.addData("left GAP", robot.leftRangeSensor.cmUltrasonic());
+            telemetry.addData("left GAP", robot.leftRangeSensor.cmUltrasonic());
             telemetry.update();
         }
 
@@ -922,6 +928,8 @@ public enum sensorSide {
         // Return average total ticks traveled
         return currentPositionAverage();
     }   // gap()
+
+
 
 
 

@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
+
 /**
  * This file provides basic Telop driving for a Pushbot robot.
  * The code is structured as an Iterative OpMode
@@ -98,6 +99,7 @@ public class SwartzTeleOp extends OpMode {
         telemetry.addData("Claw Position",openServoPos);
         telemetry.addData("Extension ticks",robot.ExtendMotor.getCurrentPosition());
         telemetry.addData("twist position",twistServoPos);
+        telemetry.addData("left GAP", robot.leftRangeSensor.cmUltrasonic());
         telemetry.update();
 
         // Run wheels in POV mode (note: The joystick goes negative when pushed forwards, so negate it)
