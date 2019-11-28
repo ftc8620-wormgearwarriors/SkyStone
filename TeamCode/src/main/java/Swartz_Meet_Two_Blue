@@ -29,107 +29,38 @@ public class Swartz_Meet_Two_Blue extends SkyStoneAutonomousMethods {
 
         //Strafe under bridge- amount of strafe will vary with each skystone placement
         //TODO modify strafe distance for all three skystones
-        double strafeDistance = 109.5;
-        double strafeMaxVe1 = 1.0;
-        strafe(strafeDistance,strafeMaxVe1);
+        double strafeOneDistance = 109.5;
+        double strafeOneMaxVe1 = 1.0;
+        strafe(strafeOneDistance,strafeOneMaxVe1);
 
         //drops stone on waffle
         //TODO make an autonomous method to drop stone on waffle
 
 
         //rotates 90 degrees to get in position for dragging waffle
-        double targetHeading = 90.0;
+        double targetOneHeading = 90.0;
         double rotateMaxVel = 1.0;
-        rotate(targetHeading,rotateMaxVel);
+        rotate(targetOneHeading,rotateMaxVel);
 
 
         //strafe to up against waffle
+        double strafeTwoDistance = 25.0;
+        double strafeTwoMaxVel = 1.0;
+        strafe(strafeTwoDistance,strafeTwoMaxVel);
 
 
         //grab waffle
+        //TODO autonomous method to grab waffle
 
 
-        //strafe to get waffle into build site
+        //strafe/rotate to get waffle into build site
+        double targetTwoHeading = -90.0;
+        double rotateTwoMaxVel = 1.0;
+        rotate(targetTwoHeading,rotateTwoMaxVel);
 
 
         //drive to park under bridge
 
-
-
-        // Drive to be in range to see skystone
-        drive(50, 1);
-
-        // look for skystone
-        int StoneRember = SkyStoneDetection();
-
-        switch (StoneRember) {
-            case 2: //SkyStone is off Screen
-                strafe(26, -1);
-                telemetry.addLine("OffScreen");
-                break;
-            case 1: //SkyStone is on the right
-                telemetry.addLine(":Left");
-                strafe(5, -1);
-                break;
-            case 0:  //SkyStone is on the left
-                //strafe(25,-0.5); //Strafe over to the skystone
-                telemetry.addLine("Right");
-                strafe(20, 1);
-                //strafe(60,-1);
-                break;
-        }
-        grabBlock();
-        armExt(2000, 1);
-
-        telemetry.update();
-
-        //Drive Back
-        drive(16, -1);
-
-        switch (StoneRember) {
-            case 2: //SkyStone is offscreen working
-                strafe(180, 1);  //Sideways Under Bridge
-
-                robot.OpenServo.setPosition(0.36);  // Open Claw
-                sleep(400);     //way to big was 7 00     // Sleeping to drop block
-                strafe(120, -1);  // Going Back to grab another block
-                drive(25, 1);   // Going forward to grab block //was 16
-
-                grabBlock();
-
-                drive(18, -1);
-                armExt(2000, 1);
-                strafe(120, 1); //was 171
-                robot.OpenServo.setPosition(0.36);
-                strafe(40, -1);
-                drive(25, -1);
-                break;
-            case 1: //SkyStone is on the left
-                strafe(150, 1);  //Sideways Under Bridge Fixing
-
-                robot.OpenServo.setPosition(0.36);  // Open Claw
-                sleep(400);     //way to big was 7 00     // Sleeping to drop block
-                strafe(40, -1);
-                //sleep(1000000);
-                break;
-            case 0: //SkyStone is on the right working
-                strafe(110, 1);  //Sideways Under Bridge
-
-                robot.OpenServo.setPosition(0.36);   // Open Claw
-
-                strafe(15, -1);
-                drive(25, -1);
-                /*sleep(150);              //way to big was 7 00     // Sleeping to drop block
-                strafe(171, -1);    // Going Back to grab another block
-                drive(20,    -1);   // Going forward to grab block
-
-                grabBlock();
-
-                drive(18, -1);
-                armExt(2000, 1);
-                strafe(181, 1); */
-                break;
-        }
     }
 }
 
