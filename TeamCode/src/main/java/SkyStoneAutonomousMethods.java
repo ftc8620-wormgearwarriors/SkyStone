@@ -823,6 +823,29 @@ public enum sensorSide {
         return true;
     }
 
+    public boolean dropBlock() {
+        //tilt up to level so the claw clears the waffle
+        armTilt(0.997,0.8);
+
+        //extending arm out with block to get block over base
+        armExt (3800,0.8);
+
+        //opening arm to drop block
+        robot.OpenServo.setPosition(0.16);
+
+        // close claw
+        //TODO verify that we need this step
+        robot.OpenServo.setPosition(0.68);
+        sleep(300);
+
+        //retracting arm
+        armExt(1500, 1.0);
+
+        //finish
+        return true;
+    }
+
+
 
     public double gap (double distance, double maxVel, double gapDistance, sensorSide side) {
         double  diameter            = 10.16;
