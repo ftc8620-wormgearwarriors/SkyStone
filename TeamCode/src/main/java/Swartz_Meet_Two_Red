@@ -30,7 +30,7 @@ public class Swartz_Meet_Two_Red extends SkyStoneAutonomousMethods {
         //Strafe under bridge- amount of strafe will vary with each skystone placement
         //TODO modify strafe distance for all three skystones
         double strafeOneDistance = 109.5;
-        double strafeOneMaxVe1 = 1.0;
+        double strafeOneMaxVe1 = -1.0;
         strafe(strafeOneDistance,strafeOneMaxVe1);
 
         //drops stone on waffle
@@ -39,13 +39,13 @@ public class Swartz_Meet_Two_Red extends SkyStoneAutonomousMethods {
 
         //rotates 90 degrees to get in position for dragging waffle
         double targetOneHeading = 90.0;
-        double rotateMaxVel = 1.0;
+        double rotateMaxVel = -1.0;
         rotate(targetOneHeading,rotateMaxVel);
 
 
         //strafe to up against waffle
         double strafeTwoDistance = 25.0;
-        double strafeTwoMaxVel = 1.0;
+        double strafeTwoMaxVel = -1.0;
         strafe(strafeTwoDistance,strafeTwoMaxVel);
 
 
@@ -54,8 +54,8 @@ public class Swartz_Meet_Two_Red extends SkyStoneAutonomousMethods {
 
 
         //strafe/rotate to get waffle into build site
-        double targetTwoHeading = -90.0;
-        double rotateTwoMaxVel = 1.0;
+        double targetTwoHeading = 90.0;
+        double rotateTwoMaxVel = -1.0;
         rotate(targetTwoHeading,rotateTwoMaxVel);
 
 
