@@ -48,6 +48,8 @@ public class Swartz_Meet_Two_Red extends SkyStoneAutonomousMethods {
         double strafeTwoMaxVel = -1.0;
         strafe(strafeTwoDistance,strafeTwoMaxVel);
 
+        //dropping block on waffle
+        dropBlock();
 
         //grab waffle
         //TODO autonomous method to grab waffle
