@@ -5,9 +5,11 @@ import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 
 public class Swartz_HardwareMap
 {
@@ -15,9 +17,9 @@ public class Swartz_HardwareMap
     public WGWIMU2018 imu;
     public BNO055IMU wgwIMU2018        = null;
 
-    public ModernRoboticsI2cRangeSensor leftRangeSensor;
-    public ModernRoboticsI2cRangeSensor rightRangeSensor;
-
+    public ModernRoboticsI2cRangeSensor leftRangeSensor = null;
+    public ModernRoboticsI2cRangeSensor rightRangeSensor = null;
+    public DistanceSensor deathStar = null;
 
     /* Public Motors */
     public DcMotor  frontLeftDrive         = null;
@@ -30,7 +32,8 @@ public class Swartz_HardwareMap
     /* Public Servos */
     public Servo OpenServo  = null;
     public Servo TwistServo = null;
-    public Servo DragServo = null;  // new servo
+    public Servo LeftWaffle = null;  // new servo
+    public Servo RightWaffle = null;
 
     //public sensors
     public AnalogInput armPosInput=null;
@@ -62,12 +65,17 @@ public class Swartz_HardwareMap
 
         OpenServo         = hwMap.get(Servo.class, "OpenServo");
         TwistServo        = hwMap.get(Servo.class, "TwistServo");
-        DragServo         = hwMap.get(Servo.class, "DragServo");
+        RightWaffle       = hwMap.get(Servo.class, "RightWaffle");
+        LeftWaffle        = hwMap.get(Servo.class, "LeftWaffle");
 
         rightRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "rightRangeSensor");
         leftRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "leftRangeSensor");
 
         armPosInput       = hwMap.analogInput.get("armPos");
+
+        leftRangeSensor  = hwMap.get(ModernRoboticsI2cRangeSensor.class,"leftRangeSensor");
+        rightRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class,"rightRangeSensor");
+        deathStar        = hwMap.get(DistanceSensor.class, "deathStar");
 
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE if using AndyMark motors
@@ -93,8 +101,8 @@ public class Swartz_HardwareMap
         LiftMotor.setPower(0);
         TwistServo.setPosition(0.5);
         OpenServo.setPosition(0.6);
-        DragServo.setPosition (0);
-
+        RightWaffle.setPosition (1);
+        LeftWaffle.setPosition (0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.

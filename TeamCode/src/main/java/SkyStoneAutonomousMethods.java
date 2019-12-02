@@ -6,6 +6,7 @@ import com.vuforia.CameraDevice;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
@@ -818,11 +819,9 @@ public enum sensorSide {
         robot.OpenServo.setPosition(0.68); // close claw
         sleep(300);
         armTilt(1.25,0.8); //tilt to clear the skybridge
-
         sleep(300); //was 300
         return true;
     }
-
 
 
     public double gap (double distance, double maxVel, double gapDistance, sensorSide side) {
@@ -878,19 +877,18 @@ public enum sensorSide {
             double error = angleErrorDrive(targetHeading, robot.imu.getHeading());
 
             double gap_err;
-            if (side == sensorSide.LEFT)
-                gap_err = robot.leftRangeSensor.cmUltrasonic() - gapDistance;
+            if (side == sensorSide.RIGHT)
+                gap_err = robot.rightRangeSensor.cmUltrasonic() - gapDistance;
             else
-                gap_err = - (robot.rightRangeSensor.cmUltrasonic() - gapDistance);
-
+                gap_err = - (robot.leftRangeSensor.cmUltrasonic() - gapDistance);
 
 
 
             // Set motors to specified power
-            double  frontLeftPower      = vel - (error * kpTurn)  - (gap_err * kpGap);
-            double  frontRightPower     = vel + (error * kpTurn)  + (gap_err * kpGap);
-            double  backLeftPower       = vel - (error * kpTurn)  + (gap_err * kpGap);
-            double  backRightPower      = vel + (error * kpTurn)  - (gap_err * kpGap);
+            double  frontLeftPower      = vel - (error * kpTurn)  + (gap_err * kpGap);
+            double  frontRightPower     = vel + (error * kpTurn)  - (gap_err * kpGap);
+            double  backLeftPower       = vel - (error * kpTurn)  - (gap_err * kpGap);
+            double  backRightPower      = vel + (error * kpTurn)  + (gap_err * kpGap);
 
             double max = Math.max(Math.max(Math.abs(frontLeftPower), Math.abs(backLeftPower)),
                     Math.max(Math.abs(frontRightPower), Math.abs(backRightPower)));
@@ -930,11 +928,135 @@ public enum sensorSide {
     }   // gap()
 
 
+    /****************************************************************************/
+    /* CW - added for vuforia image grab and stone locate                       */
+
+    public VuforiaStuff vuforiaStuff;
+    private VuforiaLocalizer vuforia;
+    final String VUFORIA_KEY =
+            " Ac/bw0P/////AAABmdRCZF/Kqk2MjbJIs87MKVlJg32ktQ2Tgl6871UmjRacrtxKJCUzDAeC2aA4tbiTjejLjl1W6e7VgBcQfpYx2WhqclKIEkguBRoL1udCrz4OWonoLn/GCA+GntFUZN0Az+dGGYtBqcuW3XkmVNSzgOgJbPDXOf+73P5qb4/mHry0xjx3hysyAzmM/snKvGv8ImhVOVpm00d6ozC8GzvOMRF/S5Z1NBsoFls2/ul+PcZ+veKwgyPFLEFP4DXSqTeOW1nJGH9yYXSH0kfNHgGutLM5om1hAlxdP8D4XMRD2bgWXj1Md2bz+uJmr1E2ZuI7p26ZRxOIKZE9Hwpai+MW6yaJD0otF6aL9QXYaULPpWKo ";
+
+     public int init_vuforia_2 () {
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+
+        parameters.vuforiaLicenseKey = VUFORIA_KEY;
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+
+        //  Instantiate the Vuforia engine
+        vuforia = ClassFactory.getInstance().createVuforia(parameters);
+
+        vuforiaStuff = new VuforiaStuff(vuforia);
+
+        return 0;
+    }
+
+    /* CW - added for vuforia image grab and stone locate                       */
+/************************************************************************** */
+
+public double frontgap (double distance, double maxVel, double gapDistance, sensorSide side) {
+    double  diameter            = 10.16;
+    double  circumference       = diameter * Math.PI;
+    double  gearRatio           = 20.36;
+    int     ticksPerRotation    = 28;
+    double  targetTicks         = distance * (1 / circumference) * gearRatio * ticksPerRotation;
+    double  targetHeading       = robot.imu.getHeading();
+    double  kpTurn              = 0.01;
+    double  kpDistance          = 0.01;
+    double  kpGap               = 0.05;
+    double  minVel              = 0.05;
+    double  accel               = 0.03;
+    double  vel                 = minVel;
+    double  oldVel              = minVel;
+
+    //Restart tick count from encoders
+    robot.frontLeftDrive    .setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    robot.frontRightDrive   .setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    robot.backLeftDrive     .setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    robot.backRightDrive    .setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+    robot.frontLeftDrive    .setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    robot.frontRightDrive   .setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    robot.backLeftDrive     .setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    robot.backRightDrive    .setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+    // Loop until average motor ticks reaches specified number of ticks
+    double distanceError = 1;
+    while (opModeIsActive() &&  distanceError > 0)  {                                             //targetTicks > currentPositionAverage() ) {
+         distanceError = robot.deathStar.getDistance(DistanceUnit.CM) - distance;
+        vel = distanceError * kpDistance;
 
 
 
+        if (vel > (oldVel + accel))
+
+            vel = oldVel + accel;
+
+        if (vel > (Math.abs(maxVel))) {
+            vel = (Math.abs(maxVel));
+        }
+
+        if (vel < minVel) {
+            vel = minVel;
+
+        }
+        oldVel = vel;
+
+        if(maxVel < 0)
+            vel = -vel;
+
+        double error = angleErrorDrive(targetHeading, robot.imu.getHeading());
+
+        double gap_err;
+        if (side == sensorSide.RIGHT)
+            gap_err = robot.rightRangeSensor.cmUltrasonic() - gapDistance;
+        else
+            gap_err = - (robot.leftRangeSensor.cmUltrasonic() - gapDistance);
 
 
+
+        // Set motors to specified power
+        double  frontLeftPower      = vel - (error * kpTurn)  + (gap_err * kpGap);
+        double  frontRightPower     = vel + (error * kpTurn)  - (gap_err * kpGap);
+        double  backLeftPower       = vel - (error * kpTurn)  - (gap_err * kpGap);
+        double  backRightPower      = vel + (error * kpTurn)  + (gap_err * kpGap);
+
+        double max = Math.max(Math.max(Math.abs(frontLeftPower), Math.abs(backLeftPower)),
+                Math.max(Math.abs(frontRightPower), Math.abs(backRightPower)));
+        if (max > 1.0) {
+            frontLeftPower  /= max;
+            frontRightPower /= max;
+            backLeftPower   /= max;
+            backRightPower  /= max;
+        }
+
+        robot.frontLeftDrive.setPower (frontLeftPower);
+        robot.frontRightDrive.setPower(frontRightPower);
+        robot.backLeftDrive.setPower  (backLeftPower);
+        robot.backRightDrive.setPower (backRightPower);
+
+        telemetry.addData("front right: ", robot.frontRightDrive.getCurrentPosition());
+        telemetry.addData("front left:", robot.frontLeftDrive.getCurrentPosition());
+        telemetry.addData("back right:", robot.backRightDrive.getCurrentPosition());
+        telemetry.addData("back left:", robot.backLeftDrive.getCurrentPosition());
+        telemetry.addData("FR Speed:", robot.frontRightDrive.getPower());
+        telemetry.addData("FL Speed:", robot.frontLeftDrive.getPower());
+        telemetry.addData("BR Speed", robot.backRightDrive.getPower());
+        telemetry.addData("BL Speed:", robot.backLeftDrive.getPower());
+        telemetry.addData("right GAP", robot.rightRangeSensor.cmUltrasonic());
+        //telemetry.addData("left GAP", robot.leftRangeSensor.cmUltrasonic());
+        telemetry.update();
+    }
+
+    // Turn off motors
+    robot.frontLeftDrive    .setPower(0);
+    robot.frontRightDrive   .setPower(0);
+    robot.backLeftDrive     .setPower(0);
+    robot.backRightDrive    .setPower(0);
+
+    // Return average total ticks traveled
+    return currentPositionAverage();
+}   // gap()
     /*
 
     public boolean grabBlock () {

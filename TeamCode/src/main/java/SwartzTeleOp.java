@@ -3,7 +3,7 @@
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 
 /**
@@ -100,6 +100,7 @@ public class SwartzTeleOp extends OpMode {
         telemetry.addData("Extension ticks",robot.ExtendMotor.getCurrentPosition());
         telemetry.addData("twist position",twistServoPos);
         telemetry.addData("left GAP", robot.leftRangeSensor.cmUltrasonic());
+        telemetry.addData("DeathStar range", String.format("%.01f cm", robot.deathStar.getDistance(DistanceUnit.CM)));
         telemetry.update();
 
         // Run wheels in POV mode (note: The joystick goes negative when pushed forwards, so negate it)
@@ -133,11 +134,14 @@ public class SwartzTeleOp extends OpMode {
             robot.imu.resetHeading();
         }
         if (gamepad1.a)   {
-            robot.DragServo.setPosition(0);
+            robot.LeftWaffle.setPosition(0);
+            robot.RightWaffle.setPosition(1);
         }
 
         if (gamepad1.b) {
-            robot.DragServo.setPosition(1);
+            robot.LeftWaffle.setPosition(1);
+            robot.RightWaffle.setPosition(0);
+
         }
 
         /************* Read game pad 2 *************/
