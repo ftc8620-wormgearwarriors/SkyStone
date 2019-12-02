@@ -20,18 +20,18 @@ public class Test_Auto extends SkyStoneAutonomousMethods {
         VuforiaStuff.skystonePos StoneRember = vuforiaStuff.vuforiascan(false,true);  // look for skystone
 
         switch (StoneRember) {
-            case LEFT: //SkyStone is offscreen
+            case LEFT: //SkyStone is left
                 frontgap(11,1,53,sensorSide.LEFT ); //was 12
                 telemetry.addLine("LEFT");
                 break;
-            case CENTER: //SkyStone is on left
+            case CENTER: //SkyStone is on center
                 telemetry.addLine(":CENTER");
-                frontgap(11,1,71,sensorSide.LEFT);
+                frontgap(10,1,73,sensorSide.LEFT);
                 break;
             case RIGHT:  //SkyStone is on the right
                 //strafe(25,-0.5); //Strafe over to the skystone
                 telemetry.addLine("Right");
-                frontgap(11,1,89,sensorSide.LEFT);
+                frontgap(11,1,90,sensorSide.LEFT);
                 //strafe(60,-1);
                 break;
         }
