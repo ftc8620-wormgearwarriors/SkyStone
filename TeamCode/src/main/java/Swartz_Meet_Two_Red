@@ -29,7 +29,7 @@ public class Swartz_Meet_Two_Red extends SkyStoneAutonomousMethods {
 
         //Strafe under bridge- amount of strafe will vary with each skystone placement
         //TODO modify strafe distance for all three skystones
-        double strafeOneDistance = 109.5;
+        double strafeOneDistance = 194;
         double strafeOneMaxVe1 = -1.0;
         strafe(strafeOneDistance,strafeOneMaxVe1);
 
