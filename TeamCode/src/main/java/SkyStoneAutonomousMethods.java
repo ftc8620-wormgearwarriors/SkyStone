@@ -812,10 +812,10 @@ public enum sensorSide {
 
     public boolean grabBlock() {
         armTilt(0.997,0.8);         //tilt up to level so the claw clears the base
-        armExt (3800,0.8); //ticks was 3750
+        armExt (2893,0.8); //ticks was 3800
         robot.TwistServo.setPosition(0.0);
         robot.OpenServo.setPosition(0.16); //was .36 open claw
-        armTilt(1.29,0.8); //tilt to clear the skystone
+        armTilt(1.29,0.8); //tilt to clear the skystone was 1.29
         robot.OpenServo.setPosition(0.68); // close claw
         sleep(300);
         armTilt(1.25,0.8); //tilt to clear the skybridge

@@ -38,13 +38,15 @@ public class VuforiaStuff {
         double colorcountC = 0;
         double colorcountR = 0;
         */
-        double yellowCountL = 1;
+        double yellowCountL = 1;        // declares variables for counting pixels
         double yellowCountC = 1;
         double yellowCountR = 1;
 
         double blackCountL = 1;
         double blackCountC = 1;
         double blackCountR = 1;
+
+        // grabs image from the camera
         Vuforia.setFrameFormat(PIXEL_FORMAT.RGB565, true);
         VuforiaLocalizer.CloseableFrame closeableFrame = null;
         this.vuforia.setFrameQueueCapacity(1);
@@ -66,7 +68,7 @@ public class VuforiaStuff {
             } finally {
                 if (closeableFrame != null) closeableFrame.close();
             }
-        }
+        }  // finishes grabbing image
 
         if (rgbImage != null) {
 
@@ -77,9 +79,10 @@ public class VuforiaStuff {
             String path = Environment.getExternalStorageDirectory().toString();
             FileOutputStream out = null;
 
-            String bitmapName;
+            String bitmapName;          // declare file names for storing images
             String croppedBitmapName;
 
+            //  set file names for image storage based on side
             if (red) {
                 bitmapName = "BitmapRED.png";
                 croppedBitmapName = "BitmapCroppedRED.png";
@@ -108,24 +111,25 @@ public class VuforiaStuff {
                 }
             }
 
-            int cropStartX;
+            int cropStartX;                //declare variables for cropping size
             int cropStartY;
             int cropWidth;
             int cropHeight;
 
             if (red) {
-                cropStartX = (int) ((170.0 / 1280.0)* bitmap.getWidth()  );      //  CW  (int) ((120.0 / 720.0) * bitmap.getWidth());
-                cropStartY = (int) ((140.0 / 720.0) * bitmap.getHeight());      //  CW  (int) ((100.0 / 480.0) * bitmap.getHeight());
-                cropWidth =  (int) ((670.0 / 1280.0)* bitmap.getWidth() );      //  CW  (int) ((590.0 / 720.0) * bitmap.getWidth());
-                cropHeight = (int) (( 93.0 / 720.0) * bitmap.getHeight());      //  CW  (int) ((170.0 / 480.0) * bitmap.getHeight());
+                cropStartX = (int) ((148.0 / 1280.0) * bitmap.getWidth());
+                cropStartY = (int) ((125.0 / 720.0) * bitmap.getHeight());
+                cropWidth =  (int) ((694.0 / 1280.0) * bitmap.getWidth());
+                cropHeight = (int) ((100.0 / 720.0) * bitmap.getHeight());
+
             } else {
-                cropStartX = (int) ((370.0 / 1280.0) * bitmap.getWidth());
-                cropStartY = (int) ((130.0 / 720.0) * bitmap.getHeight());
-                cropWidth = (int) ((890.0 / 1280.0) * bitmap.getWidth());
-                cropHeight = (int) ((165.0 / 720.0) * bitmap.getHeight());
+                cropStartX = (int) ((251.0 / 1280.0) * bitmap.getWidth());
+                cropStartY = (int) ((133.0 / 720.0) * bitmap.getHeight());
+                cropWidth = (int) ((646.0 / 1280.0) * bitmap.getWidth());
+                cropHeight = (int) ((86.0 / 720.0) * bitmap.getHeight());
             }
 
-            DbgLog.msg("10435 vuforiascan"
+            DbgLog.msg("10435 vuforiascan"           //saves info to debug log in file on phone
                     + " cropStartX: " + cropStartX
                     + " cropStartY: " + cropStartY
                     + " cropWidth: " + cropWidth
@@ -151,6 +155,7 @@ public class VuforiaStuff {
                             out.flush();
                             out.close();
                         }
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

@@ -1,8 +1,8 @@
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous (name = "Test_Auto")
-public class Test_Auto extends SkyStoneAutonomousMethods {
+@Autonomous (name = "Test_Auto blue")
+public class Test_Auto_Blue extends SkyStoneAutonomousMethods {
 
     public void runOpMode() {
         /*
@@ -17,52 +17,29 @@ public class Test_Auto extends SkyStoneAutonomousMethods {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        VuforiaStuff.skystonePos StoneRember = vuforiaStuff.vuforiascan(false,true);  // look for skystone
+        VuforiaStuff.skystonePos StoneRember = vuforiaStuff.vuforiascan(true,false);  // look for skystone
 
         switch (StoneRember) { // distance 11 and 10 to far forward
             case LEFT: //SkyStone is left
-                frontgap(15,1,55,sensorSide.LEFT ); //needs to be fixed
+                frontgap(15,1,79,sensorSide.RIGHT ); //needs to be fixed
                 telemetry.addLine("LEFT");
                 break;
             case CENTER: //SkyStone is on center
                 telemetry.addLine(":CENTER");
-                frontgap(15,1,73,sensorSide.LEFT); //fixed
+                frontgap(15,1,59,sensorSide.RIGHT); //fixed
                 break;
             case RIGHT:  //SkyStone is on the right
                 //strafe(25,-0.5); //Strafe over to the skystone
                 telemetry.addLine("Right");
-                frontgap(15,1,90,sensorSide.LEFT);  //fixed 11 to far forward
+                frontgap(15,1,41,sensorSide.RIGHT);  //fixed 11 to far forward
                 //strafe(60,-1);
                 break;
         }
+        telemetry.update();
         grabBlock();
         armExt(2000,1);
 
-        rotate(85,1);
 
-        switch(StoneRember) {
-            //KEY:  1: drive under bridge with gap
-            case LEFT:
-                gap(80, 1, 53, sensorSide.RIGHT); //1
-                break;
-            case CENTER:
-                gap(100, 1, 53, sensorSide.RIGHT); //1
-                break;
-            case RIGHT:
-                gap(120, 1, 53, sensorSide.RIGHT); //1
-                break;
-        }
-
-        frontgap(53,1,69, sensorSide.RIGHT); //drive to waffle
-        strafe(60,1); // lines up on block
-        drive(50,1); // drive to place block decrease this drive
-        //set power zero and wait half a second.
-        armTilt(.98,0.8); // tilt to clear skystone
-        drive(40,-1); // backs off skystone
-
-
-
-        telemetry.update();
 
         //drive(16,  -1);     //Drive Back
 /*
@@ -113,7 +90,7 @@ public class Test_Auto extends SkyStoneAutonomousMethods {
                 strafe(220, -1); */
            // break;
         }
-    }
+        }
 
 
 
