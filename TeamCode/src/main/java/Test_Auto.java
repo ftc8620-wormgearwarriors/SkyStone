@@ -55,18 +55,21 @@ public class Test_Auto extends SkyStoneAutonomousMethods {
 
         frontgap(53,1,69, sensorSide.RIGHT); //drive to waffle
         strafe(60,1); // lines up on block
-        drive(15,1); // drive to place block decrease this drive was 30
+        //drive(10,1); // drive to place block decrease this drive was 30
+        armTilt(1.12,1);
+        armExt(2800,1);
         robot.OpenServo.setPosition(0);//set power zero and wait half a second.
         armTilt(.98,0.8); // tilt to clear skystone
-        drive(20,-1); // backs off waffle
-        rotate(170,1);
-        robot.RightWaffle.setPosition(0.5);
+        drive(10,-1); // backs off waffle was 15
+        rotate(170,1); //rotates to align the waffle grabers on waffle
+        robot.RightWaffle.setPosition(0.5); //moves the waffle grabber to push out the skystone if it is in the way
         robot.LeftWaffle.setPosition(0.5);
-        strafe(25,1);
-        robot.RightWaffle.setPosition(0);
+        strafe(15,1); //strafes onto waffle was 20
+        robot.RightWaffle.setPosition(0); //grabs waffle
         robot.LeftWaffle.setPosition(1);
-
-
+        sleep(400);
+        rotate(225,1); //rotates to align the waffle with building zone needs to be 240 to 250
+        strafe(60,1); //strafe waffle into build site
         telemetry.update();
 
         //drive(16,  -1);     //Drive Back
