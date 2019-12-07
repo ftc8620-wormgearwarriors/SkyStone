@@ -905,6 +905,9 @@ public enum sensorSide {
             else
                 gap_err = - (robot.leftRangeSensor.cmUltrasonic() - gapDistance);
 
+            //tells us that when we sense another robot to change nothing
+            if (Math.abs(gap_err)>30)
+                gap_err = 0;
 
 
             // Set motors to specified power
@@ -986,7 +989,7 @@ public double frontgap (double distance, double maxVel, double gapDistance, sens
     double  targetHeading       = robot.imu.getHeading();
     double  kpTurn              = 0.01;
     double  kpDistance          = 0.01;
-    double  kpGap               = 0.05;
+    double  kpGap               = 0.01; //was 0.03
     double  minVel              = 0.05;
     double  accel               = 0.03;
     double  vel                 = minVel;
@@ -1036,6 +1039,9 @@ public double frontgap (double distance, double maxVel, double gapDistance, sens
         else
             gap_err = - (robot.leftRangeSensor.cmUltrasonic() - gapDistance);
 
+        //tells us that when we sense another robot to change nothing
+        if (Math.abs(gap_err)>30)
+            gap_err = 0;
 
 
         // Set motors to specified power

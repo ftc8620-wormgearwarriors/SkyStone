@@ -55,11 +55,16 @@ public class Test_Auto extends SkyStoneAutonomousMethods {
 
         frontgap(53,1,69, sensorSide.RIGHT); //drive to waffle
         strafe(60,1); // lines up on block
-        drive(50,1); // drive to place block decrease this drive
-        //set power zero and wait half a second.
+        drive(15,1); // drive to place block decrease this drive was 30
+        robot.OpenServo.setPosition(0);//set power zero and wait half a second.
         armTilt(.98,0.8); // tilt to clear skystone
-        drive(40,-1); // backs off skystone
-
+        drive(20,-1); // backs off waffle
+        rotate(170,1);
+        robot.RightWaffle.setPosition(0.5);
+        robot.LeftWaffle.setPosition(0.5);
+        strafe(25,1);
+        robot.RightWaffle.setPosition(0);
+        robot.LeftWaffle.setPosition(1);
 
 
         telemetry.update();
