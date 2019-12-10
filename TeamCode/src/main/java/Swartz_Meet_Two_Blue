@@ -1,6 +1,7 @@
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous (name = "Swartz_Meet_Two_Blue -")
+@Autonomous (name = "Swartz_Meet_Two_Blue")
 public class Swartz_Meet_Two_Blue extends SkyStoneAutonomousMethods {
 
     public void runOpMode() {
@@ -13,18 +14,44 @@ public class Swartz_Meet_Two_Blue extends SkyStoneAutonomousMethods {
         Init();
 
         //init camera
-        VuforiaInit();
+        init_vuforia_2();
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
         //Identifies placement of skystone with vision code
+        double frontDistance =15.0;
+        double frontGap =0.0;
+        double frontVelocity =1.0;
+
+
+        VuforiaStuff.skystonePos StoneRember = vuforiaStuff.vuforiascan(true,false);  // look for skystone
+        switch (StoneRember) { // distance 11 and 10 to far forward
+            case LEFT: //SkyStone is left
+                frontGap = 79.0;
+                telemetry.addLine("LEFT");
+                break;
+            case CENTER: //SkyStone is on center
+                frontGap = 59.0;
+                telemetry.addLine(":CENTER");
+                break;
+            case RIGHT:  //SkyStone is on the right
+                //strafe(25,-0.5); //Strafe over to the skystone
+                frontGap = 41.0;
+                telemetry.addLine("Right");
+                //strafe(60,-1);
+                break;
+        }
+        telemetry.update();
 
 
         //Drives forward to skystone
+        frontgap(frontDistance, frontVelocity, frontGap, sensorSide.RIGHT);  //fixed 11 to far forward
 
 
-        //Extend arm and grab stone
+        //Extend arm and grab stone and put arm in position to go under bridge
+        grabBlock();
+        armExt(2000,1);
 
 
         //Strafe under bridge- amount of strafe will vary with each skystone placement
@@ -36,32 +63,32 @@ public class Swartz_Meet_Two_Blue extends SkyStoneAutonomousMethods {
         //drops stone on waffle
         //TODO make an autonomous method to drop stone on waffle
 
-
-        //rotates 90 degrees to get in position for dragging waffle
-        double targetOneHeading = 90.0;
-        double rotateMaxVel = 1.0;
-        rotate(targetOneHeading,rotateMaxVel);
-
-
-        //strafe to up against waffle
-        double strafeTwoDistance = 25.0;
-        double strafeTwoMaxVel = 1.0;
-        strafe(strafeTwoDistance,strafeTwoMaxVel);
-
-        //dropping block on waffle
-        dropBlock();
-
-
-        //grab waffle
-        //TODO autonomous method to grab waffle
-
-
-        //strafe/rotate to get waffle into build site
-        double targetTwoHeading = -90.0;
-        double rotateTwoMaxVel = 1.0;
-        rotate(targetTwoHeading,rotateTwoMaxVel);
-
-
+//
+//        //rotates 90 degrees to get in position for dragging waffle
+//        double targetOneHeading = 90.0;
+//        double rotateMaxVel = 1.0;
+//        rotate(targetOneHeading,rotateMaxVel);
+//
+//
+//        //strafe to up against waffle
+//        double strafeTwoDistance = 25.0;
+//        double strafeTwoMaxVel = 1.0;
+//        strafe(strafeTwoDistance,strafeTwoMaxVel);
+//
+//        //dropping block on waffle
+//        dropBlock();
+//
+//
+//        //grab waffle
+//        //TODO autonomous method to grab waffle
+//
+//
+//        //strafe/rotate to get waffle into build site
+//        double targetTwoHeading = -90.0;
+//        double rotateTwoMaxVel = 1.0;
+//        rotate(targetTwoHeading,rotateTwoMaxVel);
+//
+//
         //drive to park under bridge
 
     }

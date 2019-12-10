@@ -1,5 +1,6 @@
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import org.firstinspires.ftc.teamcode.DbgLog;
 
 @Autonomous (name = "Test_Auto blue")
 public class Test_Auto_Blue extends SkyStoneAutonomousMethods {
@@ -9,88 +10,95 @@ public class Test_Auto_Blue extends SkyStoneAutonomousMethods {
          * Initialize the drive system variables.
          * The init() method of the hardware class does all the work here
          */
-        Init();     //  init robot hardware
+        //  init robot hardware
+        Init();
 
-        init_vuforia_2(); //init camera
-
+        //init camera
+        init_vuforia_2();
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        VuforiaStuff.skystonePos StoneRember = vuforiaStuff.vuforiascan(true,false);  // look for skystone
+        //Identifies placement of skystone with vision code
+        double frontDistance = 15.0;
+        double frontGap = 0.0;
+        double frontVelocity = 1.0;
 
-        switch (StoneRember) { // distance 11 and 10 to far forward
+
+        VuforiaStuff.skystonePos StoneRember = vuforiaStuff.vuforiascan(true, false);  // look for skystone
+        switch (StoneRember) {
             case LEFT: //SkyStone is left
-                frontgap(15,1,79,sensorSide.RIGHT ); //needs to be fixed
+                frontGap = 79.0;
                 telemetry.addLine("LEFT");
                 break;
             case CENTER: //SkyStone is on center
+                frontGap = 59.0;
                 telemetry.addLine(":CENTER");
-                frontgap(15,1,59,sensorSide.RIGHT); //fixed
                 break;
             case RIGHT:  //SkyStone is on the right
-                //strafe(25,-0.5); //Strafe over to the skystone
+                frontGap = 41.0;
                 telemetry.addLine("Right");
-                frontgap(15,1,41,sensorSide.RIGHT);  //fixed 11 to far forward
-                //strafe(60,-1);
                 break;
         }
         telemetry.update();
+
+
+        //Drives forward to skystone
+        frontgap(frontDistance, frontVelocity, frontGap, sensorSide.RIGHT);
+
+
+        //Extend arm and grab stone and put arm in position to go under bridge
         grabBlock();
-        armExt(2000,1);
+        armExt(2000, 1);
 
+        // Turning to drive under bridge
+        rotate(270, -1);
 
-
-        //drive(16,  -1);     //Drive Back
-/*
+        // Driving under bridge depending on skystone position
         switch (StoneRember) {
-            case 2: //SkyStone is on the right
-                strafe(100, -1);  //Sideways Under Bridge
-
-                robot.OpenServo.setPosition(0.36);  // Open Claw
-                sleep(150);     //way to big was 7 00     // Sleeping to drop block
-                strafe(169, 1);  // Going Back to grab another block
-                drive(23, 1);   // Going forward to grab block //was 16
-
-                grabBlock();
-
-                drive(18, -1);
-                armExt(2000, 1);
-                strafe(181, -1); //was 171
-                robot.OpenServo.setPosition(0.36);
+            //KEY:  1: drive under bridge with gap
+            case LEFT:// Left position
+                gap(80, 1, 53, sensorSide.LEFT); //1
                 break;
-            case 1: //SkyStone is on the left
-                strafe(120, -1);  //Sideways Under Bridge
-
-                robot.OpenServo.setPosition(0.36);  // Open Claw
-                sleep(400);     //way to big was 7 00     // Sleeping to drop block
-                strafe(190, 1);  // Going Back to grab another block
-                drive(18, 1);   // Going forward to grab block
-
-                grabBlock();
-
-                drive(18, -1);
-                armExt(2000, 1);
-                strafe(200, -1);
-            break;
-            case 0: //SkyStone is on the offscreen
-                strafe(145, -1);  //Sideways Under Bridge
-
-                robot.OpenServo.setPosition(0.36);  // Open Claw
-                sleep(400);     //way to big was 7 00     // Sleeping to drop block
-                strafe(40,1);
-                /*
-                strafe(240, 1);  // Going Back to grab another block
-                drive(16,    -1);   // Going forward to grab block
-
-                grabBlock();
-
-                drive(18, -1);
-                armExt(2000, 1);
-                strafe(220, -1); */
-           // break;
+            case CENTER:// center position
+                gap(100, 1, 53, sensorSide.LEFT); //1
+                break;
+            case RIGHT:// right position
+                gap(120, 1, 53, sensorSide.LEFT); //1
+                break;
         }
-        }
+        //drive to waffle
+        frontgap(53, 1, 69, sensorSide.LEFT);
+
+        // lines up on block
+        strafe(60, -1); // lines up on block
+        // drive to place block
+
+        // extending arm and dropping block
+        armTilt(1.12, 1);
+        armExt(2800, 1);
+        robot.OpenServo.setPosition(0);
+        // tilt to clear skystone
+        armTilt(.98, 0.8);
+
+        // backs off waffle
+        drive(10, -1);
+        //rotates to align the waffle
+        rotate(90, 1);
+        //grabbers on waffle
+        robot.RightWaffle.setPosition(0.5);
+        robot.LeftWaffle.setPosition(0.5);
+        //strafes onto waffle
+        strafe(15, 1);
+        //grabs waffle
+        robot.RightWaffle.setPosition(0);
+        robot.LeftWaffle.setPosition(1);
+        sleep(400);
+        //strafe waffle into build site
+        strafe(92, -1);
+        telemetry.update();
+    }
+}
 
 
 
