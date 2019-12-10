@@ -96,6 +96,7 @@ public class SwartzTeleOp extends OpMode {
         telemetry.addData("y_prime", y_prime);
         telemetry.addData("Gyro Heading", gyroHeading);
         telemetry.addData("Arm Position", robot.armPosInput.getVoltage());
+        telemetry.addData("Arm Tilt Encoder",robot.LiftMotor.getCurrentPosition());
         telemetry.addData("Claw Position",openServoPos);
         telemetry.addData("Extension ticks",robot.ExtendMotor.getCurrentPosition());
         telemetry.addData("twist position",twistServoPos);

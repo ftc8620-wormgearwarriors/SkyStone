@@ -1,6 +1,7 @@
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.RobotLog;
 import com.vuforia.CameraDevice;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -767,7 +768,11 @@ public enum sensorSide {
     final double highLimit = 1.368;
     final double lowLimit = 0.68;
     public double armTilt(double position, double speed){
+        RobotLog.d("8620WGW armTilt Target=" + position + " Speed=" + speed + " Start Volts=" + robot.armPosInput.getVoltage() + "Start encoder=" + robot.LiftMotor.getCurrentPosition());
+        robot.LiftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         if (position <lowLimit  ||  position >highLimit){
+            robot.LiftMotor.setPower(0);
             telemetry.addLine("armTilt out of allowed limits");
             telemetry.update ();
             return 0 ;
@@ -785,16 +790,29 @@ public enum sensorSide {
             volts = robot.armPosInput.getVoltage();
         }
         robot.LiftMotor.setPower(0);
+        RobotLog.d("8620WGW armTilt EXIT position=" + volts);
         return volts;
     }
 
+    public double armTiltWithEncoder(int position, double speed){
+        RobotLog.d("8620WGW armTiltWithEncoder Target=" + position + " Speed=" + speed + " Start Position=" + robot.LiftMotor.getCurrentPosition());
+        robot.LiftMotor.setTargetPosition(position);
+        robot.LiftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.LiftMotor.setPower(speed);
+        RobotLog.d("8620WGW armTiltWithEncoder EXIT");
+        return 0.0;
+    }
 
     public double armExt(double ticks, double speed){
+        RobotLog.d("8620WGW armExt Target=" + ticks + " Speed=" + speed + " Start Position=" + robot.ExtendMotor.getCurrentPosition());
         if (ticks <0  ||  ticks >5000){
+            robot.ExtendMotor.setPower(0);
             telemetry.addLine("armExt out of allowed extension ");
             telemetry.update ();
             return 0 ;
         }
+        robot.ExtendMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         double current = -robot.ExtendMotor.getCurrentPosition();
         while (opModeIsActive () && (current<(ticks-100)  ||  current>(ticks+100)))  {
             if (current>ticks )
@@ -806,7 +824,24 @@ public enum sensorSide {
             current = -robot.ExtendMotor.getCurrentPosition();
         }
         robot.ExtendMotor.setPower(0);
+        RobotLog.d("8620WGW armExt EXIT  Position=" + current);
         return current;
+    }
+    public double armExtNonBlockling (int position, double speed){
+        RobotLog.d("8620WGW armExtNonBlockling Target=" + position + " Speed=" + speed + " Start Position=" + robot.ExtendMotor.getCurrentPosition());
+        if (position < 0  ||  position > 5000){
+            robot.ExtendMotor.setPower(0);
+            RobotLog.d("8620WGW armExtNonBlockling Target out of range");
+            telemetry.addLine("armExt out of allowed extension ");
+            telemetry.update ();
+            return 0 ;
+        }
+
+        robot.ExtendMotor.setTargetPosition(-position);             // negative ticks extends arms, so send the negative
+        robot.ExtendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.ExtendMotor.setPower(Math.abs(speed));
+        RobotLog.d("8620WGW armExtNonBlockling EXIT");
+        return 0 ;
     }
 
 
@@ -963,6 +998,8 @@ public enum sensorSide {
             " Ac/bw0P/////AAABmdRCZF/Kqk2MjbJIs87MKVlJg32ktQ2Tgl6871UmjRacrtxKJCUzDAeC2aA4tbiTjejLjl1W6e7VgBcQfpYx2WhqclKIEkguBRoL1udCrz4OWonoLn/GCA+GntFUZN0Az+dGGYtBqcuW3XkmVNSzgOgJbPDXOf+73P5qb4/mHry0xjx3hysyAzmM/snKvGv8ImhVOVpm00d6ozC8GzvOMRF/S5Z1NBsoFls2/ul+PcZ+veKwgyPFLEFP4DXSqTeOW1nJGH9yYXSH0kfNHgGutLM5om1hAlxdP8D4XMRD2bgWXj1Md2bz+uJmr1E2ZuI7p26ZRxOIKZE9Hwpai+MW6yaJD0otF6aL9QXYaULPpWKo ";
 
      public int init_vuforia_2 () {
+        RobotLog.d("8620WGW init_vuforia_2");
+
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
 
@@ -973,6 +1010,8 @@ public enum sensorSide {
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
 
         vuforiaStuff = new VuforiaStuff(vuforia);
+
+        RobotLog.d("8620WGW init_vuforia_2 EXIT");
 
         return 0;
     }

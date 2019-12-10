@@ -104,6 +104,9 @@ public class Swartz_HardwareMap
         RightWaffle.setPosition (1);
         LeftWaffle.setPosition (0);
 
+        //resets motor encoders to zero
+        LiftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
         frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -112,6 +115,8 @@ public class Swartz_HardwareMap
         backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LiftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         ExtendMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
 
     }
 }

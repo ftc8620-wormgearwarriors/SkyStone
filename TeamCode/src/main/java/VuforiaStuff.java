@@ -1,5 +1,6 @@
 //package org.firstinspires.ftc.teamcode.Autonomous;
 
+
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Environment;
@@ -9,7 +10,6 @@ import com.vuforia.PIXEL_FORMAT;
 import com.vuforia.Vuforia;
 
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.teamcode.DbgLog;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,6 +17,7 @@ import java.io.IOException;
 
 import static android.graphics.Bitmap.createBitmap;
 import static android.graphics.Bitmap.createScaledBitmap;
+import com.qualcomm.robotcore.util.RobotLog;
 
 public class VuforiaStuff {
 
@@ -129,7 +130,7 @@ public class VuforiaStuff {
                 cropHeight = (int) ((86.0 / 720.0) * bitmap.getHeight());
             }
 
-            DbgLog.msg("10435 vuforiascan"           //saves info to debug log in file on phone
+            RobotLog.d("8620WGW skystonePos"           //saves info to debug log in file on phone
                     + " cropStartX: " + cropStartX
                     + " cropStartY: " + cropStartY
                     + " cropWidth: " + cropWidth
@@ -235,9 +236,9 @@ public class VuforiaStuff {
 
         skystonePos pos;
         /*
-        DbgLog.msg("color L: " + Double.toString(colorcountL));
-        DbgLog.msg("color C: " + Double.toString(colorcountC));
-        DbgLog.msg("color R: " + Double.toString(colorcountR));
+       RobotLog.d("color L: " + Double.toString(colorcountL));
+       RobotLog.d("color C: " + Double.toString(colorcountC));
+       RobotLog.d("color R: " + Double.toString(colorcountR));
 
         if (colorcountL < colorcountC && colorcountL < colorcountR) {
             pos = skystonePos.LEFT;
@@ -255,9 +256,10 @@ public class VuforiaStuff {
             pos = skystonePos.RIGHT;
         }
 
-        DbgLog.msg("black/yellow L: " + blackCountL + "/" + yellowCountL);
-        DbgLog.msg("black/yellow C: " + blackCountC + "/" + yellowCountC);
-        DbgLog.msg("black/yellow R: " + blackCountR + "/" + yellowCountR);
+       RobotLog.d("8620WGW skystonePos black/yellow L: " + blackCountL + "/" + yellowCountL);
+       RobotLog.d("8620WGW skystonePos black/yellow C: " + blackCountC + "/" + yellowCountC);
+       RobotLog.d("8620WGW skystonePos black/yellow R: " + blackCountR + "/" + yellowCountR);
+       RobotLog.d("8620WGW skystonePos position = " + pos);
 
         return pos;
     }
