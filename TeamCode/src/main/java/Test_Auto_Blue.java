@@ -15,6 +15,7 @@ public class Test_Auto_Blue extends SkyStoneAutonomousMethods {
 
         //init camera
         init_vuforia_2();
+        armTilt(0.997,0.8);         //tilt up to level so the claw clears the base
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -52,26 +53,30 @@ public class Test_Auto_Blue extends SkyStoneAutonomousMethods {
         armExt(2000, 1);
 
         // Turning to drive under bridge
-        rotate(270, -1);
+        rotate(275, -1);
 
         // Driving under bridge depending on skystone position
         switch (StoneRember) {
             //KEY:  1: drive under bridge with gap
             case LEFT:// Left position
-                gap(80, 1, 53, sensorSide.LEFT); //1
+                gap(110, 1, 53, sensorSide.LEFT); //1
                 break;
             case CENTER:// center position
-                gap(100, 1, 53, sensorSide.LEFT); //1
-                break;
+                gap(130, 1, 53, sensorSide.LEFT); //1
+                 break;
             case RIGHT:// right position
-                gap(120, 1, 53, sensorSide.LEFT); //1
+                gap(150, 1, 53, sensorSide.LEFT); //1
                 break;
         }
+
+        sleep(1000); //test-remove later
         //drive to waffle
         frontgap(53, 1, 69, sensorSide.LEFT, sensorFront.WOOKIE);
+        sleep(1000); //test-remove later
 
         // lines up on block
-        strafe(60, -1); // lines up on block
+        armTilt(1.12, 1);
+        strafe(70, -1); // lines up on block
         // drive to place block
 
         // extending arm and dropping block
