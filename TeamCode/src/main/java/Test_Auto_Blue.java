@@ -44,7 +44,7 @@ public class Test_Auto_Blue extends SkyStoneAutonomousMethods {
 
 
         //Drives forward to skystone
-        frontgap(frontDistance, frontVelocity, frontGap, sensorSide.RIGHT);
+        frontgap(frontDistance, frontVelocity, frontGap, sensorSide.RIGHT, sensorFront.DEATHSTAR);
 
 
         //Extend arm and grab stone and put arm in position to go under bridge
@@ -68,7 +68,7 @@ public class Test_Auto_Blue extends SkyStoneAutonomousMethods {
                 break;
         }
         //drive to waffle
-        frontgap(53, 1, 69, sensorSide.LEFT);
+        frontgap(53, 1, 69, sensorSide.LEFT, sensorFront.WOOKIE);
 
         // lines up on block
         strafe(60, -1); // lines up on block

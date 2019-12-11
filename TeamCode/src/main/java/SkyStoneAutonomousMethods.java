@@ -45,6 +45,10 @@ public enum sensorSide {
         LEFT,
         RIGHT
 }
+public enum sensorFront {
+        DEATHSTAR,
+         WOOKIE                         //upper ultrasonic sensor
+}
 
     public void Init() {
         robot.init(hardwareMap);
@@ -1019,7 +1023,7 @@ public enum sensorSide {
     /* CW - added for vuforia image grab and stone locate                       */
 /************************************************************************** */
 
-public double frontgap (double distance, double maxVel, double gapDistance, sensorSide side) {
+public double frontgap (double distance, double maxVel, double gapDistance, sensorSide side, sensorFront Front) {
     double  diameter            = 10.16;
     double  circumference       = diameter * Math.PI;
     double  gearRatio           = 20.36;
@@ -1048,7 +1052,10 @@ public double frontgap (double distance, double maxVel, double gapDistance, sens
     // Loop until average motor ticks reaches specified number of ticks
     double distanceError = 1;
     while (opModeIsActive() &&  distanceError > 0)  {                                             //targetTicks > currentPositionAverage() ) {
-         distanceError = robot.deathStar.getDistance(DistanceUnit.CM) - distance;
+        if (Front == sensorFront.DEATHSTAR)
+             distanceError = robot.deathStar.getDistance(DistanceUnit.CM) - distance;
+        else
+            distanceError = robot.wookie.getDistance(DistanceUnit.CM) - distance;
         vel = distanceError * kpDistance;
 
 

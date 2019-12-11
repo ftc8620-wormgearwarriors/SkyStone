@@ -102,9 +102,11 @@ public class SwartzTeleOp extends OpMode {
         telemetry.addData("twist position",twistServoPos);
         telemetry.addData("left GAP", robot.leftRangeSensor.cmUltrasonic());
         telemetry.addData("right GAP", robot.rightRangeSensor.cmUltrasonic());
+        telemetry.addData("wookie range", String.format("%.01f cm", robot.wookie.getDistance(DistanceUnit.CM)));
         telemetry.addData("DeathStar range", String.format("%.01f cm", robot.deathStar.getDistance(DistanceUnit.CM)));
         telemetry.addData("right Waffle", robot.RightWaffle.getPosition());
         telemetry.addData("left Waffle", robot.LeftWaffle.getPosition());
+
         telemetry.update();
 
         // Run wheels in POV mode (note: The joystick goes negative when pushed forwards, so negate it)
