@@ -51,11 +51,11 @@ public class Test_Auto extends SkyStoneAutonomousMethods {
             case RIGHT: //works
                 gap(120, 1, 53, sensorSide.RIGHT); //1
                 break;
-
         }
 
         frontgap(53,1,69, sensorSide.RIGHT); //drive to waffle
         strafe(60,1); // lines up on block
+        //drive(10,1); // drive to place block decrease this drive was 30
         armTilt(1.12,1);
         armExt(2800,1);
         robot.OpenServo.setPosition(0);//set power zero and wait half a second.
