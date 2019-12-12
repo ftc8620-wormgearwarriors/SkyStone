@@ -67,38 +67,40 @@ public class Test_Auto extends SkyStoneAutonomousMethods {
         grabBlock();
         armExt(2000,1);
 
+       drive(15,-1);
         rotate(85,1);
 
         switch(StoneRember) {
-            //KEY:  1: drive under bridge with gap
-            case LEFT: // need to test
-                gap(160, 1, 53, sensorSide.RIGHT); //1
+            //KEY:  1: drive under bridge with gap TODO test the distances of the gap drive
+            case LEFT:
+                gap(150, 1, 53, sensorSide.RIGHT); //1
                 break;
-            case CENTER: //works
+            case CENTER:
                 gap(140, 1, 53, sensorSide.RIGHT); //1
                 break;
-            case RIGHT: //works
+            case RIGHT:
                 gap(120, 1, 53, sensorSide.RIGHT); //1
                 break;
         }
 
-        frontgap(53,1,69, sensorSide.RIGHT, sensorFront.WOOKIE); //drive to waffle
-        strafe(60,1); // lines up on block
+        frontgap(110,1,69, sensorSide.RIGHT, sensorFront.WOOKIE); //drive to waffle TODO strafed to far to the left
+        strafe(106,1, 110, sensorFront.WOOKIE); // lines up on block
         //drive(10,1); // drive to place block decrease this drive was 30
         armTilt(1.12,1);
         armExt(2800,1);
         robot.OpenServo.setPosition(0);//set power zero and wait half a second.
         armTilt(.98,0.8); // tilt to clear skystone
-        drive(10,-1); // backs off waffle was 15
+        drive(10,-1); // backs off waffle was 15 TODO take out
         rotate(170,1); //rotates to align the waffle grabers on waffle
+        //todo get closer to waffle
         robot.RightWaffle.setPosition(0.5); //moves the waffle grabber to push out the skystone if it is in the way
         robot.LeftWaffle.setPosition(0.5);
-        strafe(15,1); //strafes onto waffle was 20
+        strafe(15,1, 0, sensorFront.NOSENSOR); //strafes onto waffle was 20
         robot.RightWaffle.setPosition(0); //grabs waffle
         robot.LeftWaffle.setPosition(1);
-        sleep(400);
+        sleep(400); //TODO can this be shortned or taken out
         rotate(245,1); //rotates to align the waffle with building zone needs to be 240 to 250 was 225
-        strafe(75,1); //strafe waffle into build site
+        strafe(75,1, 0, sensorFront.NOSENSOR); //strafe waffle into build site
         telemetry.update();
 
         }

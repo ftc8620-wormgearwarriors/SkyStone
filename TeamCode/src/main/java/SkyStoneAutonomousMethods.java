@@ -47,7 +47,8 @@ public enum sensorSide {
 }
 public enum sensorFront {
         DEATHSTAR,
-         WOOKIE                         //upper ultrasonic sensor
+         WOOKIE,                         //upper ultrasonic sensor
+        NOSENSOR
 }
 
     public void Init() {
@@ -236,7 +237,7 @@ public enum sensorFront {
      * ticks = number of ticks to move given distance
      * Return average motor ticks at end of movement
      */
-    public double strafe(double distance, double maxVel) {
+    public double strafe(double distance, double maxVel, double frontDistance, sensorFront Front) {
         double diameter = 10.16;
         double circumference = diameter * Math.PI;
         double gearRatio = 20.36;
@@ -245,10 +246,12 @@ public enum sensorFront {
         double targetHeading = robot.imu.getHeading();
         double kpTurn = 0.01;
         double kpDistance = 0.01;
+        double kpFrontDistance = 0.01;
         double minVel = 0.1;
         double accel = 0.03;      //0.01;
         double vel = minVel;
         double oldVel = minVel;
+        double frontDistanceError = 0;
 
         //Restart tick count from encoders
         robot.frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -286,11 +289,20 @@ public enum sensorFront {
                 vel = -vel;
 
             double error = angleErrorDrive(targetHeading, robot.imu.getHeading());
+
+            //decides to use frontDistance sensor
+            if (Front == sensorFront.DEATHSTAR)
+                frontDistanceError = robot.deathStar.getDistance(DistanceUnit.CM) - frontDistance;
+            else if (Front == sensorFront.WOOKIE)
+                frontDistanceError = robot.wookie.getDistance(DistanceUnit.CM) - frontDistance;
+            else
+                frontDistanceError = 0;
+
             // Run motors at specified power
-            robot.frontLeftDrive.setPower(-vel - (error * kpTurn));
-            robot.frontRightDrive.setPower(vel + (error * kpTurn));
-            robot.backLeftDrive.setPower(vel - (error * kpTurn));
-            robot.backRightDrive.setPower(-vel + (error * kpTurn));
+            robot.frontLeftDrive.setPower(-vel - (error * kpTurn) + (frontDistanceError * kpFrontDistance));
+            robot.frontRightDrive.setPower(vel + (error * kpTurn) + (frontDistanceError * kpFrontDistance));
+            robot.backLeftDrive.setPower(vel - (error * kpTurn) + (frontDistanceError * kpFrontDistance));
+            robot.backRightDrive.setPower(-vel + (error * kpTurn) + (frontDistanceError * kpFrontDistance));
 
             telemetry.addData("front right:", robot.frontRightDrive.getCurrentPosition());
             telemetry.addData("front left:", robot.frontLeftDrive.getCurrentPosition());
@@ -854,7 +866,7 @@ public enum sensorFront {
         armExt (2893,0.8); //ticks was 3800
         robot.TwistServo.setPosition(0.0);
         robot.OpenServo.setPosition(0.16); //was .36 open claw
-        armTilt(1.29,0.8); //tilt to clear the skystone was 1.29
+        armTilt(1.25,0.8); //tilt to clear the skystone was 1.29
         robot.OpenServo.setPosition(0.68); // close claw
         sleep(300);
         armTilt(1.25,0.8); //tilt to clear the skybridge
@@ -1119,6 +1131,7 @@ public double frontgap (double distance, double maxVel, double gapDistance, sens
         telemetry.addData("BR Speed", robot.backRightDrive.getPower());
         telemetry.addData("BL Speed:", robot.backLeftDrive.getPower());
         telemetry.addData("right GAP", robot.rightRangeSensor.cmUltrasonic());
+        telemetry.addData("wookie range", String.format("%.01f cm", robot.wookie.getDistance(DistanceUnit.CM)));
         //telemetry.addData("left GAP", robot.leftRangeSensor.cmUltrasonic());
         telemetry.update();
     }

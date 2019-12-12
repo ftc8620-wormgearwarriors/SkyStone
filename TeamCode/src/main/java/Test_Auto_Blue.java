@@ -76,7 +76,7 @@ public class Test_Auto_Blue extends SkyStoneAutonomousMethods {
 
         // lines up on block
         armTilt(1.12, 1);
-        strafe(70, -1); // lines up on block
+        strafe(70, -1, 0, sensorFront.NOSENSOR); // lines up on block
         // drive to place block
 
         // extending arm and dropping block
@@ -94,13 +94,13 @@ public class Test_Auto_Blue extends SkyStoneAutonomousMethods {
         robot.RightWaffle.setPosition(0.5);
         robot.LeftWaffle.setPosition(0.5);
         //strafes onto waffle
-        strafe(15, 1);
+        strafe(15, 1, 0, sensorFront.NOSENSOR);
         //grabs waffle
         robot.RightWaffle.setPosition(0);
         robot.LeftWaffle.setPosition(1);
         sleep(400);
         //strafe waffle into build site
-        strafe(92, -1);
+        strafe(92, -1, 0, sensorFront.NOSENSOR);
         telemetry.update();
     }
 }

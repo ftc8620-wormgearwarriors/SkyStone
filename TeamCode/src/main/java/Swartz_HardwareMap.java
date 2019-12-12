@@ -80,7 +80,7 @@ public class Swartz_HardwareMap
         leftRangeSensor  = hwMap.get(ModernRoboticsI2cRangeSensor.class,"leftRangeSensor");
         rightRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class,"rightRangeSensor");
         deathStar        = hwMap.get(DistanceSensor.class, "deathStar");
-        wookie  = hwMap.get(ModernRoboticsI2cRangeSensor.class,"frontRangeSensor");                              //wookie is upper ultrasonic range sensor
+        wookie  = hwMap.get(ModernRoboticsI2cRangeSensor.class,"wookie");                               //wookie is upper ultrasonic range sensor
 
 
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
