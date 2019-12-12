@@ -957,7 +957,7 @@ public enum sensorFront {
                 gap_err = - (robot.leftRangeSensor.cmUltrasonic() - gapDistance);
 
             //tells us that when we sense another robot to change nothing
-            if (Math.abs(gap_err)>30)
+            if (Math.abs(gap_err)>10)
                 gap_err = 0;
 
 
