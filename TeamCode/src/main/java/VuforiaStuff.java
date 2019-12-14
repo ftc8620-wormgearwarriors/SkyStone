@@ -124,7 +124,7 @@ public class VuforiaStuff {
                 cropHeight = (int) ((100.0 / 720.0) * bitmap.getHeight());
 
             } else {
-                cropStartX = (int) ((251.0 / 1280.0) * bitmap.getWidth());
+                cropStartX = (int) ((291.0 / 1280.0) * bitmap.getWidth()); //was 251
                 cropStartY = (int) ((133.0 / 720.0) * bitmap.getHeight());
                 cropWidth = (int) ((646.0 / 1280.0) * bitmap.getWidth());
                 cropHeight = (int) ((86.0 / 720.0) * bitmap.getHeight());

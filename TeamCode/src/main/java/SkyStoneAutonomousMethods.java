@@ -153,7 +153,7 @@ public enum sensorFront {
         double targetTicks = distance * (1 / circumference) * gearRatio * ticksPerRotation;
         double targetHeading = robot.imu.getHeading();
         double kpTurn = 0.01;
-        double kpDistance = 0.0003;
+        double kpDistance = 0.001; //was 0.0003
         double minVel = 0.1;
         double accel = 0.03;    //0.01;
         double vel = minVel;
@@ -906,7 +906,7 @@ public enum sensorFront {
         double  targetTicks         = distance * (1 / circumference) * gearRatio * ticksPerRotation;
         double  targetHeading       = robot.imu.getHeading();
         double  kpTurn              = 0.01;
-        double  kpDistance          = 0.0003;
+        double  kpDistance          = 0.001; //was 0.0003
         double  kpGap               = 0.05;
         double  minVel              = 0.05;
         double  accel               = 0.03;

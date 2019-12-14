@@ -10,16 +10,16 @@ public class Test_Auto extends SkyStoneAutonomousMethods {
          * Initialize the drive system variables.
          * The init() method of the hardware class does all the work here
          */
-        telemetry.addLine("Initializing PLEASE WAIT!!!");
+        telemetry.addLine("DO NOT RUN CODE ROBOT STILL INITING");
         telemetry.update();
 
         Init();     //  init robot hardware
 
         init_vuforia_2(); //init camera
 
-
+        telemetry.addLine("Ready to jump to hyperspace");
         // Wait for the game to start (driver presses PLAY)
-        telemetry.addLine("Init Complete, ready to START");
+
         telemetry.update();
         waitForStart();
 
@@ -86,7 +86,7 @@ public class Test_Auto extends SkyStoneAutonomousMethods {
         //frontgap(110,1,69, sensorSide.RIGHT, sensorFront.WOOKIE); //drive to waffle
         armExtNonBlockling(2800,1); //TODO strafed to far to the left
         armTiltWithEncoder(-1000,0.50);      //  rotate the arm up, but don't wait for it to finish moving
-        strafe(66,1, 100, sensorFront.WOOKIE); // lines up on block
+        strafe(60,1, 95, sensorFront.WOOKIE); // lines up on block 100
         //drive(10,1); // drive to place block decrease this drive was 30
         robot.OpenServo.setPosition(0);//set power zero and wait half a second.
         armTilt(.98,0.8); // tilt to clear skystone
@@ -104,7 +104,7 @@ public class Test_Auto extends SkyStoneAutonomousMethods {
         robot.RightWaffle.setPosition(1); //grabs waffle
         robot.LeftWaffle.setPosition(0);
         strafe(80,1, 0, sensorFront.NOSENSOR); //strafe waffle into build site
-        drive(65,1);
+        drive(70,1);
         telemetry.update();
 
         }
