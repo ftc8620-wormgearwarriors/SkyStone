@@ -2,7 +2,7 @@
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.RobotLog;
 
-@Autonomous (name = "Test_Auto")
+@Autonomous (name = "Auto Red")
 public class Test_Auto extends SkyStoneAutonomousMethods {
 
     public void runOpMode() {
@@ -86,7 +86,7 @@ public class Test_Auto extends SkyStoneAutonomousMethods {
         //frontgap(110,1,69, sensorSide.RIGHT, sensorFront.WOOKIE); //drive to waffle
         armExtNonBlockling(2800,1); //TODO strafed to far to the left
         armTiltWithEncoder(-1000,0.50);      //  rotate the arm up, but don't wait for it to finish moving
-        strafe(60,1, 95, sensorFront.WOOKIE); // lines up on block 100
+        strafe(60,1, 100, sensorFront.WOOKIE); // lines up on block 100
         //drive(10,1); // drive to place block decrease this drive was 30
         robot.OpenServo.setPosition(0);//set power zero and wait half a second.
         armTilt(.98,0.8); // tilt to clear skystone

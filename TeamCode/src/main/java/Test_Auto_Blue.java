@@ -2,7 +2,7 @@
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.RobotLog;
 
-@Autonomous (name = "Test_Auto blue")
+@Autonomous (name = "Auto blue")
 public class Test_Auto_Blue extends SkyStoneAutonomousMethods {
 
     public void runOpMode() {
@@ -26,7 +26,7 @@ public class Test_Auto_Blue extends SkyStoneAutonomousMethods {
         double frontVelocity = 1.0;
 
 
-        VuforiaStuff.skystonePos StoneRember = vuforiaStuff.vuforiascan(true, false);  // look for skystone
+        VuforiaStuff.skystonePos StoneRember = vuforiaStuff.vuforiascan(false, false);  // look for skystone
         telemetry.addData("Init Arm Tilt Encoder",robot.LiftMotor.getCurrentPosition());
         telemetry.addData("Init Extension ticks",robot.ExtendMotor.getCurrentPosition());
         telemetry.update();
@@ -46,7 +46,6 @@ public class Test_Auto_Blue extends SkyStoneAutonomousMethods {
             case RIGHT:  //SkyStone is on the right
                 frontGap = 41.0;
                 telemetry.addLine("Right");
-                sleep(5000);
                 break;
         }
         telemetry.update();
@@ -83,7 +82,7 @@ public class Test_Auto_Blue extends SkyStoneAutonomousMethods {
         armExtNonBlockling(2800,1); //TODO strafed to far to the left
         armTiltWithEncoder(-1000,0.50);      //  rotate the arm up, but don't wait for it to finish moving
 
-        strafe(95, -1, 95, sensorFront.WOOKIE); // lines up on block was 66
+        strafe(90, -1, 98, sensorFront.NOSENSOR); // lines up on block was 66
         // drive to place block
 
         // extending arm and dropping block
