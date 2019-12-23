@@ -104,12 +104,9 @@ public class forceTeleOp extends OpMode {
         telemetry.addData("y_prime", y_prime);
         telemetry.addData("Gyro Heading", gyroHeading);
         telemetry.addData("Arm Position", robot.armPosInput.getVoltage());
-        telemetry.addData("Arm Tilt Encoder",robot.LiftMotor.getCurrentPosition());
+        telemetry.addData("Arm Tilt Encoder",robot.LiftMotorLeft.getCurrentPosition());
+        telemetry.addData("Arm Tilt Encoder",robot.LiftMotorRight.getCurrentPosition());
         telemetry.addData("Claw Position",openServoPos);
-        telemetry.addData("Extension ticks",robot.ExtendMotor.getCurrentPosition());
-        telemetry.addData("twist position",twistServoPos);
-        telemetry.addData("left GAP", robot.leftRangeSensor.cmUltrasonic());
-        telemetry.addData("right GAP", robot.rightRangeSensor.cmUltrasonic());
         telemetry.addData("wookie range", String.format("%.01f cm", robot.wookie.getDistance(DistanceUnit.CM)));
         telemetry.addData("DeathStar range", String.format("%.01f cm", robot.deathStar.getDistance(DistanceUnit.CM)));
         telemetry.addData("right Waffle", robot.RightWaffle.getPosition());
@@ -159,12 +156,14 @@ public class forceTeleOp extends OpMode {
         }
 
         /************* Read game pad 2 *************/
-        if (gamepad2.a) {
-             twistServoPos = 0.5;
+        if (gamepad2.dpad_left) {
+           robot.IntakeLeft.setPower(1);
+           robot.IntakeRight.setPower(1);
         }
 
-        if (gamepad2.b) {
-            twistServoPos = 0;
+        if (gamepad2.dpad_right) {
+            robot.IntakeLeft.setPower(0);
+            robot.IntakeRight.setPower(0);
         }
         if (gamepad2.x) {
             twistServoPos += 0.01;
@@ -189,23 +188,13 @@ public class forceTeleOp extends OpMode {
         }
         robot.OpenServo.setPosition(openServoPos);
 
-        if (gamepad2.dpad_down && (robot.armPosInput.getVoltage() < 1.368)) {
-            robot.LiftMotor.setPower(1);
-        } else if (gamepad2.dpad_up && (robot.armPosInput.getVoltage() > 0.68)) {
-            robot.LiftMotor.setPower(-1);
-        } else if (gamepad2.dpad_right) {
-            if (robot.armPosInput.getVoltage() > 1.2) {
-                robot.LiftMotor.setPower(-1);
-            } else if (robot.armPosInput.getVoltage() < 1.1) {
-                robot.LiftMotor.setPower(1);
-            }
-        } else {
-            robot.LiftMotor.setPower(0);
+        if (gamepad2.dpad_up) {
+            robot.LiftMotorLeft.setPower(1);
+            robot.LiftMotorRight.setPower(1);
+        } else if (gamepad2.dpad_down) {
+            robot.LiftMotorLeft.setPower(-1);
+            robot.LiftMotorRight.setPower(-1);
         }
-
-        robot.ExtendMotor.setPower(gamepad2.right_stick_y);
-
-
 
 
          /*

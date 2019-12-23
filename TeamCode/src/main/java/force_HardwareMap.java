@@ -28,14 +28,19 @@ public class force_HardwareMap
     public DcMotor  frontRightDrive        = null;
     public DcMotor  backLeftDrive          = null;
     public DcMotor  backRightDrive         = null;
-    public DcMotor  LiftMotor              = null;
-    public DcMotor  ExtendMotor            = null;
+    public DcMotor  LiftMotorLeft          = null;
+    public DcMotor  LiftMotorRight         = null;
+    public DcMotor  ExtendClaw             = null;
+    public DcMotor  IntakeLeft             = null;
+    public DcMotor  IntakeRight            = null;
+
 
     /* Public Servos */
     public Servo OpenServo  = null;
     public Servo TwistServo = null;
     public Servo LeftWaffle = null;  // new servo
     public Servo RightWaffle = null;
+   // public Servo ExtendMotor = null;
 
     //public sensors
     public AnalogInput armPosInput=null;
@@ -62,8 +67,14 @@ public class force_HardwareMap
         frontRightDrive   = hwMap.get(DcMotor.class, "frontRightDrive");
         backLeftDrive     = hwMap.get(DcMotor.class, "backLeftDrive");
         backRightDrive    = hwMap.get(DcMotor.class, "backRightDrive");
-        LiftMotor         = hwMap.get(DcMotor.class, "LiftMotor");
-        ExtendMotor       = hwMap.get(DcMotor.class, "ExtendMotor");
+        LiftMotorLeft     = hwMap.get(DcMotor.class, "LiftMotorLeft");
+        LiftMotorRight    = hwMap.get(DcMotor.class, "LiftMotorRight");
+        ExtendClaw        = hwMap.get(DcMotor.class, "ExtendClaw");
+        IntakeLeft        = hwMap.get(DcMotor.class, "IntakeLeft");
+        IntakeRight       = hwMap.get(DcMotor.class, "IntakeRight");
+
+
+
 
         OpenServo         = hwMap.get(Servo.class, "OpenServo");
         TwistServo        = hwMap.get(Servo.class, "TwistServo");
@@ -94,7 +105,9 @@ public class force_HardwareMap
         backRightDrive.setZeroPowerBehavior (DcMotor.ZeroPowerBehavior.BRAKE);
 
 
-        ExtendMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ExtendClaw.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        LiftMotorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        LiftMotorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
 
@@ -103,15 +116,18 @@ public class force_HardwareMap
         frontRightDrive.setPower(0);
         backLeftDrive.setPower(0);
         backRightDrive.setPower(0);
-        ExtendMotor.setPower(0);
-        LiftMotor.setPower(0);
+        ExtendClaw.setPower(0);
+        LiftMotorLeft.setPower(0);
+        LiftMotorRight.setPower(0);
         TwistServo.setPosition(0.5);
         OpenServo.setPosition(0.6);
         RightWaffle.setPosition (1);
         LeftWaffle.setPosition (0);
 
         //resets motor encoders to zero
-        LiftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        LiftMotorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        LiftMotorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -119,8 +135,9 @@ public class force_HardwareMap
         frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        LiftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        ExtendMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        LiftMotorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        LiftMotorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        ExtendClaw.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
 
