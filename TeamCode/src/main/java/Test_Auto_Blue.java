@@ -82,7 +82,7 @@ public class Test_Auto_Blue extends SkyStoneAutonomousMethods {
         armExtNonBlockling(2800,1); //TODO strafed to far to the left
         armTiltWithEncoder(-1000,0.50);      //  rotate the arm up, but don't wait for it to finish moving
 
-        strafe(90, -1, 98, sensorFront.NOSENSOR); // lines up on block was 66
+        strafe(90, -1, 98, sensorFront.WOOKIE); // lines up on block was 66
         // drive to place block
 
         // extending arm and dropping block
