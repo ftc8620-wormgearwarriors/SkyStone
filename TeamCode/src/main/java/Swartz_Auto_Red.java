@@ -2,8 +2,8 @@
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.RobotLog;
 
-@Autonomous (name = "Auto Red")
-public class Test_Auto extends SkyStoneAutonomousMethods {
+@Autonomous (name = "Swartz_Auto_Red")
+public class Swartz_Auto_Red extends SkyStoneAutonomousMethods {
 
     public void runOpMode() {
         /*
