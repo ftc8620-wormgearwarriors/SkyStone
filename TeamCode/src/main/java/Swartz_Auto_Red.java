@@ -25,8 +25,8 @@ public class Swartz_Auto_Red extends SkyStoneAutonomousMethods {
 
         VuforiaStuff.skystonePos StoneRember = vuforiaStuff.vuforiascan(false,true);  // look for skystone
 
-        telemetry.addData("Init Arm Tilt Encoder",robot.LiftMotor.getCurrentPosition());
-        telemetry.addData("Init Extension ticks",robot.ExtendMotor.getCurrentPosition());
+//        telemetry.addData("Init Arm Tilt Encoder",robot.LiftMotor.getCurrentPosition());
+//        telemetry.addData("Init Extension ticks",robot.ExtendMotor.getCurrentPosition());
         telemetry.update();
         //sleep(5000);
 
@@ -36,8 +36,8 @@ public class Swartz_Auto_Red extends SkyStoneAutonomousMethods {
         //sleep(5000);
 
         /*
-        while(robot.ExtendMotor.isBusy() || robot.LiftMotor.isBusy()){
-            telemetry.addData("Arm Tilt Encoder",robot.LiftMotor.getCurrentPosition());
+//        while(robot.ExtendMotor.isBusy() || robot.LiftMotor.isBusy()){
+//            telemetry.addData("Arm Tilt Encoder",robot.LiftMotor.getCurrentPosition());
             telemetry.addData("Extension ticks",robot.ExtendMotor.getCurrentPosition());
             telemetry.update();
 
@@ -62,7 +62,7 @@ public class Swartz_Auto_Red extends SkyStoneAutonomousMethods {
                 //strafe(60,-1);
                 break;
         }
-        RobotLog.d("8620WGW Test_Auto Before 1st GrabBlock.  Arm Angle=" + robot.LiftMotor.getCurrentPosition() + "Arm Extension=" + robot.ExtendMotor.getCurrentPosition());
+//        RobotLog.d("8620WGW Test_Auto Before 1st GrabBlock.  Arm Angle=" + robot.LiftMotor.getCurrentPosition() + "Arm Extension=" + robot.ExtendMotor.getCurrentPosition());
 
         grabBlock();
         armExt(2000,1);

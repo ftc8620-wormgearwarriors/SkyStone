@@ -63,6 +63,11 @@ public class forceTeleOp extends OpMode {
     double dropServoPos = 1.1;
     double openServoPos = 0.5;
     double twistServoPos = 0.5;
+    double LeftWafflePos = 0;
+    double RightWafflePos = 1;
+
+
+
 
 
     @Override
@@ -107,8 +112,8 @@ public class forceTeleOp extends OpMode {
         telemetry.addData("Arm Tilt Encoder",robot.LiftMotorLeft.getCurrentPosition());
         telemetry.addData("Arm Tilt Encoder",robot.LiftMotorRight.getCurrentPosition());
         telemetry.addData("Claw Position",openServoPos);
-        telemetry.addData("wookie range", String.format("%.01f cm", robot.wookie.getDistance(DistanceUnit.CM)));
-        telemetry.addData("DeathStar range", String.format("%.01f cm", robot.deathStar.getDistance(DistanceUnit.CM)));
+//        telemetry.addData("wookie range", String.format("%.01f cm", robot.wookie.getDistance(DistanceUnit.CM)));
+//        telemetry.addData("DeathStar range", String.format("%.01f cm", robot.deathStar.getDistance(DistanceUnit.CM)));
         telemetry.addData("right Waffle", robot.RightWaffle.getPosition());
         telemetry.addData("left Waffle", robot.LeftWaffle.getPosition());
 
@@ -157,8 +162,8 @@ public class forceTeleOp extends OpMode {
 
         /************* Read game pad 2 *************/
         if (gamepad2.dpad_left) {
-           robot.IntakeLeft.setPower(1);
-           robot.IntakeRight.setPower(1);
+           robot.IntakeLeft.setPower(-1);
+           robot.IntakeRight.setPower(-1);
         }
 
         if (gamepad2.dpad_right) {
