@@ -164,10 +164,14 @@ public class forceTeleOp extends OpMode {
         if (gamepad2.dpad_left) {
            robot.IntakeLeft.setPower(-1);
            robot.IntakeRight.setPower(-1);
+           robot.RevwhlLeft.setPosition(-1);
+           robot.RevwhlRight.setPosition(-1);
         }
         if (gamepad2.dpad_right) {
             robot.IntakeLeft.setPower(0);
             robot.IntakeRight.setPower(0);
+            robot.RevwhlLeft.setPosition(0.5);
+            robot.RevwhlRight.setPosition(0.5);
         }
         if (gamepad2.x) {
             twistServoPos += 0.01;

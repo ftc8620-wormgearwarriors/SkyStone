@@ -40,6 +40,8 @@ public class force_HardwareMap
     public Servo LeftWaffle = null;  // new servo
     public Servo RightWaffle = null;
     public Servo ExtendClaw = null;
+    public Servo RevwhlLeft = null;
+    public Servo RevwhlRight = null;
 
     //public sensors
     public AnalogInput armPosInput=null;
@@ -79,6 +81,9 @@ public class force_HardwareMap
         RightWaffle       = hwMap.get(Servo.class, "RightWaffle");
         LeftWaffle        = hwMap.get(Servo.class, "LeftWaffle");
         ExtendClaw        = hwMap.get(Servo.class, "ExtendClaw");
+        RevwhlLeft        = hwMap.get(Servo.class, "RevwhlLeft");
+        RevwhlRight       = hwMap.get(Servo.class, "RevwhlRight");
+
 
 
         //  rightRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "rightRangeSensor");
@@ -112,6 +117,7 @@ public class force_HardwareMap
         LiftMotorLeft.setDirection(DcMotor.Direction.REVERSE);
 
 
+        RevwhlRight.setDirection(Servo.Direction.REVERSE);
 
         // Set all motors to zero power
         frontLeftDrive.setPower(0);
@@ -125,6 +131,8 @@ public class force_HardwareMap
         RightWaffle.setPosition (1);
         LeftWaffle.setPosition (0);
         ExtendClaw.setPosition(0);
+        RevwhlLeft.setPosition(0.5);
+        RevwhlRight.setPosition(0.5);
 
 
         //resets motor encoders to zero
