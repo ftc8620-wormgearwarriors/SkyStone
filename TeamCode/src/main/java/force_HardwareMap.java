@@ -109,6 +109,8 @@ public class force_HardwareMap
         LiftMotorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         IntakeLeft.setDirection(DcMotor.Direction.REVERSE);
+        LiftMotorLeft.setDirection(DcMotor.Direction.REVERSE);
+
 
 
         // Set all motors to zero power
@@ -119,7 +121,7 @@ public class force_HardwareMap
         LiftMotorLeft.setPower(0);
         LiftMotorRight.setPower(0);
         TwistServo.setPosition(0);
-        OpenServo.setPosition(0.6);
+        OpenServo.setPosition(0.5);
         RightWaffle.setPosition (1);
         LeftWaffle.setPosition (0);
         ExtendClaw.setPosition(0);

@@ -61,8 +61,8 @@ public class forceTeleOp extends OpMode {
      */
     double maxVel = 0.5;
     double dropServoPos = 1.1;
-    double openServoPos = 0.5;
-    double twistServoPos = 0.5;
+    double openServoPos = 0.4;
+    double twistServoPos = 0.4;
     double LeftWafflePos = 0;
     double RightWafflePos = 1;
 
@@ -92,10 +92,10 @@ public class forceTeleOp extends OpMode {
         robot.backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 */
 
-        robot.frontLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.backLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         //  Find robot's current axes in relation to original axes
@@ -165,7 +165,6 @@ public class forceTeleOp extends OpMode {
            robot.IntakeLeft.setPower(-1);
            robot.IntakeRight.setPower(-1);
         }
-
         if (gamepad2.dpad_right) {
             robot.IntakeLeft.setPower(0);
             robot.IntakeRight.setPower(0);
@@ -194,11 +193,11 @@ public class forceTeleOp extends OpMode {
         robot.OpenServo.setPosition(openServoPos);
 
         if (gamepad2.dpad_up) {
-            robot.LiftMotorLeft.setPower(1);
-            robot.LiftMotorRight.setPower(1);
+            robot.LiftMotorLeft.setPower(0.1);
+            robot.LiftMotorRight.setPower(0.1);
         } else if (gamepad2.dpad_down) {
-            robot.LiftMotorLeft.setPower(-1);
-            robot.LiftMotorRight.setPower(-1);
+            robot.LiftMotorLeft.setPower(-0.1);
+            robot.LiftMotorRight.setPower(-0.1);
         }
 
 

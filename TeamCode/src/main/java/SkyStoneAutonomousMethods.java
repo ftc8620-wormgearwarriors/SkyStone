@@ -759,7 +759,7 @@ public enum sensorFront {
 
 /*
     public SkyStoneLocation checkSkyStoneLocation() {
-        SkyStoneLocation SkyStonePosition = SkyStoneLocation.UNKNOWN;
+        SkyStoneLocstration SkyStonePosition = SkyStoneLocation.UNKNOWN;
         if (detector.isFound()) {
             double StoneX = detector,getXPosition(;)
             telemetry.addData ("X Pos", StoneX);
