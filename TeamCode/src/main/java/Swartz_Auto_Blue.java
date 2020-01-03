@@ -27,8 +27,8 @@ public class Swartz_Auto_Blue extends SkyStoneAutonomousMethods {
 
 
         VuforiaStuff.skystonePos StoneRember = vuforiaStuff.vuforiascan(false, false);  // look for skystone
-        telemetry.addData("Init Arm Tilt Encoder",robot.LiftMotor.getCurrentPosition());
-        telemetry.addData("Init Extension ticks",robot.ExtendMotor.getCurrentPosition());
+//        telemetry.addData("Init Arm Tilt Encoder",robot.LiftMotor.getCurrentPosition());
+//        telemetry.addData("Init Extension ticks",robot.ExtendMotor.getCurrentPosition());
         telemetry.update();
         //sleep(5000);
 

@@ -61,8 +61,13 @@ public class forceTeleOp extends OpMode {
      */
     double maxVel = 0.5;
     double dropServoPos = 1.1;
-    double openServoPos = 0.5;
-    double twistServoPos = 0.5;
+    double openServoPos = 0.4;
+    double twistServoPos = 0.4;
+    double LeftWafflePos = 0;
+    double RightWafflePos = 1;
+
+
+
 
 
     @Override
@@ -87,10 +92,10 @@ public class forceTeleOp extends OpMode {
         robot.backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 */
 
-        robot.frontLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.backLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         //  Find robot's current axes in relation to original axes
@@ -107,8 +112,8 @@ public class forceTeleOp extends OpMode {
         telemetry.addData("Arm Tilt Encoder",robot.LiftMotorLeft.getCurrentPosition());
         telemetry.addData("Arm Tilt Encoder",robot.LiftMotorRight.getCurrentPosition());
         telemetry.addData("Claw Position",openServoPos);
-        telemetry.addData("wookie range", String.format("%.01f cm", robot.wookie.getDistance(DistanceUnit.CM)));
-        telemetry.addData("DeathStar range", String.format("%.01f cm", robot.deathStar.getDistance(DistanceUnit.CM)));
+//        telemetry.addData("wookie range", String.format("%.01f cm", robot.wookie.getDistance(DistanceUnit.CM)));
+//        telemetry.addData("DeathStar range", String.format("%.01f cm", robot.deathStar.getDistance(DistanceUnit.CM)));
         telemetry.addData("right Waffle", robot.RightWaffle.getPosition());
         telemetry.addData("left Waffle", robot.LeftWaffle.getPosition());
 
@@ -157,13 +162,16 @@ public class forceTeleOp extends OpMode {
 
         /************* Read game pad 2 *************/
         if (gamepad2.dpad_left) {
-           robot.IntakeLeft.setPower(1);
-           robot.IntakeRight.setPower(1);
+           robot.IntakeLeft.setPower(-1);
+           robot.IntakeRight.setPower(-1);
+           robot.RevwhlLeft.setPosition(-1);
+           robot.RevwhlRight.setPosition(-1);
         }
-
         if (gamepad2.dpad_right) {
             robot.IntakeLeft.setPower(0);
             robot.IntakeRight.setPower(0);
+            robot.RevwhlLeft.setPosition(0.5);
+            robot.RevwhlRight.setPosition(0.5);
         }
         if (gamepad2.x) {
             twistServoPos += 0.01;
@@ -189,11 +197,11 @@ public class forceTeleOp extends OpMode {
         robot.OpenServo.setPosition(openServoPos);
 
         if (gamepad2.dpad_up) {
-            robot.LiftMotorLeft.setPower(1);
-            robot.LiftMotorRight.setPower(1);
+            robot.LiftMotorLeft.setPower(0.1);
+            robot.LiftMotorRight.setPower(0.1);
         } else if (gamepad2.dpad_down) {
-            robot.LiftMotorLeft.setPower(-1);
-            robot.LiftMotorRight.setPower(-1);
+            robot.LiftMotorLeft.setPower(-0.1);
+            robot.LiftMotorRight.setPower(-0.1);
         }
 
 

@@ -17,10 +17,10 @@ public class force_HardwareMap
     public WGWIMU2018 imu;
     public BNO055IMU wgwIMU2018        = null;
 
-    public ModernRoboticsI2cRangeSensor leftRangeSensor = null;
-    public ModernRoboticsI2cRangeSensor rightRangeSensor = null;
-    public DistanceSensor deathStar = null;
-    public ModernRoboticsI2cRangeSensor wookie = null;                        //wookie is upper ultrasonic range sensor
+//    public ModernRoboticsI2cRangeSensor leftRangeSensor = null;
+//    public ModernRoboticsI2cRangeSensor rightRangeSensor = null;
+//    public DistanceSensor deathStar = null;
+//    public ModernRoboticsI2cRangeSensor wookie = null;                        //wookie is upper ultrasonic range sensor
 
 
     /* Public Motors */
@@ -30,7 +30,6 @@ public class force_HardwareMap
     public DcMotor  backRightDrive         = null;
     public DcMotor  LiftMotorLeft          = null;
     public DcMotor  LiftMotorRight         = null;
-    public DcMotor  ExtendClaw             = null;
     public DcMotor  IntakeLeft             = null;
     public DcMotor  IntakeRight            = null;
 
@@ -40,7 +39,9 @@ public class force_HardwareMap
     public Servo TwistServo = null;
     public Servo LeftWaffle = null;  // new servo
     public Servo RightWaffle = null;
-   // public Servo ExtendMotor = null;
+    public Servo ExtendClaw = null;
+    public Servo RevwhlLeft = null;
+    public Servo RevwhlRight = null;
 
     //public sensors
     public AnalogInput armPosInput=null;
@@ -69,7 +70,6 @@ public class force_HardwareMap
         backRightDrive    = hwMap.get(DcMotor.class, "backRightDrive");
         LiftMotorLeft     = hwMap.get(DcMotor.class, "LiftMotorLeft");
         LiftMotorRight    = hwMap.get(DcMotor.class, "LiftMotorRight");
-        ExtendClaw        = hwMap.get(DcMotor.class, "ExtendClaw");
         IntakeLeft        = hwMap.get(DcMotor.class, "IntakeLeft");
         IntakeRight       = hwMap.get(DcMotor.class, "IntakeRight");
 
@@ -80,18 +80,23 @@ public class force_HardwareMap
         TwistServo        = hwMap.get(Servo.class, "TwistServo");
         RightWaffle       = hwMap.get(Servo.class, "RightWaffle");
         LeftWaffle        = hwMap.get(Servo.class, "LeftWaffle");
+        ExtendClaw        = hwMap.get(Servo.class, "ExtendClaw");
+        RevwhlLeft        = hwMap.get(Servo.class, "RevwhlLeft");
+        RevwhlRight       = hwMap.get(Servo.class, "RevwhlRight");
 
-                                   //  rightRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "rightRangeSensor");
+
+
+        //  rightRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "rightRangeSensor");
                                   // leftRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "leftRangeSensor");
                                  // frontRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "frontRangeSensor");
 
 
         armPosInput       = hwMap.analogInput.get("armPos");
 
-        leftRangeSensor  = hwMap.get(ModernRoboticsI2cRangeSensor.class,"leftRangeSensor");
-        rightRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class,"rightRangeSensor");
-        deathStar        = hwMap.get(DistanceSensor.class, "deathStar");
-        wookie  = hwMap.get(ModernRoboticsI2cRangeSensor.class,"wookie");                               //wookie is upper ultrasonic range sensor
+//        leftRangeSensor  = hwMap.get(ModernRoboticsI2cRangeSensor.class,"leftRangeSensor");
+//        rightRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class,"rightRangeSensor");
+//        deathStar        = hwMap.get(DistanceSensor.class, "deathStar");
+//        wookie  = hwMap.get(ModernRoboticsI2cRangeSensor.class,"wookie");                               //wookie is upper ultrasonic range sensor
 
 
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to FORWARD if using AndyMark motors
@@ -105,24 +110,30 @@ public class force_HardwareMap
         backRightDrive.setZeroPowerBehavior (DcMotor.ZeroPowerBehavior.BRAKE);
 
 
-        ExtendClaw.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         LiftMotorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LiftMotorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        IntakeLeft.setDirection(DcMotor.Direction.REVERSE);
+        LiftMotorLeft.setDirection(DcMotor.Direction.REVERSE);
 
+
+        RevwhlRight.setDirection(Servo.Direction.REVERSE);
 
         // Set all motors to zero power
         frontLeftDrive.setPower(0);
         frontRightDrive.setPower(0);
         backLeftDrive.setPower(0);
         backRightDrive.setPower(0);
-        ExtendClaw.setPower(0);
         LiftMotorLeft.setPower(0);
         LiftMotorRight.setPower(0);
-        TwistServo.setPosition(0.5);
-        OpenServo.setPosition(0.6);
+        TwistServo.setPosition(0);
+        OpenServo.setPosition(0.5);
         RightWaffle.setPosition (1);
         LeftWaffle.setPosition (0);
+        ExtendClaw.setPosition(0);
+        RevwhlLeft.setPosition(0.5);
+        RevwhlRight.setPosition(0.5);
+
 
         //resets motor encoders to zero
         LiftMotorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -137,7 +148,6 @@ public class force_HardwareMap
         backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LiftMotorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LiftMotorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        ExtendClaw.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
 

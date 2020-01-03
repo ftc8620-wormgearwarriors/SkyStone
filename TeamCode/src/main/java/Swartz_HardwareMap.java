@@ -73,6 +73,9 @@ public class Swartz_HardwareMap
                                    //  rightRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "rightRangeSensor");
                                   // leftRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "leftRangeSensor");
                                  // frontRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "frontRangeSensor");
+        //  rightRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "rightRangeSensor");
+        // leftRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "leftRangeSensor");
+        // frontRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "frontRangeSensor");
 
 
         armPosInput       = hwMap.analogInput.get("armPos");
