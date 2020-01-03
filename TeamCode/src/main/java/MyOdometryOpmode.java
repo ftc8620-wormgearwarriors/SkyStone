@@ -45,8 +45,18 @@ public class MyOdometryOpmode extends LinearOpMode {
          //sleep(5000);
          //goToPostion( 24 *COUNTS_PER_INCH,24*COUNTS_PER_INCH,.5,0,1*COUNTS_PER_INCH);
          //goToPostion(0 *COUNTS_PER_INCH,0*COUNTS_PER_INCH, 0.5, 0, 1*COUNTS_PER_INCH);
-         goToPostion(48 * COUNTS_PER_INCH, 0 * COUNTS_PER_INCH,.8, 0, 1 * COUNTS_PER_INCH, false);
-         telemetry.addData("x Position", globalPositionUpdate.returnXCoordinate() / COUNTS_PER_INCH);
+       goToPostion(0 * COUNTS_PER_INCH, 0 * COUNTS_PER_INCH,.8, 90, 100 * COUNTS_PER_INCH, true);
+       sleep(1000);
+       telemetry.addData("X Position", globalPositionUpdate.returnXCoordinate() / COUNTS_PER_INCH);
+       telemetry.addData("Y Position", globalPositionUpdate.returnYCoordinate() / COUNTS_PER_INCH);
+       telemetry.addData("Orientation (Degrees)", globalPositionUpdate.returnOrientation());
+       telemetry.update();
+       sleep(5000);
+       goToPostion(0 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH,.8, 90, 1 * COUNTS_PER_INCH, false);
+       sleep(1000);
+       goToPostion( 24* COUNTS_PER_INCH, 24 * COUNTS_PER_INCH,.8, 90, 1 * COUNTS_PER_INCH, false);
+
+       telemetry.addData("x Position", globalPositionUpdate.returnXCoordinate() / COUNTS_PER_INCH);
        telemetry.update();
 
 
@@ -103,7 +113,7 @@ public class MyOdometryOpmode extends LinearOpMode {
 
        PIDController           pidDrive;
 
-       pidDrive = new PIDController(1/(60 * COUNTS_PER_INCH), 1/(6000 * COUNTS_PER_INCH), 0);
+       pidDrive = new PIDController(1/(60 * COUNTS_PER_INCH), 1/(60000 * COUNTS_PER_INCH), 0);
 
 
        pidDrive.reset();
@@ -116,7 +126,7 @@ public class MyOdometryOpmode extends LinearOpMode {
 
        PIDController           pidStrafe;
 
-       pidStrafe = new PIDController(1/(10 * COUNTS_PER_INCH), 0/*1/(6000 * COUNTS_PER_INCH)*/, 0);
+       pidStrafe = new PIDController(1/(10 * COUNTS_PER_INCH), 1/(2000 * COUNTS_PER_INCH), 0);
 
 
        pidStrafe.reset();
@@ -144,8 +154,12 @@ public class MyOdometryOpmode extends LinearOpMode {
            //double robot_movement_x_component = calculateX(robotMovementAngle, robotPower * 1.5); // calcuate how much strafe and drive needed to get to target
            //double robot_movement_y_component = calculateY(robotMovementAngle, robotPower);
            //double pivotCorrection = (desiredRobotOrientation - globalPositionUpdate.returnOrientation()) / 20; // keep robot facing right way
-           double robot_movement_x_component = pidStrafe.performPID(globalPositionUpdate.returnXCoordinate());
-           double robot_movement_y_component = pidDrive.performPID(globalPositionUpdate.returnYCoordinate());
+           //double robot_movement_x_component = pidStrafe.performPID(globalPositionUpdate.returnXCoordinate());
+           //double robot_movement_y_component = pidDrive.performPID(globalPositionUpdate.returnYCoordinate());
+          double cX = calculateX(robotMovementAngle, distance);
+          double cY = calculateY(robotMovementAngle, distance);
+          double robot_movement_x_component = pidStrafe.performPID(targetXPostion - cX);
+           double robot_movement_y_component = pidDrive.performPID(targetYPosition   - cY);
            if (pivot) {
                robot_movement_x_component = 0;
                robot_movement_y_component = 0;
@@ -171,7 +185,8 @@ public class MyOdometryOpmode extends LinearOpMode {
            right_back.setPower(backRightPower);
            left_front.setPower(frontLeftPower);
            left_back.setPower(backLeftPower);
-           RobotLog.d("8620WGW goToPosition x ="+globalPositionUpdate.returnXCoordinate ()+"  y =" + globalPositionUpdate.returnYCoordinate()+ "  angle ="+ globalPositionUpdate.returnOrientation() + "angle error ="+pidRotate.getError() + "Y error ="+ distanceToYTarget + "X error" + distanceToXTarget);       }
+           RobotLog.d("8620WGW goToPosition x ="+globalPositionUpdate.returnXCoordinate ()+"  y =" + globalPositionUpdate.returnYCoordinate()+ "  angle ="+ globalPositionUpdate.returnOrientation() + "angle_error ="+pidRotate.getError() + "Y_error ="+ distanceToYTarget + "X_error" + distanceToXTarget + "Total_Error" + pidDrive.getTotalError() + "cX"+cX + "cY"+ cY );
+       }
        right_front.setPower(0);
        left_front.setPower(0);
        right_back.setPower(0);

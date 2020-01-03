@@ -238,6 +238,9 @@ public class PIDController
     {
         return m_error;
     }
+public double getTotalError() {
+        return m_totalError;
+}
 
     /**
      * Set the percentage error which is considered tolerable for use with
