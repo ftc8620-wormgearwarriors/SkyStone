@@ -61,10 +61,13 @@ public class PIDController
 
             // Integrate the errors as long as the upcoming integrator does
             // not exceed the minimum and maximum output thresholds.
-
-            if ((Math.abs(m_totalError + m_error) * m_I < m_maximumOutput) &&
+            if ((Math.abs( m_error) * m_P < m_maximumOutput) && (Math.abs( m_error) * m_P > m_minimumOutput)) {
+                if ((Math.abs(m_totalError + m_error) * m_I < m_maximumOutput) &&
                     (Math.abs(m_totalError + m_error) * m_I > m_minimumOutput))
-                m_totalError += m_error;
+                    m_totalError += m_error;
+            } else {
+                m_totalError = 0;
+            }
 
             // Perform the primary PID calculation
             m_result = m_P * m_error + m_I * m_totalError + m_D * (m_error - m_prevError);

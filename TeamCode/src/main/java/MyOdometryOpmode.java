@@ -45,7 +45,10 @@ public class MyOdometryOpmode extends LinearOpMode {
          //sleep(5000);
          //goToPostion( 24 *COUNTS_PER_INCH,24*COUNTS_PER_INCH,.5,0,1*COUNTS_PER_INCH);
          //goToPostion(0 *COUNTS_PER_INCH,0*COUNTS_PER_INCH, 0.5, 0, 1*COUNTS_PER_INCH);
-         goToPostion(0 * COUNTS_PER_INCH, 0 * COUNTS_PER_INCH,.4, 90, 1 * COUNTS_PER_INCH, true);
+         goToPostion(48 * COUNTS_PER_INCH, 0 * COUNTS_PER_INCH,.8, 0, 1 * COUNTS_PER_INCH, false);
+         telemetry.addData("x Position", globalPositionUpdate.returnXCoordinate() / COUNTS_PER_INCH);
+       telemetry.update();
+
 
        while(opModeIsActive()){
            //Display Global (x, y, theta) coordinates
@@ -88,14 +91,44 @@ public class MyOdometryOpmode extends LinearOpMode {
        // on target tolerance. If the controller overshoots, it will reverse the sign of the output
        // turning the robot back toward the setpoint value.
 
+
+
        pidRotate.reset();
        pidRotate.setSetpoint(desiredRobotOrientation);
-       pidRotate.setInputRange(globalPositionUpdate.returnOrientation(), desiredRobotOrientation);
+       pidRotate.setInputRange(0,360);
        pidRotate.setOutputRange(0, robotPower);
        pidRotate.setTolerance(1);
+       pidRotate.setContinuous(true);
        pidRotate.enable();
 
+       PIDController           pidDrive;
+
+       pidDrive = new PIDController(1/(60 * COUNTS_PER_INCH), 1/(6000 * COUNTS_PER_INCH), 0);
+
+
+       pidDrive.reset();
+       pidDrive.setSetpoint(targetYPosition);
+       pidDrive.setInputRange(0,144 * COUNTS_PER_INCH);
+       pidDrive.setOutputRange(0, robotPower);
+       pidDrive.setTolerance(1);
+       pidDrive.setContinuous(false);
+       pidDrive.enable();
+
+       PIDController           pidStrafe;
+
+       pidStrafe = new PIDController(1/(10 * COUNTS_PER_INCH), 0/*1/(6000 * COUNTS_PER_INCH)*/, 0);
+
+
+       pidStrafe.reset();
+       pidStrafe.setSetpoint(targetXPostion);
+       pidStrafe.setInputRange(0,144 * COUNTS_PER_INCH);
+       pidStrafe.setOutputRange(0, robotPower);
+       pidStrafe.setTolerance(1);
+       pidStrafe.setContinuous(false);
+       pidStrafe.enable();
+
        double pivotCorrection = pidRotate.performPID(globalPositionUpdate.returnOrientation()); // power will be - on right turn.
+
 
        while (opModeIsActive()&& (distance > allowableDistanceError || !pidRotate.onTarget())) {
 
@@ -108,10 +141,11 @@ public class MyOdometryOpmode extends LinearOpMode {
 
            double robotMovementAngle = Math.toDegrees(Math.atan2(distanceToXTarget, distanceToYTarget)) - globalPositionUpdate.returnOrientation(); // angle robot is moving
 
-           double robot_movement_x_component = calculateX(robotMovementAngle, robotPower * 1.5); // calcuate how much strafe and drive needed to get to target
-           double robot_movement_y_component = calculateY(robotMovementAngle, robotPower);
+           //double robot_movement_x_component = calculateX(robotMovementAngle, robotPower * 1.5); // calcuate how much strafe and drive needed to get to target
+           //double robot_movement_y_component = calculateY(robotMovementAngle, robotPower);
            //double pivotCorrection = (desiredRobotOrientation - globalPositionUpdate.returnOrientation()) / 20; // keep robot facing right way
-
+           double robot_movement_x_component = pidStrafe.performPID(globalPositionUpdate.returnXCoordinate());
+           double robot_movement_y_component = pidDrive.performPID(globalPositionUpdate.returnYCoordinate());
            if (pivot) {
                robot_movement_x_component = 0;
                robot_movement_y_component = 0;
@@ -137,8 +171,7 @@ public class MyOdometryOpmode extends LinearOpMode {
            right_back.setPower(backRightPower);
            left_front.setPower(frontLeftPower);
            left_back.setPower(backLeftPower);
-           RobotLog.d("8620WGW goToPosition x ="+globalPositionUpdate.returnXCoordinate ()+"  y =" + globalPositionUpdate.returnYCoordinate()+ "  angle ="+ globalPositionUpdate.returnOrientation());
-       }
+           RobotLog.d("8620WGW goToPosition x ="+globalPositionUpdate.returnXCoordinate ()+"  y =" + globalPositionUpdate.returnYCoordinate()+ "  angle ="+ globalPositionUpdate.returnOrientation() + "angle error ="+pidRotate.getError() + "Y error ="+ distanceToYTarget + "X error" + distanceToXTarget);       }
        right_front.setPower(0);
        left_front.setPower(0);
        right_back.setPower(0);
