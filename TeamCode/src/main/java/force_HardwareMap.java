@@ -115,9 +115,11 @@ public class force_HardwareMap
 
         IntakeLeft.setDirection(DcMotor.Direction.REVERSE);
         LiftMotorLeft.setDirection(DcMotor.Direction.REVERSE);
+        LiftMotorRight.setDirection(DcMotor.Direction.REVERSE);
 
 
         RevwhlRight.setDirection(Servo.Direction.REVERSE);
+        LeftWaffle.setDirection(Servo.Direction.REVERSE);
 
         // Set all motors to zero power
         frontLeftDrive.setPower(0);
@@ -126,10 +128,10 @@ public class force_HardwareMap
         backRightDrive.setPower(0);
         LiftMotorLeft.setPower(0);
         LiftMotorRight.setPower(0);
-        TwistServo.setPosition(0);
+        TwistServo.setPosition(0.75);
         OpenServo.setPosition(0.5);
-        RightWaffle.setPosition (1);
-        LeftWaffle.setPosition (0);
+        RightWaffle.setPosition (0.5);
+        LeftWaffle.setPosition (0.5);
         ExtendClaw.setPosition(0);
         RevwhlLeft.setPosition(0.5);
         RevwhlRight.setPosition(0.5);
@@ -142,10 +144,10 @@ public class force_HardwareMap
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
-        frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LiftMotorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LiftMotorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 

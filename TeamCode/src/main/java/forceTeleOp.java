@@ -62,7 +62,7 @@ public class forceTeleOp extends OpMode {
     double maxVel = 0.5;
     double dropServoPos = 1.1;
     double openServoPos = 0.4;
-    double twistServoPos = 0.4;
+    double twistServoPos = 0.75;
     double LeftWafflePos = 0;
     double RightWafflePos = 1;
 
@@ -92,10 +92,10 @@ public class forceTeleOp extends OpMode {
         robot.backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 */
 
-        robot.frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        robot.frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        robot.backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        robot.frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        robot.backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         //  Find robot's current axes in relation to original axes
@@ -116,15 +116,16 @@ public class forceTeleOp extends OpMode {
 //        telemetry.addData("DeathStar range", String.format("%.01f cm", robot.deathStar.getDistance(DistanceUnit.CM)));
         telemetry.addData("right Waffle", robot.RightWaffle.getPosition());
         telemetry.addData("left Waffle", robot.LeftWaffle.getPosition());
+        telemetry.addData("Claw Twist", robot.TwistServo.getPosition());
 
         telemetry.update();
 
         // Run wheels in POV mode (note: The joystick goes negative when pushed forwards, so negate it)
         // In this mode the Left stick moves the robot fwd and back, the Right stick turns left and right.
-        frontRight = y_prime - (gamepad1.right_stick_x / 2 * maxVel) - x_prime;
-        backRight = y_prime - (gamepad1.right_stick_x / 2 * maxVel) + x_prime;
-        frontLeft = y_prime + (gamepad1.right_stick_x / 2 * maxVel) + x_prime;
-        backLeft = y_prime + (gamepad1.right_stick_x / 2 * maxVel) - x_prime;
+        frontRight  = y_prime - (gamepad1.right_stick_x / 2 * maxVel) + x_prime;
+        backRight   = y_prime - (gamepad1.right_stick_x / 2 * maxVel) - x_prime;
+        frontLeft   = y_prime + (gamepad1.right_stick_x / 2 * maxVel) - x_prime;
+        backLeft    = y_prime + (gamepad1.right_stick_x / 2 * maxVel) + x_prime;
 
         if (gamepad1.left_trigger > .05)
             maxVel = 0.5;
@@ -150,13 +151,13 @@ public class forceTeleOp extends OpMode {
             robot.imu.resetHeading();
         }
         if (gamepad1.a)   {
-            robot.LeftWaffle.setPosition(1);
-            robot.RightWaffle.setPosition(0);
+            robot.LeftWaffle.setPosition(0.5);
+            robot.RightWaffle.setPosition(0.5);
         }
 
         if (gamepad1.b) {
             robot.LeftWaffle.setPosition(0);
-            robot.RightWaffle.setPosition(1);
+            robot.RightWaffle.setPosition(0);
 
         }
 
@@ -196,13 +197,58 @@ public class forceTeleOp extends OpMode {
         }
         robot.OpenServo.setPosition(openServoPos);
 
+
+        double maxLiftHeight = 2000;
+        double leftSpeed = 0, rightSpeed = 0;
+
         if (gamepad2.dpad_up) {
-            robot.LiftMotorLeft.setPower(0.1);
-            robot.LiftMotorRight.setPower(0.1);
-        } else if (gamepad2.dpad_down) {
-            robot.LiftMotorLeft.setPower(-0.1);
-            robot.LiftMotorRight.setPower(-0.1);
+            if (robot.LiftMotorRight.getCurrentPosition() - robot.LiftMotorLeft.getCurrentPosition() > 30) {
+               rightSpeed = 0.5;
+               leftSpeed = 0.8;
+            }
+            else if (robot.LiftMotorLeft.getCurrentPosition() - robot.LiftMotorRight.getCurrentPosition() > 30) {
+                leftSpeed = (0.5);
+                rightSpeed = (0.8);
+            }
+            else {
+                leftSpeed = (0.8);
+                rightSpeed = (0.8);
+            }
         }
+        else if (gamepad2.dpad_down) {
+            if (robot.LiftMotorRight.getCurrentPosition() - robot.LiftMotorLeft.getCurrentPosition() < -30) {
+               rightSpeed = (-0.5);
+               leftSpeed = (-0.8);
+            }
+            else if (robot.LiftMotorLeft.getCurrentPosition() - robot.LiftMotorRight.getCurrentPosition() < -30) {
+                leftSpeed = (-0.5);
+                rightSpeed = (-0.8);
+            }
+            else {
+                leftSpeed = (-0.8);
+                rightSpeed = (-0.8);
+            }
+        }
+        if (rightSpeed > 0 && robot.LiftMotorRight.getCurrentPosition() < maxLiftHeight)
+            robot.LiftMotorRight.setPower(rightSpeed);
+        else if (rightSpeed < 0 && robot.LiftMotorRight.getCurrentPosition() > 0)
+            robot.LiftMotorRight.setPower(rightSpeed);
+        else
+            robot.LiftMotorRight.setPower(0);
+
+        if (leftSpeed > 0 && robot.LiftMotorLeft.getCurrentPosition() < maxLiftHeight)
+            robot.LiftMotorLeft.setPower(leftSpeed);
+        else if (leftSpeed < 0 && robot.LiftMotorLeft.getCurrentPosition() > 0)
+            robot.LiftMotorLeft.setPower(leftSpeed);
+        else
+            robot.LiftMotorLeft.setPower(0);
+
+
+        //extending the claw
+        if (Math.abs(gamepad2.left_stick_x) > 0.1)
+            robot.ExtendClaw.setPosition(gamepad2.left_stick_x);
+        else
+            robot.ExtendClaw.setPosition(0);
 
 
          /*
