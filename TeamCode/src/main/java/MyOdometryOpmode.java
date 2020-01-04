@@ -33,7 +33,7 @@ public class MyOdometryOpmode extends LinearOpMode {
        waitForStart();
 
        //Create and start GlobalCoordinatePosition thread to constantly update the global coordinate positions
-       globalPositionUpdate = new OdometryGlobalCoordinatePosition(verticalLeft, verticalRight, horizontal, COUNTS_PER_INCH, 75);
+       globalPositionUpdate = new OdometryGlobalCoordinatePosition(verticalLeft, verticalRight, horizontal, COUNTS_PER_INCH,135 * COUNTS_PER_INCH, 111* COUNTS_PER_INCH,90,75);
        Thread positionThread = new Thread(globalPositionUpdate);
        positionThread.start();
 
@@ -45,17 +45,10 @@ public class MyOdometryOpmode extends LinearOpMode {
          //sleep(5000);
          //goToPostion( 24 *COUNTS_PER_INCH,24*COUNTS_PER_INCH,.5,0,1*COUNTS_PER_INCH);
          //goToPostion(0 *COUNTS_PER_INCH,0*COUNTS_PER_INCH, 0.5, 0, 1*COUNTS_PER_INCH);
-       goToPostion(0 * COUNTS_PER_INCH, 0 * COUNTS_PER_INCH,.8, 90, 100 * COUNTS_PER_INCH, true);
-       sleep(1000);
-       telemetry.addData("X Position", globalPositionUpdate.returnXCoordinate() / COUNTS_PER_INCH);
-       telemetry.addData("Y Position", globalPositionUpdate.returnYCoordinate() / COUNTS_PER_INCH);
-       telemetry.addData("Orientation (Degrees)", globalPositionUpdate.returnOrientation());
-       telemetry.update();
-       sleep(5000);
-       goToPostion(0 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH,.8, 90, 1 * COUNTS_PER_INCH, false);
-       sleep(1000);
-       goToPostion( 24* COUNTS_PER_INCH, 24 * COUNTS_PER_INCH,.8, 90, 1 * COUNTS_PER_INCH, false);
-
+       goToPostion(106 * COUNTS_PER_INCH, 111 * COUNTS_PER_INCH,.8, 90, 1 * COUNTS_PER_INCH, false);
+       goToPostion(135 * COUNTS_PER_INCH, 111 * COUNTS_PER_INCH,.8, 90, 1 * COUNTS_PER_INCH, false);
+       goToPostion(135 * COUNTS_PER_INCH, 72 * COUNTS_PER_INCH,.8, 90, 1 * COUNTS_PER_INCH, false);
+       //goToPostion(24 * COUNTS_PER_INCH, 0 * COUNTS_PER_INCH,.8, 0, 1 * COUNTS_PER_INCH, false);
        telemetry.addData("x Position", globalPositionUpdate.returnXCoordinate() / COUNTS_PER_INCH);
        telemetry.update();
 
@@ -139,6 +132,8 @@ public class MyOdometryOpmode extends LinearOpMode {
 
        double pivotCorrection = pidRotate.performPID(globalPositionUpdate.returnOrientation()); // power will be - on right turn.
 
+       double startTime = getRuntime();
+
 
        while (opModeIsActive()&& (distance > allowableDistanceError || !pidRotate.onTarget())) {
 
@@ -150,6 +145,16 @@ public class MyOdometryOpmode extends LinearOpMode {
            distance = Math.hypot(distanceToXTarget,distanceToYTarget); // calculate offset distance
 
            double robotMovementAngle = Math.toDegrees(Math.atan2(distanceToXTarget, distanceToYTarget)) - globalPositionUpdate.returnOrientation(); // angle robot is moving
+
+           if (distance > allowableDistanceError * 2) {
+                startTime = getRuntime();
+           }
+           if (getRuntime() - startTime > 1) {
+               telemetry.addLine("Breaked While Loop");
+               telemetry.update();
+               break;
+           }
+
 
            //double robot_movement_x_component = calculateX(robotMovementAngle, robotPower * 1.5); // calcuate how much strafe and drive needed to get to target
            //double robot_movement_y_component = calculateY(robotMovementAngle, robotPower);
