@@ -124,13 +124,13 @@ public class MyOdometryOpmode_CW extends LinearOpMode {
 
             // limit the maximium to our power limit so we don't overdrive any motor beyond the allowed speed.
             double max = Math.max(Math.max(Math.abs(frontLeftPower), Math.abs(backLeftPower)),
-                    Math.max(Math.abs(frontRightPower), Math.abs(backRightPower)));
-            if (max > robotPower) {
-                double divider = max / robotPower;
-                frontLeftPower  /= divider;
-                frontRightPower /= divider;
-                backLeftPower   /= divider;
-                backRightPower  /= divider;
+                        Math.max(Math.abs(frontRightPower), Math.abs(backRightPower)));
+                if (max > robotPower) {
+                    double divider = max / robotPower;
+                    frontLeftPower  /= divider;
+                    frontRightPower /= divider;
+                    backLeftPower   /= divider;
+                    backRightPower  /= divider;
             }
 
             // finally set the motor powers!
@@ -146,7 +146,7 @@ public class MyOdometryOpmode_CW extends LinearOpMode {
         right_front.setPower(0);
         left_back.setPower(0);
         right_back.setPower(0);
-        RobotLog.d("8620WGW goToPosition complete  X="+ globalPositionUpdate.returnXCoordinate()/COUNTS_PER_INCH + "  Y="+ globalPositionUpdate.returnYCoordinate()/COUNTS_PER_INCH + "  angle=" + globalPositionUpdate.returnOrientation());
+        RobotLog.d("8620WGW goToPosition complete  X="+ globalPositionUpdate.returnXCoordinate()/COUNTS_PER_INCH + "  Y="+ globalPositionUpdate.returnYCoordinate()/COUNTS_PER_INCH + "  angle=" + globalPositionUpdate.returnOrientation() + "    distance error="+ distance +"  distance tolerance=" + (allowableDistanceError*COUNTS_PER_INCH));
     }
 
     private void initDriveHardwareMap(String rfName, String rbName, String lfName, String lbName, String vlEncoderName, String vrEncoderName, String hEncoderName){
