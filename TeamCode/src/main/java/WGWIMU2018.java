@@ -35,7 +35,7 @@ public class WGWIMU2018  {
         double z = quatAngles.z;
 
         double yaw = (Math.atan2(1 - 2 * (y * y + z * z), 2 * (w * z + x * y)) * 180 / Math.PI) - 90;
-
+        yaw = 360 - yaw;
         if (yaw < 0) {
             yaw = yaw + 360;
         }
