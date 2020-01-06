@@ -168,11 +168,13 @@ public class forceTeleOp extends OpMode {
         }
 
         /************* Read game pad 2 *************/
-        if (gamepad2.dpad_left) {
+        if (gamepad2.dpad_left) {           //setting claw and intake into position to run
            robot.IntakeLeft.setPower(-1);
            robot.IntakeRight.setPower(-1);
            robot.RevwhlLeft.setPosition(-1);
            robot.RevwhlRight.setPosition(-1);
+           twistServoPos = 0.75;
+           openServoPos = 0.5;
         }
         if (gamepad2.dpad_right) {
             robot.IntakeLeft.setPower(0);
@@ -180,10 +182,10 @@ public class forceTeleOp extends OpMode {
             robot.RevwhlLeft.setPosition(0.5);
             robot.RevwhlRight.setPosition(0.5);
         }
-        if (gamepad2.x) {
+        if (gamepad2.a) {
             twistServoPos += 0.01;
         }
-        if (gamepad2.y) {
+        if (gamepad2.b) {
             twistServoPos -= 0.01;
         }
         robot.TwistServo.setPosition(twistServoPos);
@@ -204,7 +206,7 @@ public class forceTeleOp extends OpMode {
         robot.OpenServo.setPosition(openServoPos);
 
 
-        double maxLiftHeight = 2000;
+        double maxLiftHeight = 4000;
         double leftSpeed = 0, rightSpeed = 0;
 
         if (gamepad2.dpad_up) {
@@ -254,6 +256,14 @@ public class forceTeleOp extends OpMode {
         clawPosition = (gamepad2.left_stick_x / 4.0) + 0.5;
         robot.ExtendClaw.setPosition(clawPosition);
         RobotLog.d("8620WGW: %.4f", clawPosition);
+
+        //Runs intake the other way to spit the block out
+        if (gamepad2.x) {
+            robot.IntakeLeft.setPower(1);
+            robot.IntakeRight.setPower(1);
+            robot.RevwhlLeft.setPosition(1);
+            robot.RevwhlRight.setPosition(1);
+        }
 
          /*
        double x = gamepad1.left_stick_x;
