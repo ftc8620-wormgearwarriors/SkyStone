@@ -3,6 +3,8 @@
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.RobotLog;
+
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 
@@ -65,6 +67,8 @@ public class forceTeleOp extends OpMode {
     double twistServoPos = 0.75;
     double LeftWafflePos = 0;
     double RightWafflePos = 1;
+    double clawPosition = 0.0;
+
 
 
 
@@ -102,6 +106,8 @@ public class forceTeleOp extends OpMode {
         x_prime = x_axis * Math.cos(theta) + y_axis * Math.sin(theta);
         y_prime = -x_axis * Math.sin(theta) + y_axis * Math.cos(theta);
 
+        telemetry.addData("Gamepad2.leftstick_x", gamepad2.left_stick_x);
+        telemetry.addData("clawPosition", String.format ("%.01f", clawPosition));
         telemetry.addData("Theta (in radians)", theta);
         telemetry.addData("x_axis", x_axis);
         telemetry.addData("y_axis", y_axis);
@@ -244,12 +250,10 @@ public class forceTeleOp extends OpMode {
             robot.LiftMotorLeft.setPower(0);
 
 
-        //extending the claw
-        if (Math.abs(gamepad2.left_stick_x) > 0.1)
-            robot.ExtendClaw.setPosition(gamepad2.left_stick_x);
-        else
-            robot.ExtendClaw.setPosition(0);
-
+        //shrinking the range of the joystick to work with that of the servo
+        clawPosition = (gamepad2.left_stick_x / 4.0) + 0.5;
+        robot.ExtendClaw.setPosition(clawPosition);
+        RobotLog.d("8620WGW: %.4f", clawPosition);
 
          /*
        double x = gamepad1.left_stick_x;
