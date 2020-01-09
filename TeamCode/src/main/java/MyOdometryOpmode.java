@@ -14,7 +14,7 @@ public class MyOdometryOpmode extends LinearOpMode {
    DcMotor right_front, right_back, left_front, left_back;
    //Odometry Wheels
    DcMotor verticalLeft, verticalRight, horizontal;
-
+//take everything below this
    final double COUNTS_PER_INCH = 1714;
 
    //Hardware Map Names for drive motors and odometry wheels. THIS WILL CHANGE ON EACH ROBOT, YOU NEED TO UPDATE THESE VALUES ACCORDINGLY

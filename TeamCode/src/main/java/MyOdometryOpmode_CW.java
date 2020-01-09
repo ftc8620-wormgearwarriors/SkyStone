@@ -1,3 +1,4 @@
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -12,6 +13,7 @@ import javax.microedition.khronos.opengles.GL;
  * Created by Sarthak on 10/4/2019.
  */
 @TeleOp(name = "CW Odometry OpMode")
+@Disabled
 public class MyOdometryOpmode_CW extends LinearOpMode {
     //Drive motors
     DcMotor right_front, right_back, left_front, left_back;

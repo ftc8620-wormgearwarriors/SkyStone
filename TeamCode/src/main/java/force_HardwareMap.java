@@ -64,34 +64,31 @@ public class force_HardwareMap
         imu = new WGWIMU2018(wgwIMU2018);
 
         // Define and Initialize Motors
-        frontLeftDrive    = hwMap.get(DcMotor.class, "frontLeftDrive");
-        frontRightDrive   = hwMap.get(DcMotor.class, "frontRightDrive");
-        backLeftDrive     = hwMap.get(DcMotor.class, "backLeftDrive");
-        backRightDrive    = hwMap.get(DcMotor.class, "backRightDrive");
-        LiftMotorLeft     = hwMap.get(DcMotor.class, "LiftMotorLeft");
-        LiftMotorRight    = hwMap.get(DcMotor.class, "LiftMotorRight");
-        IntakeLeft        = hwMap.get(DcMotor.class, "IntakeLeft");
-        IntakeRight       = hwMap.get(DcMotor.class, "IntakeRight");
+        frontLeftDrive = hwMap.get(DcMotor.class, "frontLeftDrive");
+        frontRightDrive = hwMap.get(DcMotor.class, "frontRightDrive");
+        backLeftDrive = hwMap.get(DcMotor.class, "backLeftDrive");
+        backRightDrive = hwMap.get(DcMotor.class, "backRightDrive");
+        LiftMotorLeft = hwMap.get(DcMotor.class, "LiftMotorLeft");
+        LiftMotorRight = hwMap.get(DcMotor.class, "LiftMotorRight");
+        IntakeLeft = hwMap.get(DcMotor.class, "IntakeLeft");
+        IntakeRight = hwMap.get(DcMotor.class, "IntakeRight");
 
 
-
-
-        OpenServo         = hwMap.get(Servo.class, "OpenServo");
-        TwistServo        = hwMap.get(Servo.class, "TwistServo");
-        RightWaffle       = hwMap.get(Servo.class, "RightWaffle");
-        LeftWaffle        = hwMap.get(Servo.class, "LeftWaffle");
-        ExtendClaw        = hwMap.get(Servo.class, "ExtendClaw");
-        RevwhlLeft        = hwMap.get(Servo.class, "RevwhlLeft");
-        RevwhlRight       = hwMap.get(Servo.class, "RevwhlRight");
-
+        OpenServo = hwMap.get(Servo.class, "OpenServo");
+        TwistServo = hwMap.get(Servo.class, "TwistServo");
+        RightWaffle = hwMap.get(Servo.class, "RightWaffle");
+        LeftWaffle = hwMap.get(Servo.class, "LeftWaffle");
+        ExtendClaw = hwMap.get(Servo.class, "ExtendClaw");
+        RevwhlLeft = hwMap.get(Servo.class, "RevwhlLeft");
+        RevwhlRight = hwMap.get(Servo.class, "RevwhlRight");
 
 
         //  rightRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "rightRangeSensor");
-                                  // leftRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "leftRangeSensor");
-                                 // frontRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "frontRangeSensor");
+        // leftRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "leftRangeSensor");
+        // frontRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "frontRangeSensor");
 
 
-        armPosInput       = hwMap.analogInput.get("armPos");
+        armPosInput = hwMap.analogInput.get("armPos");
 
 //        leftRangeSensor  = hwMap.get(ModernRoboticsI2cRangeSensor.class,"leftRangeSensor");
 //        rightRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class,"rightRangeSensor");
@@ -104,10 +101,10 @@ public class force_HardwareMap
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD); //  Set to FORWARD if using AndyMark motors
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);//  Set to FORWARD if using AndyMark motors
 
-        frontLeftDrive.setZeroPowerBehavior (DcMotor.ZeroPowerBehavior.BRAKE);
-        frontRightDrive.setZeroPowerBehavior (DcMotor.ZeroPowerBehavior.BRAKE);
-        backLeftDrive.setZeroPowerBehavior (DcMotor.ZeroPowerBehavior.BRAKE);
-        backRightDrive.setZeroPowerBehavior (DcMotor.ZeroPowerBehavior.BRAKE);
+        frontLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
         LiftMotorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -130,8 +127,8 @@ public class force_HardwareMap
         LiftMotorRight.setPower(0);
         TwistServo.setPosition(0.75);
         OpenServo.setPosition(0.5);
-        RightWaffle.setPosition (0.5);
-        LeftWaffle.setPosition (0.5);
+        RightWaffle.setPosition(0.5);
+        LeftWaffle.setPosition(0.5);
         ExtendClaw.setPosition(0);
         RevwhlLeft.setPosition(0.5);
         RevwhlRight.setPosition(0.5);
@@ -151,8 +148,18 @@ public class force_HardwareMap
         LiftMotorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LiftMotorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-
-
     }
+        // Odometery Section
+       public DcMotor verticalLeft     = null,
+                      verticalRight    = null,
+                      horizontal       = null;
+        final double COUNTS_PER_INCH = 1714;
+
+       // String verticalLeftEncoderName = "vle", verticalRightEncoderName = "vre", horizontalEncoderName = "he";
+    //String rfName = "frontRightDrive", rbName = "backRightDrive", lfName = "frontLeftDrive", lbName = "backLeftDrive";
+  //  String verticalLeftEncoderName = "frontRightDrive", verticalRightEncoderName = backRightDrive, horizontalEncoderName = "IntakeRight";
+        OdometryGlobalCoordinatePosition globalPositionUpdate;
+    Thread positionThread = null;
+
 }
 

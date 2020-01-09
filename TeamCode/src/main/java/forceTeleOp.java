@@ -68,6 +68,7 @@ public class forceTeleOp extends OpMode {
     double LeftWafflePos = 0;
     double RightWafflePos = 1;
     double clawPosition = 0.0;
+    boolean intakeOn = false;
 
 
 
@@ -174,13 +175,15 @@ public class forceTeleOp extends OpMode {
            robot.RevwhlLeft.setPosition(-1);
            robot.RevwhlRight.setPosition(-1);
            twistServoPos = 0.75;
-           openServoPos = 0.5;
+           openServoPos = 0.84;
+           intakeOn = true;
         }
         if (gamepad2.dpad_right) {
             robot.IntakeLeft.setPower(0);
             robot.IntakeRight.setPower(0);
             robot.RevwhlLeft.setPosition(0.5);
             robot.RevwhlRight.setPosition(0.5);
+            intakeOn = false;
         }
         if (gamepad2.a) {
             twistServoPos += 0.01;
@@ -223,7 +226,7 @@ public class forceTeleOp extends OpMode {
                 rightSpeed = (0.8);
             }
         }
-        else if (gamepad2.dpad_down) {
+        else if (gamepad2.dpad_down || intakeOn) {
             if (robot.LiftMotorRight.getCurrentPosition() - robot.LiftMotorLeft.getCurrentPosition() < -30) {
                rightSpeed = (-0.5);
                leftSpeed = (-0.8);
