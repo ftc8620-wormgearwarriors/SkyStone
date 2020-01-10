@@ -211,6 +211,7 @@ public class forceTeleOp extends OpMode {
 
         double maxLiftHeight = 4000;
         double leftSpeed = 0, rightSpeed = 0;
+        double blockLiftHeight = 660;
 
         if (gamepad2.dpad_up) {
             if (robot.LiftMotorRight.getCurrentPosition() - robot.LiftMotorLeft.getCurrentPosition() > 30) {
@@ -242,18 +243,21 @@ public class forceTeleOp extends OpMode {
         }
         if (rightSpeed > 0 && robot.LiftMotorRight.getCurrentPosition() < maxLiftHeight)
             robot.LiftMotorRight.setPower(rightSpeed);
-        else if (rightSpeed < 0 && robot.LiftMotorRight.getCurrentPosition() > 0)
+        else if (rightSpeed < 0 && (!intakeOn) && robot.LiftMotorRight.getCurrentPosition() > 0)
+            robot.LiftMotorRight.setPower(rightSpeed);
+        else if (rightSpeed < 0 && intakeOn && robot.LiftMotorRight.getCurrentPosition() > blockLiftHeight)
             robot.LiftMotorRight.setPower(rightSpeed);
         else
             robot.LiftMotorRight.setPower(0);
 
         if (leftSpeed > 0 && robot.LiftMotorLeft.getCurrentPosition() < maxLiftHeight)
             robot.LiftMotorLeft.setPower(leftSpeed);
-        else if (leftSpeed < 0 && robot.LiftMotorLeft.getCurrentPosition() > 0)
+        else if (leftSpeed < 0 && (!intakeOn) && robot.LiftMotorLeft.getCurrentPosition() > 0)
+            robot.LiftMotorLeft.setPower(leftSpeed);
+        else if (leftSpeed < 0 && intakeOn && robot.LiftMotorLeft.getCurrentPosition() > blockLiftHeight)
             robot.LiftMotorLeft.setPower(leftSpeed);
         else
             robot.LiftMotorLeft.setPower(0);
-
 
         //shrinking the range of the joystick to work with that of the servo
         clawPosition = (gamepad2.left_stick_x / 4.0) + 0.5;
