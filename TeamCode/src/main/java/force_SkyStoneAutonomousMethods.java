@@ -960,7 +960,7 @@ public abstract class force_SkyStoneAutonomousMethods extends LinearOpMode {
 
 
     /****************************************************************************/
-    /* CW - added for vuforia image grab and stone locate                       */
+    /* added for vuforia image grab and stone locate                       */
 
     public VuforiaStuff vuforiaStuff;
     private VuforiaLocalizer vuforia;
@@ -986,7 +986,7 @@ public abstract class force_SkyStoneAutonomousMethods extends LinearOpMode {
         return 0;
     }
 
-    /* CW - added for vuforia image grab and stone locate                       */
+    /* added for vuforia image grab and stone locate                       */
     /************************************************************************** */
 
 //    public double frontgap (double distance, double maxVel, double gapDistance, sensorSide side, sensorFront Front) {
@@ -1128,7 +1128,7 @@ public abstract class force_SkyStoneAutonomousMethods extends LinearOpMode {
 
 
 //Odometry Section
-    public void initOdometryHardware(){
+    public void initOdometryHardware(double x, double y, double heading){
 
         robot.verticalLeft = hardwareMap.dcMotor.get("frontRightDrive");
         robot.verticalRight = hardwareMap.dcMotor.get("backRightDrive");
@@ -1148,7 +1148,7 @@ public abstract class force_SkyStoneAutonomousMethods extends LinearOpMode {
         telemetry.update();
 
         //Create and start GlobalCoordinatePosition thread to constantly update the global coordinate positions
-        robot.globalPositionUpdate = new OdometryGlobalCoordinatePosition(robot.verticalLeft, robot.verticalRight, robot.horizontal, robot.COUNTS_PER_INCH,135 * robot.COUNTS_PER_INCH, 111* robot.COUNTS_PER_INCH,90,75); //(135,111) orientation 90
+        robot.globalPositionUpdate = new OdometryGlobalCoordinatePosition(robot.verticalLeft, robot.verticalRight, robot.horizontal, robot.COUNTS_PER_INCH,x * robot.COUNTS_PER_INCH, y* robot.COUNTS_PER_INCH,heading,75); //(135,111) orientation 90
         robot.positionThread = new Thread(robot.globalPositionUpdate);
         robot.positionThread.start();
         robot.globalPositionUpdate.reverseRightEncoder();
