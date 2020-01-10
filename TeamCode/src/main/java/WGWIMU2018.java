@@ -2,6 +2,10 @@
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Quaternion;
 
 
@@ -27,20 +31,29 @@ public class WGWIMU2018  {
     }
 
     public double getHeading() {
-        Quaternion quatAngles = myIMU2017.getQuaternionOrientation();
+        Orientation angles;
 
-        double w = quatAngles.w;
-        double x = quatAngles.x;
-        double y = quatAngles.y;
-        double z = quatAngles.z;
-
-        double yaw = (Math.atan2(1 - 2 * (y * y + z * z), 2 * (w * z + x * y)) * 180 / Math.PI) - 90;
-        yaw = 360 - yaw;
-        if (yaw < 0) {
-            yaw = yaw + 360;
-        }
-
-        return yaw - offset;
+        angles   = myIMU2017.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        double heading = angles.firstAngle - offset;
+        if (heading  < 0)
+            heading = heading + 360;
+        if (heading > 360)
+            heading = heading - 360;
+            return heading;
+            //        Quaternion quatAngles = myIMU2017.getQuaternionOrientation();
+//
+//        double w = quatAngles.w;
+//        double x = quatAngles.x;
+//        double y = quatAngles.y;
+//        double z = quatAngles.z;
+//
+//        double yaw = (Math.atan2(1 - 2 * (y * y + z * z), 2 * (w * z + x * y)) * 180 / Math.PI) - 90;
+//        yaw = 360 - yaw;
+//        if (yaw < 0) {
+//            yaw = yaw + 360;
+//        }
+//
+//        return yaw - offset;
     }
 
     public double resetHeading() {
