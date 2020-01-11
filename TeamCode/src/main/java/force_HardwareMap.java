@@ -113,7 +113,8 @@ public class force_HardwareMap
         IntakeLeft.setDirection(DcMotor.Direction.REVERSE);
         LiftMotorLeft.setDirection(DcMotor.Direction.REVERSE);
         LiftMotorRight.setDirection(DcMotor.Direction.REVERSE);
-
+        LiftMotorLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        LiftMotorRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         RevwhlRight.setDirection(Servo.Direction.REVERSE);
         LeftWaffle.setDirection(Servo.Direction.REVERSE);
