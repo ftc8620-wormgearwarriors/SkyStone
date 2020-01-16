@@ -169,7 +169,7 @@ public class forceTeleOp extends OpMode {
         }
 
         /************* Read game pad 2 *************/
-        if (gamepad2.dpad_left) {           //setting claw and intake into position to run
+        if (gamepad2.a) {           //setting claw and intake into position to run
            robot.IntakeLeft.setPower(-1);
            robot.IntakeRight.setPower(-1);
            robot.RevwhlLeft.setPosition(-1);
@@ -178,33 +178,26 @@ public class forceTeleOp extends OpMode {
            openServoPos = 0.84;
            intakeOn = true;
         }
-        if (gamepad2.dpad_right) {
+        if (gamepad2.x) {
             robot.IntakeLeft.setPower(0);
             robot.IntakeRight.setPower(0);
             robot.RevwhlLeft.setPosition(0.5);
             robot.RevwhlRight.setPosition(0.5);
             intakeOn = false;
         }
-        if (gamepad2.a) {
+        if (gamepad2.left_bumper) {
             twistServoPos += 0.01;
         }
-        if (gamepad2.b) {
+        if (gamepad2.right_bumper) {
             twistServoPos -= 0.01;
         }
         robot.TwistServo.setPosition(twistServoPos);
 
-        if (gamepad2.right_bumper) {
-            openServoPos = 0.4;
-        }
-        if (gamepad2.left_bumper) {
-            openServoPos = 0.58;
-        }
-
         if (gamepad2.right_trigger > .1) {
-            openServoPos -= 0.01;
+            openServoPos -= 0.05;
         }
         if (gamepad2.left_trigger > .1) {
-            openServoPos += 0.01;
+            openServoPos += 0.05;
         }
         robot.OpenServo.setPosition(openServoPos);
 
@@ -265,7 +258,7 @@ public class forceTeleOp extends OpMode {
         RobotLog.d("8620WGW: %.4f", clawPosition);
 
         //Runs intake the other way to spit the block out
-        if (gamepad2.x) {
+        if (gamepad2.b) {
             robot.IntakeLeft.setPower(1);
             robot.IntakeRight.setPower(1);
             robot.RevwhlLeft.setPosition(1);
