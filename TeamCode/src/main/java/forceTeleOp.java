@@ -69,6 +69,13 @@ public class forceTeleOp extends OpMode {
     double RightWafflePos = 1;
     double clawPosition = 0.0;
     boolean intakeOn = false;
+    double grabberUpDownPos = 0.5;
+    double grabberOpenClosePos = 0.5;
+    double grabberUpDownMinPos = 0.2;
+    double grabberUpDownMaxPos = 1.0;
+    double grabberOpenCloseMinPos = 0.0;
+    double grabberOpenCloseMaxPos = 1.0;
+
 
 
 
@@ -124,6 +131,11 @@ public class forceTeleOp extends OpMode {
         telemetry.addData("right Waffle", robot.RightWaffle.getPosition());
         telemetry.addData("left Waffle", robot.LeftWaffle.getPosition());
         telemetry.addData("Claw Twist", robot.TwistServo.getPosition());
+        telemetry.addData("stoneGrabberUpDown", String.format ("%.01f", grabberUpDownPos));
+        telemetry.addData("stoneGrabberOpenClose", String.format ("%.01f", grabberOpenClosePos));
+
+
+
 
         telemetry.update();
 
@@ -167,6 +179,32 @@ public class forceTeleOp extends OpMode {
             robot.RightWaffle.setPosition(0);
 
         }
+        if (gamepad1.dpad_up) {
+            if (grabberUpDownPos > grabberUpDownMinPos) {
+                grabberUpDownPos -= 0.05;
+
+            }
+        }
+        if (gamepad1.dpad_down) {
+            if (grabberUpDownPos < grabberUpDownMaxPos) {
+                grabberUpDownPos += 0.05;
+            }
+        }
+        robot.stoneGrabberUpDown.setPosition(grabberUpDownPos);
+
+        if (gamepad1.dpad_left){
+            if (grabberOpenClosePos < grabberOpenCloseMaxPos) {
+                grabberOpenClosePos += 0.01;
+            }
+        }
+        if (gamepad1.dpad_right){
+            if (grabberOpenClosePos > grabberOpenCloseMinPos) {
+                grabberOpenClosePos -= 0.01;
+            }
+
+        }
+        robot.stoneGrabberOpenClose.setPosition(grabberOpenClosePos);
+
 
         /************* Read game pad 2 *************/
         if (gamepad2.a) {           //setting claw and intake into position to run

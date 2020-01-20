@@ -42,6 +42,9 @@ public class force_HardwareMap
     public Servo ExtendClaw = null;
     public Servo RevwhlLeft = null;
     public Servo RevwhlRight = null;
+    public Servo stoneGrabberUpDown = null;
+    public Servo stoneGrabberOpenClose = null;
+
 
     //public sensors
     public AnalogInput armPosInput=null;
@@ -81,6 +84,9 @@ public class force_HardwareMap
         ExtendClaw = hwMap.get(Servo.class, "ExtendClaw");
         RevwhlLeft = hwMap.get(Servo.class, "RevwhlLeft");
         RevwhlRight = hwMap.get(Servo.class, "RevwhlRight");
+        stoneGrabberUpDown = hwMap.get(Servo.class, "stoneGrabberUpDown");
+        stoneGrabberOpenClose = hwMap.get(Servo.class, "stoneGrabberOpenClose");
+
 
 
         //  rightRangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "rightRangeSensor");
@@ -133,6 +139,9 @@ public class force_HardwareMap
         ExtendClaw.setPosition(0);
         RevwhlLeft.setPosition(0.5);
         RevwhlRight.setPosition(0.5);
+        stoneGrabberUpDown.setPosition(0.5);
+        stoneGrabberOpenClose.setPosition(0.5);
+
 
 
         //resets motor encoders to zero
