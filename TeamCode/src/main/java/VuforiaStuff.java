@@ -118,16 +118,16 @@ public class VuforiaStuff {
             int cropHeight;
 
             if (red) {
-                cropStartX = (int) ((148.0 / 1280.0) * bitmap.getWidth());
-                cropStartY = (int) ((125.0 / 720.0) * bitmap.getHeight());
-                cropWidth =  (int) ((694.0 / 1280.0) * bitmap.getWidth());
-                cropHeight = (int) ((100.0 / 720.0) * bitmap.getHeight());
+                cropStartX = (int) ((360.0 / 1280.0) * bitmap.getWidth());
+                cropStartY = (int) ((174.0 / 720.0) * bitmap.getHeight());
+                cropWidth =  (int) ((690.0 / 1280.0) * bitmap.getWidth());
+                cropHeight = (int) ((111.0 / 720.0) * bitmap.getHeight());
 
             } else {
-                cropStartX = (int) ((291.0 / 1280.0) * bitmap.getWidth()); //was 251
-                cropStartY = (int) ((133.0 / 720.0) * bitmap.getHeight());
-                cropWidth = (int) ((646.0 / 1280.0) * bitmap.getWidth());
-                cropHeight = (int) ((86.0 / 720.0) * bitmap.getHeight());
+                cropStartX = (int) ((271.0 / 1280.0) * bitmap.getWidth()); //was 251
+                cropStartY = (int) ((95.0 / 720.0) * bitmap.getHeight());
+                cropWidth = (int) ((690.0 / 1280.0) * bitmap.getWidth());
+                cropHeight = (int) ((111.0 / 720.0) * bitmap.getHeight());
             }
 
             RobotLog.d("8620WGW skystonePos"           //saves info to debug log in file on phone

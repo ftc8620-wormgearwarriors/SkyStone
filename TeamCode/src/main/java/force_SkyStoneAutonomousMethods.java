@@ -1158,7 +1158,7 @@ public abstract class force_SkyStoneAutonomousMethods extends LinearOpMode {
 
 
 
-    public void goToPostion(double targetXPostion, double targetYPosition, double robotPower, double desiredRobotOrientation, double allowableDistanceError, boolean pivot) {
+    public void  goToPostion(double targetXPostion, double targetYPosition, double robotPower, double desiredRobotOrientation, double allowableDistanceError, boolean pivot) {
 
         double distanceToXTarget = targetXPostion - robot.globalPositionUpdate.returnXCoordinate();
         double distanceToYTarget = targetYPosition - robot.globalPositionUpdate.returnYCoordinate();

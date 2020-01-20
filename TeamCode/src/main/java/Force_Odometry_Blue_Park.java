@@ -5,15 +5,15 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.RobotLog;
 
-@Autonomous(name = "Force_Odometry_Red_Park")
-public class Force_Odometry_Red_Park extends force_SkyStoneAutonomousMethods {
+@Autonomous(name = "Force_Odometry_Blue_Park")
+public class Force_Odometry_Blue_Park extends force_SkyStoneAutonomousMethods {
 
 
     @Override
     public void runOpMode() throws InterruptedException {
         //Initialize hardware map values. PLEASE UPDATE THESE VALUES TO MATCH YOUR CONFIGURATION
         Init();
-        initOdometryHardware(135,111,90);
+        initOdometryHardware(0,111,270);
         init_vuforia_2(); //init camera
 
         telemetry.addLine("Ready to jump to hyperspace");
@@ -22,7 +22,7 @@ public class Force_Odometry_Red_Park extends force_SkyStoneAutonomousMethods {
         telemetry.update();
         waitForStart();
 
-        VuforiaStuff.skystonePos StoneRemember = vuforiaStuff.vuforiascan(true,true);  // look for skystone
+        VuforiaStuff.skystonePos StoneRemember = vuforiaStuff.vuforiascan(true,false);  // look for skystone
         int Stone_Position = -1;
         if (StoneRemember == VuforiaStuff.skystonePos.LEFT) {
             Stone_Position = 0;
@@ -33,6 +33,7 @@ public class Force_Odometry_Red_Park extends force_SkyStoneAutonomousMethods {
         else if (StoneRemember == VuforiaStuff.skystonePos.RIGHT){
             Stone_Position = 2;
         }
+
         telemetry.addData("stone position", String.format ("%d", Stone_Position));
 //        telemetry.addData("Init Arm Tilt Encoder",robot.LiftMotor.getCurrentPosition());
 //        telemetry.addData("Init Extension ticks",robot.ExtendMotor.getCurrentPosition());
@@ -69,5 +70,7 @@ public class Force_Odometry_Red_Park extends force_SkyStoneAutonomousMethods {
     }
 
 }
+
+
 
 
