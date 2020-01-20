@@ -1170,7 +1170,7 @@ public abstract class force_SkyStoneAutonomousMethods extends LinearOpMode {
         // Set PID proportional value to start reducing power at about 50 degrees of rotation.
         // P by itself may stall before turn completed so we add a bit of I (integral) which
         // causes the PID controller to gently increase power if the turn is not completed.
-        pidRotate = new PIDController(.003, .00003, 0);
+        pidRotate = new PIDController(.022, .00003, 0); // Kp: .003
         // start pid controller. PID controller will monitor the turn angle with respect to the
         // target angle and reduce power as we approach the target angle. This is to prevent the
         // robots momentum from overshooting the turn after we turn off the power. The PID controller
@@ -1192,7 +1192,7 @@ public abstract class force_SkyStoneAutonomousMethods extends LinearOpMode {
 
         PIDController           pidDrive;
 
-        pidDrive = new PIDController(1/(60 * robot.COUNTS_PER_INCH), 1/(30000 * robot.COUNTS_PER_INCH), 0);
+        pidDrive = new PIDController(1/(15 * robot.COUNTS_PER_INCH), 1/(30000 * robot.COUNTS_PER_INCH), 0); //P was 1/60
 
 
         pidDrive.reset();
