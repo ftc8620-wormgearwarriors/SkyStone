@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.util.RobotLog;
 /**
 * Created by Sarthak on 10/4/2019.
 */
-@Autonomous(name = "Force_Odometry")
-public class Force_Odometry extends force_SkyStoneAutonomousMethods {
+@Autonomous(name = "Force_Odometry_Red")
+public class Force_Odometry_Red extends force_SkyStoneAutonomousMethods {
 
 
    @Override
