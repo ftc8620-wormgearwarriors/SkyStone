@@ -240,7 +240,7 @@ public class forceTeleOp extends OpMode {
         robot.OpenServo.setPosition(openServoPos);
 
 
-        double maxLiftHeight = 4000;
+        double maxLiftHeight = 7200;
         double leftSpeed = 0, rightSpeed = 0;
         double blockLiftHeight = 660;
 
