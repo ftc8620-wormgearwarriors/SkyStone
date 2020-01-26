@@ -179,6 +179,8 @@ public class forceTeleOp extends OpMode {
             robot.RightWaffle.setPosition(0);
 
         }
+
+
         if (gamepad1.dpad_up) {
             if (grabberUpDownPos > grabberUpDownMinPos) {
                 grabberUpDownPos -= 0.05;
