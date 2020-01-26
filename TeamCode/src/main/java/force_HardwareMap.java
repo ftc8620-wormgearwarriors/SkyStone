@@ -139,7 +139,7 @@ public class force_HardwareMap
         ExtendClaw.setPosition(0);
         RevwhlLeft.setPosition(0.5);
         RevwhlRight.setPosition(0.5);
-        stoneGrabberUpDown.setPosition(0.0);
+        stoneGrabberUpDown.setPosition(0.15);
         stoneGrabberOpenClose.setPosition(0.0);
 
 
