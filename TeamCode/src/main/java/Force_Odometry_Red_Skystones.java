@@ -53,8 +53,14 @@ public class Force_Odometry_Red_Skystones extends force_SkyStoneAutonomousMethod
                 autoGrabStone();
                 break;
         }
-                goToPostion(125 * robot.COUNTS_PER_INCH, 100 * robot.COUNTS_PER_INCH,.8, 270, 1 * robot.COUNTS_PER_INCH, false);
-                goToPostion(125 * robot.COUNTS_PER_INCH, 100 * robot.COUNTS_PER_INCH,.8, 180, 1 * robot.COUNTS_PER_INCH, false);
+                //Turning under the bridge to aviod hitting the claw against the bridge
+                goToPostion(125 * robot.COUNTS_PER_INCH, 100 * robot.COUNTS_PER_INCH,.8, 90, 1 * robot.COUNTS_PER_INCH, false);
+
+                //raising claw to drop stone on waffle
+                robot.stoneGrabberUpDown.setPosition (0.6);
+                goToPostion(110 * robot.COUNTS_PER_INCH, 120 * robot.COUNTS_PER_INCH,.8, 180, 1 * robot.COUNTS_PER_INCH, false);
+
+                //dropping stone on waffle
                 autoDropStone();
                 sleep(1000);
 
