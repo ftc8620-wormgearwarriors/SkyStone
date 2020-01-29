@@ -893,7 +893,7 @@ public abstract class force_SkyStoneAutonomousMethods extends LinearOpMode {
         robot.stoneGrabberOpenClose.setPosition(0.0);
         sleep(500);
         //raise skystone claw
-        robot.stoneGrabberUpDown.setPosition(0.4);
+        robot.stoneGrabberUpDown.setPosition(0.5);
         sleep(500);
         return true;
     }
@@ -994,6 +994,8 @@ public abstract class force_SkyStoneAutonomousMethods extends LinearOpMode {
 
 
         while (opModeIsActive()&& (distance > allowableDistanceError || !pidRotate.onTarget())) {
+            if (!robot.globalPositionUpdate.getNewData())
+                continue;
 
             angleError = angleError180(robot.globalPositionUpdate.returnOrientation(),desiredRobotOrientation);
 
@@ -1048,7 +1050,16 @@ public abstract class force_SkyStoneAutonomousMethods extends LinearOpMode {
             robot.backRightDrive.setPower(backRightPower);
             robot.frontLeftDrive.setPower(frontLeftPower);
             robot.backLeftDrive.setPower(backLeftPower);
-            RobotLog.d("8620WGW goToPosition x ="+robot.globalPositionUpdate.returnXCoordinate ()+"  y =" + robot.globalPositionUpdate.returnYCoordinate()+ "  angle ="+ robot.globalPositionUpdate.returnOrientation() + "angle_error ="+pidRotate.getError() + "Y_error ="+ distanceToYTarget + "X_error" + distanceToXTarget + "Total_Error" + pidDrive.getTotalError() + "cX"+cX + "cY"+ cY );
+            RobotLog.d("8620WGW goToPosition " +
+                        "  x = " +robot.globalPositionUpdate.returnXCoordinate()    / robot.COUNTS_PER_INCH +
+                        "  y = " + robot.globalPositionUpdate.returnYCoordinate()   / robot.COUNTS_PER_INCH +
+                        "  angle ="+ robot.globalPositionUpdate.returnOrientation() +
+                        "  angle_error ="+pidRotate.getError() +
+                        "  Y_error ="+ distanceToYTarget    / robot.COUNTS_PER_INCH +
+                        "  X_error =" + distanceToXTarget     / robot.COUNTS_PER_INCH +
+                        "  distance Error =" + distance       / robot.COUNTS_PER_INCH +
+                        "  cX ="+cX +
+                        "  cY ="+ cY );
         }
         robot.frontRightDrive.setPower(0);
         robot.frontLeftDrive.setPower(0) ;

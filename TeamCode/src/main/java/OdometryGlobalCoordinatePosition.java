@@ -36,6 +36,7 @@ public class OdometryGlobalCoordinatePosition implements Runnable{
     private int verticalRightEncoderPositionMultiplier = 1;
     private int normalEncoderPositionMultiplier = 1;
 
+    private boolean newData = true;
     /**
      * Constructor for GlobalCoordinatePosition Thread
      * @param verticalEncoderLeft left odometry encoder, facing the vertical direction
@@ -100,6 +101,7 @@ public class OdometryGlobalCoordinatePosition implements Runnable{
         previousVerticalLeftEncoderWheelPosition = verticalLeftEncoderWheelPosition;
         previousVerticalRightEncoderWheelPosition = verticalRightEncoderWheelPosition;
         prevNormalEncoderWheelPosition = normalEncoderWheelPosition;
+        newData = true;
     }
 
     /**
@@ -170,6 +172,16 @@ public class OdometryGlobalCoordinatePosition implements Runnable{
         robotGlobalYCoordinatePosition = y;
         robotOrientationRadians = Math.toRadians(theta);
     }
+
+    public boolean getNewData(){
+        boolean returnValue = newData;
+        newData = false;
+        return returnValue;
+    }
+
+
+
+
 
     /**
      * Runs the thread
