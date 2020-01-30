@@ -5,7 +5,8 @@ public class Force_Odometry_Red_Skystones extends force_SkyStoneAutonomousMethod
 
 
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode() throws InterruptedException
+    {
         //Initialize hardware map values. PLEASE UPDATE THESE VALUES TO MATCH YOUR CONFIGURATION
         Init();
         initOdometryHardware(144, 39, 270);
@@ -56,8 +57,10 @@ public class Force_Odometry_Red_Skystones extends force_SkyStoneAutonomousMethod
                 sleep(250);
                 break;
         }
-        //Turning under the bridge to aviod hitting the claw against the bridge
-        goToPostion(125 * robot.COUNTS_PER_INCH, 100 * robot.COUNTS_PER_INCH, .8, 90, 1 * robot.COUNTS_PER_INCH, false);
+        //going under the bridge to aviod hitting the claw against the bridge
+        goToPostion(122 * robot.COUNTS_PER_INCH, 100 * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
+        sleep(5000);
+
 
         //raising claw to drop stone on waffle
         robot.stoneGrabberUpDown.setPosition(0.4);
