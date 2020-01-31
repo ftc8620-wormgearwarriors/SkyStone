@@ -187,25 +187,25 @@ public class forceTeleOp extends OpMode {
         }
 
 
-        if (gamepad1.dpad_up) {
+        if (gamepad1.dpad_up && !gamepad1.x) {
             if (rightGrabberUpDownPos > rightGrabberUpDownMinPos) {
                 rightGrabberUpDownPos -= 0.05;
 
             }
         }
-        if (gamepad1.dpad_down) {
+        if (gamepad1.dpad_down && !gamepad1.x) {
             if (rightGrabberUpDownPos < rightGrabberUpDownMaxPos) {
                 rightGrabberUpDownPos += 0.05;
             }
         }
         robot.rightStoneGrabberUpDown.setPosition(rightGrabberUpDownPos);
 
-        if (gamepad1.dpad_left){
+        if (gamepad1.dpad_left && !gamepad1.x){
             if (rightStoneGrabberOpenClosePos < rightGrabberOpenCloseMaxPos) {
                 rightStoneGrabberOpenClosePos += 0.01;
             }
         }
-        if (gamepad1.dpad_right){
+        if (gamepad1.dpad_right && !gamepad1.x){
             if (rightStoneGrabberOpenClosePos > rightGrabberOpenCloseMinPos) {
                 rightStoneGrabberOpenClosePos -= 0.01;
             }
