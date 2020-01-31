@@ -25,7 +25,7 @@ public class Force_Odometry_Red_Park extends force_SkyStoneAutonomousMethods {
         telemetry.addData("Status", "Init Complete");
         telemetry.update();
         waitForStart();
-
+        robot.stoneGrabberOpenClose.setPosition(1.0);
         goToPostion(135 * robot.COUNTS_PER_INCH, 72 * robot.COUNTS_PER_INCH,.8, 90, 1 * robot.COUNTS_PER_INCH, false);
         //goToPostion(24 * COUNTS_PER_INCH, 0 * COUNTS_PER_INCH,.8, 0, 1 * COUNTS_PER_INCH, false);
         telemetry.addData("x Position", robot.globalPositionUpdate.returnXCoordinate() / robot.COUNTS_PER_INCH);

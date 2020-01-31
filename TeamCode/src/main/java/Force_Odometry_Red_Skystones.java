@@ -38,7 +38,7 @@ public class Force_Odometry_Red_Skystones extends force_SkyStoneAutonomousMethod
             case LEFT: //SkyStone is on the left
                 telemetry.addLine("LEFT");
                 telemetry.update();
-                goToPostion(120 * robot.COUNTS_PER_INCH, 32 * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
+                goToPostion(118 * robot.COUNTS_PER_INCH, 35 * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
                 autoGrabStone();
                 sleep(250);
                 break;
@@ -52,15 +52,13 @@ public class Force_Odometry_Red_Skystones extends force_SkyStoneAutonomousMethod
             case RIGHT:  //SkyStone is on the right
                 telemetry.addLine("RIGHT");
                 telemetry.update();
-                goToPostion(118 * robot.COUNTS_PER_INCH, 46 * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
+                goToPostion(118 * robot.COUNTS_PER_INCH, 48 * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
                 autoGrabStone();
                 sleep(250);
                 break;
         }
         //going under the bridge to aviod hitting the claw against the bridge
         goToPostion(122 * robot.COUNTS_PER_INCH, 100 * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
-        sleep(5000);
-
 
         //raising claw to drop stone on waffle
         robot.stoneGrabberUpDown.setPosition(0.4);
@@ -69,13 +67,19 @@ public class Force_Odometry_Red_Skystones extends force_SkyStoneAutonomousMethod
         goToPostion(110 * robot.COUNTS_PER_INCH, 120 * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
         autoDropStone();
 
+        //rotates to grab waffle
+        goToPostion(110 * robot.COUNTS_PER_INCH, 120 * robot.COUNTS_PER_INCH, 1.0, 90, 1000 * robot.COUNTS_PER_INCH, true);
+
+       //drives back to waffle
+        goToPostion(102 * robot.COUNTS_PER_INCH, 120 * robot.COUNTS_PER_INCH, .8, 90, 2 * robot.COUNTS_PER_INCH, false);
+
         //grabs the waffle
         robot.LeftWaffle.setPosition(0);
         robot.RightWaffle.setPosition(0);
-        sleep(250);
+        sleep(500);
 
-        //drags waffle to build cite
-        goToPostion(105 * robot.COUNTS_PER_INCH, 120 * robot.COUNTS_PER_INCH, .8, 180, 20 * robot.COUNTS_PER_INCH, true);
+        //drags waffle to build site
+        goToPostion(144 * robot.COUNTS_PER_INCH, 124 * robot.COUNTS_PER_INCH, .8, 90, 1 * robot.COUNTS_PER_INCH, false);
 
 
 

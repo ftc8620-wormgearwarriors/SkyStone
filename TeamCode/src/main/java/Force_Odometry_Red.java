@@ -18,6 +18,8 @@ public class Force_Odometry_Red extends force_SkyStoneAutonomousMethods {
        //Initialize hardware map values. PLEASE UPDATE THESE VALUES TO MATCH YOUR CONFIGURATION
        Init();
        initOdometryHardware(135,111,90);
+       robot.stoneGrabberUpDown.setPosition(0);
+       robot.stoneGrabberOpenClose.setPosition(0);
 
 
        telemetry.addData("Status", "Init Complete");
@@ -29,7 +31,7 @@ public class Force_Odometry_Red extends force_SkyStoneAutonomousMethods {
          //sleep(5000);
          //goToPostion( 24 *COUNTS_PER_INCH,24*COUNTS_PER_INCH,.5,0,1*COUNTS_PER_INCH);
          //goToPostion(0 *COUNTS_PER_INCH,0*COUNTS_PER_INCH, 0.5, 0, 1*COUNTS_PER_INCH);
-
+       robot.stoneGrabberOpenClose.setPosition(1.0);
        goToPostion(104 * robot.COUNTS_PER_INCH, 125 * robot.COUNTS_PER_INCH,.8, 90, 1 * robot.COUNTS_PER_INCH, false);
        robot.RightWaffle.setPosition(0);
        robot.LeftWaffle.setPosition(0);

@@ -893,8 +893,10 @@ public abstract class force_SkyStoneAutonomousMethods extends LinearOpMode {
         robot.stoneGrabberOpenClose.setPosition(0.0);
         sleep(500);
         //raise skystone claw
-        robot.stoneGrabberUpDown.setPosition(0.5);
+        robot.stoneGrabberUpDown.setPosition(0.15);                        //was 0.5
         sleep(500);
+        //close skystone claw again to get under bridge easily
+        robot.stoneGrabberOpenClose.setPosition(1.0);
         return true;
     }
 
