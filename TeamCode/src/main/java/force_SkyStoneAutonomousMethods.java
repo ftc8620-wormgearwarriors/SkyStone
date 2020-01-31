@@ -861,45 +861,81 @@ public abstract class force_SkyStoneAutonomousMethods extends LinearOpMode {
     /* added for vuforia image grab and stone locate                       */
     /************************************************************************** */
 
-    public boolean autoGrabStone() {
+    public boolean rightAutoGrabStone() {
 
         //lower skystone claw
         sleep(500);
-        robot.stoneGrabberUpDown.setPosition(0.7);
+        robot.rightStoneGrabberUpDown.setPosition(0.7);
         sleep(500);
 
         //open skystone claw
-        robot.stoneGrabberOpenClose.setPosition(0.0);
+        robot.rightStoneGrabberOpenClose.setPosition(0.0);
         sleep(500);
 
         //close skystone claw
-        robot.stoneGrabberOpenClose.setPosition(1.0);
+        robot.rightStoneGrabberOpenClose.setPosition(1.0);
         sleep(500);
 
         //raise skystone claw
-        robot.stoneGrabberUpDown.setPosition(0);
+        robot.rightStoneGrabberUpDown.setPosition(0);
         sleep(500);
 
         return true;
     }
 
-
-    public boolean autoDropStone() {
+    public boolean leftAutoGrabStone() {
 
         //lower skystone claw
-        robot.stoneGrabberUpDown.setPosition(0.6);
         sleep(500);
+        robot.leftStoneGrabberUpDown.setPosition(0.7);
+        sleep(500);
+
         //open skystone claw
-        robot.stoneGrabberOpenClose.setPosition(0.0);
+        robot.leftStoneGrabberUpDown.setPosition(0.0);
         sleep(500);
+
+        //close skystone claw
+        robot.leftStoneGrabberUpDown.setPosition(1.0);
+        sleep(500);
+
         //raise skystone claw
-        robot.stoneGrabberUpDown.setPosition(0.15);                        //was 0.5
+        robot.leftStoneGrabberUpDown.setPosition(0);
         sleep(500);
-        //close skystone claw again to get under bridge easily
-        robot.stoneGrabberOpenClose.setPosition(1.0);
+
         return true;
     }
 
+    public boolean rightAutoDropStone() {
+
+        //lower skystone claw
+        robot.rightStoneGrabberUpDown.setPosition(0.6);
+        sleep(500);
+        //open skystone claw
+        robot.rightStoneGrabberOpenClose.setPosition(0.0);
+        sleep(500);
+        //raise skystone claw
+        robot.rightStoneGrabberUpDown.setPosition(0.15);                        //was 0.5
+        sleep(500);
+        //close skystone claw again to get under bridge easily
+        robot.rightStoneGrabberOpenClose.setPosition(1.0);
+        return true;
+    }
+
+    public boolean leftAutoDropStone() {
+
+        //lower skystone claw
+        robot.leftStoneGrabberUpDown.setPosition(0.6);
+        sleep(500);
+        //open skystone claw
+        robot.leftStoneGrabberUpDown.setPosition(0.0);
+        sleep(500);
+        //raise skystone claw
+        robot.leftStoneGrabberUpDown.setPosition(0.15);                        //was 0.5
+        sleep(500);
+        //close skystone claw again to get under bridge easily
+        robot.leftStoneGrabberUpDown.setPosition(1.0);
+        return true;
+    }
 
 //Odometry Section
     public void initOdometryHardware(double x, double y, double heading){

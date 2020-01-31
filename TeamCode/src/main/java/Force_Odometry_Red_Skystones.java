@@ -11,7 +11,8 @@ public class Force_Odometry_Red_Skystones extends force_SkyStoneAutonomousMethod
         Init();
         initOdometryHardware(144, 39, 270);
         init_vuforia_2(); //init camera
-
+        robot.rightStoneGrabberUpDown.setPosition(0);
+        robot.rightStoneGrabberOpenClose.setPosition(0);
 
         telemetry.addData("Status", "Init Complete");
         telemetry.update();
@@ -39,21 +40,21 @@ public class Force_Odometry_Red_Skystones extends force_SkyStoneAutonomousMethod
                 telemetry.addLine("LEFT");
                 telemetry.update();
                 goToPostion(118 * robot.COUNTS_PER_INCH, 35 * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
-                autoGrabStone();
+                rightAutoGrabStone();
                 sleep(250);
                 break;
             case CENTER: //SkyStone is on the center
                 telemetry.addLine("CENTER");
                 telemetry.update();
                 goToPostion(118 * robot.COUNTS_PER_INCH, 40 * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
-                autoGrabStone();
+                rightAutoGrabStone();
                 sleep(250);
                 break;
             case RIGHT:  //SkyStone is on the right
                 telemetry.addLine("RIGHT");
                 telemetry.update();
                 goToPostion(118 * robot.COUNTS_PER_INCH, 48 * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
-                autoGrabStone();
+                rightAutoGrabStone();
                 sleep(250);
                 break;
         }
@@ -61,11 +62,11 @@ public class Force_Odometry_Red_Skystones extends force_SkyStoneAutonomousMethod
         goToPostion(122 * robot.COUNTS_PER_INCH, 100 * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
 
         //raising claw to drop stone on waffle
-        robot.stoneGrabberUpDown.setPosition(0.4);
+        robot.rightStoneGrabberUpDown.setPosition(0.4);
 
         //drops skystone on waffle
         goToPostion(110 * robot.COUNTS_PER_INCH, 120 * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
-        autoDropStone();
+        rightAutoDropStone();
 
         //rotates to grab waffle
         goToPostion(110 * robot.COUNTS_PER_INCH, 120 * robot.COUNTS_PER_INCH, 1.0, 90, 1000 * robot.COUNTS_PER_INCH, true);

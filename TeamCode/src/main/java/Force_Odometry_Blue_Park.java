@@ -14,6 +14,8 @@ public class Force_Odometry_Blue_Park extends force_SkyStoneAutonomousMethods {
         //Initialize hardware map values. PLEASE UPDATE THESE VALUES TO MATCH YOUR CONFIGURATION
         Init();
         initOdometryHardware(0,111,270);
+        robot.rightStoneGrabberUpDown.setPosition(0);
+        robot.rightStoneGrabberOpenClose.setPosition(0);
 
         telemetry.addLine("Ready to jump to hyperspace");
         // Wait for the game to start (driver presses PLAY)
@@ -26,6 +28,7 @@ public class Force_Odometry_Blue_Park extends force_SkyStoneAutonomousMethods {
         telemetry.update();
         waitForStart();
 
+        robot.rightStoneGrabberOpenClose.setPosition(1.0);
         goToPostion(135 * robot.COUNTS_PER_INCH, 72 * robot.COUNTS_PER_INCH,.8, 90, 1 * robot.COUNTS_PER_INCH, false);
         //goToPostion(24 * COUNTS_PER_INCH, 0 * COUNTS_PER_INCH,.8, 0, 1 * COUNTS_PER_INCH, false);
         telemetry.addData("x Position", robot.globalPositionUpdate.returnXCoordinate() / robot.COUNTS_PER_INCH);
