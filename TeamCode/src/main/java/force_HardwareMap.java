@@ -126,6 +126,9 @@ public class force_HardwareMap
 
         RevwhlRight.setDirection(Servo.Direction.REVERSE);
         LeftWaffle.setDirection(Servo.Direction.REVERSE);
+        leftStoneGrabberUpDown.setDirection(Servo.Direction.REVERSE);
+        leftStoneGrabberOpenClose.setDirection(Servo.Direction.REVERSE);
+
 
         // Set all motors to zero power
         frontLeftDrive.setPower(0);
@@ -143,7 +146,7 @@ public class force_HardwareMap
         RevwhlRight.setPosition(0.5);
         rightStoneGrabberUpDown.setPosition(0.15);
         rightStoneGrabberOpenClose.setPosition(0.0);
-        leftStoneGrabberUpDown.setPosition(0.15);
+        leftStoneGrabberUpDown.setPosition(0.2);
         leftStoneGrabberOpenClose.setPosition(0.0);
 
 

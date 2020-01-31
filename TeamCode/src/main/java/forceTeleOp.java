@@ -75,8 +75,8 @@ public class forceTeleOp extends OpMode {
     double rightGrabberUpDownMaxPos = 1.0;
     double rightGrabberOpenCloseMinPos = 0.0;
     double rightGrabberOpenCloseMaxPos = 1.0;
-    double leftGrabberUpDownPos = 0.5;
-    double leftStoneGrabberOpenClosePos = 0.5;
+    double leftGrabberUpDownPos = 0.2;
+    double leftStoneGrabberOpenClosePos = 0.8;
     double leftGrabberUpDownMinPos = 0.2;
     double leftGrabberUpDownMaxPos = 1.0;
     double leftGrabberOpenCloseMinPos = 0.0;
@@ -137,8 +137,10 @@ public class forceTeleOp extends OpMode {
         telemetry.addData("right Waffle", robot.RightWaffle.getPosition());
         telemetry.addData("left Waffle", robot.LeftWaffle.getPosition());
         telemetry.addData("Claw Twist", robot.TwistServo.getPosition());
-        telemetry.addData("stoneGrabberUpDown", String.format ("%.01f", rightGrabberUpDownPos));
-        telemetry.addData("stoneGrabberOpenClose", String.format ("%.01f", rightStoneGrabberOpenClosePos));
+        telemetry.addData("rightStoneGrabberUpDown", String.format ("%.01f", rightGrabberUpDownPos));
+        telemetry.addData("rightStoneGrabberOpenClose", String.format ("%.01f", rightStoneGrabberOpenClosePos));
+        telemetry.addData("leftStoneGrabberUpDown", String.format ("%.01f", leftGrabberUpDownPos));
+        telemetry.addData("leftStoneGrabberOpenClose", String.format ("%.01f", leftStoneGrabberOpenClosePos));
 
 
 
