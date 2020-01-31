@@ -57,54 +57,32 @@ public class Force_Odometry_Blue_Skystones extends force_SkyStoneAutonomousMetho
                 sleep(250);
                 break;
         }
-        //going under the bridge to aviod hitting the claw against the bridge
-        goToPostion(122 * robot.COUNTS_PER_INCH, 100 * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
-        sleep(5000);
-
+        //going under the bridge to avoid hitting the claw against the bridge
+        goToPostion(42 * robot.COUNTS_PER_INCH, 100 * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
 
         //raising claw to drop stone on waffle
         robot.rightStoneGrabberUpDown.setPosition(0.4);
 
         //drops skystone on waffle
+        goToPostion(42 * robot.COUNTS_PER_INCH, 120 * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
+        leftAutoDropStone();
         goToPostion(110 * robot.COUNTS_PER_INCH, 120 * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
         leftAutoDropStone();
 
-//        goToPostion(110 * robot.COUNTS_PER_INCH, 120 * robot.COUNTS_PER_INCH, .8, 90, 100 * robot.COUNTS_PER_INCH, true);
-//        goToPostion(105 * robot.COUNTS_PER_INCH, 120 * robot.COUNTS_PER_INCH, .8, 90, 1 * robot.COUNTS_PER_INCH, false);
-//        robot.LeftWaffle.setPosition(0);
-//        robot.RightWaffle.setPosition(0);
-//        sleep(250);
-//        goToPostion(105 * robot.COUNTS_PER_INCH, 120 * robot.COUNTS_PER_INCH, .8, 180, 20 * robot.COUNTS_PER_INCH, true);
-//        goToPostion(112 * robot.COUNTS_PER_INCH, 120 * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
+        //rotates to grab waffle
+        goToPostion(42 * robot.COUNTS_PER_INCH, 120 * robot.COUNTS_PER_INCH, 1.0, 270, 1000 * robot.COUNTS_PER_INCH, true);
 
+        //drives back to waffle
+        goToPostion(42 * robot.COUNTS_PER_INCH, 120 * robot.COUNTS_PER_INCH, .8, 270, 2 * robot.COUNTS_PER_INCH, false);
 
+        //grabs the waffle
+        robot.LeftWaffle.setPosition(0);
+        robot.RightWaffle.setPosition(0);
+        sleep(500);
 
-        //goes under bridge
-        goToPostion(125 * robot.COUNTS_PER_INCH, 60 * robot.COUNTS_PER_INCH, .8, 270, 1 * robot.COUNTS_PER_INCH, false);
-        sleep(2000);
-        goToPostion(125 * robot.COUNTS_PER_INCH, 60 * robot.COUNTS_PER_INCH, .8, 180, 100 * robot.COUNTS_PER_INCH, true);
+        //drags waffle to build site
+        goToPostion(10 * robot.COUNTS_PER_INCH, 124 * robot.COUNTS_PER_INCH, .8, 270, 1 * robot.COUNTS_PER_INCH, false);
 
-        switch (StoneRember) {
-
-            case RIGHT:
-                goToPostion(96 * robot.COUNTS_PER_INCH, 26  * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
-                break;
-            case CENTER:
-                goToPostion(96 * robot.COUNTS_PER_INCH, 20  * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
-                telemetry.addData("x current position", robot.globalPositionUpdate.returnXCoordinate());
-                telemetry.addData("y current position", robot.globalPositionUpdate.returnYCoordinate());
-                telemetry.addData("current heading", robot.globalPositionUpdate.returnOrientation());
-                telemetry.update();
-                sleep(2000);
-                break;
-            case LEFT:
-                goToPostion(96 * robot.COUNTS_PER_INCH, 14  * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
-                break;
-
-
-
-
-        }
         //grabs skystone
         leftAutoGrabStone();
         sleep(250);
@@ -118,3 +96,4 @@ public class Force_Odometry_Blue_Skystones extends force_SkyStoneAutonomousMetho
 
     }
 }
+
