@@ -134,7 +134,7 @@ public class force_HardwareMap
         backRightDrive.setPower(0);
         LiftMotorLeft.setPower(0);
         LiftMotorRight.setPower(0);
-        TwistServo.setPosition(0.75);
+        TwistServo.setPosition(0.649);   // (0.75)
         OpenServo.setPosition(0.5);
         RightWaffle.setPosition(0.5);
         LeftWaffle.setPosition(0.5);

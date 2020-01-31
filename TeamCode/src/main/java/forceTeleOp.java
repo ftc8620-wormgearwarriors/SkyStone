@@ -245,7 +245,7 @@ public class forceTeleOp extends OpMode {
            robot.IntakeRight.setPower(-1);
            robot.RevwhlLeft.setPosition(-1);
            robot.RevwhlRight.setPosition(-1);
-           twistServoPos = 0.75;
+           twistServoPos = 0.649;  // 0.75;
            openServoPos = 0.84;
            intakeOn = true;
         }
@@ -307,7 +307,7 @@ public class forceTeleOp extends OpMode {
         }
         if (rightSpeed > 0 && robot.LiftMotorRight.getCurrentPosition() < maxLiftHeight)
             robot.LiftMotorRight.setPower(rightSpeed);
-        else if (rightSpeed < 0 && (!intakeOn) && robot.LiftMotorRight.getCurrentPosition() > 0)
+        else if (rightSpeed < 0 && (!intakeOn) && ((robot.LiftMotorRight.getCurrentPosition() > 0) || gamepad2.right_stick_y < -0.75 ))
             robot.LiftMotorRight.setPower(rightSpeed);
         else if (rightSpeed < 0 && intakeOn && robot.LiftMotorRight.getCurrentPosition() > blockLiftHeight)
             robot.LiftMotorRight.setPower(rightSpeed);
@@ -316,7 +316,7 @@ public class forceTeleOp extends OpMode {
 
         if (leftSpeed > 0 && robot.LiftMotorLeft.getCurrentPosition() < maxLiftHeight)
             robot.LiftMotorLeft.setPower(leftSpeed);
-        else if (leftSpeed < 0 && (!intakeOn) && robot.LiftMotorLeft.getCurrentPosition() > 0)
+        else if (leftSpeed < 0 && (!intakeOn) && ((robot.LiftMotorLeft.getCurrentPosition() > 0) || gamepad2.right_stick_y < -0.75 ))
             robot.LiftMotorLeft.setPower(leftSpeed);
         else if (leftSpeed < 0 && intakeOn && robot.LiftMotorLeft.getCurrentPosition() > blockLiftHeight)
             robot.LiftMotorLeft.setPower(leftSpeed);
