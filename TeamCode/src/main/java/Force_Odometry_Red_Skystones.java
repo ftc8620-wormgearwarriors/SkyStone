@@ -34,7 +34,7 @@ public class Force_Odometry_Red_Skystones extends force_SkyStoneAutonomousMethod
 //        }
 
         VuforiaStuff.skystonePos StoneRember = vuforiaStuff.vuforiascan(true, true);  // look for skystone
-
+        robot.leftStoneGrabberOpenClose.setPosition(1.0);
         switch (StoneRember) {
             case LEFT: //SkyStone is on the left
                 telemetry.addLine("LEFT");
@@ -46,7 +46,7 @@ public class Force_Odometry_Red_Skystones extends force_SkyStoneAutonomousMethod
             case CENTER: //SkyStone is on the center
                 telemetry.addLine("CENTER");
                 telemetry.update();
-                goToPostion(118 * robot.COUNTS_PER_INCH, 40 * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
+                goToPostion(118 * robot.COUNTS_PER_INCH, 41 * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
                 rightAutoGrabStone();
                 sleep(250);
                 break;

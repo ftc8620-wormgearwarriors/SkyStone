@@ -41,7 +41,7 @@ public class Force_Odometry_Blue_Skystones extends force_SkyStoneAutonomousMetho
             case LEFT: //SkyStone is on the left
                 telemetry.addLine("LEFT");
                 telemetry.update();
-                goToPostion(24 * robot.COUNTS_PER_INCH, 48 * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
+                goToPostion(27 * robot.COUNTS_PER_INCH, 49 * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
                 leftAutoGrabStone();
                 sleep(250);
                 break;
@@ -55,15 +55,13 @@ public class Force_Odometry_Blue_Skystones extends force_SkyStoneAutonomousMetho
             case RIGHT:  //SkyStone is on the right
                 telemetry.addLine("RIGHT");
                 telemetry.update();
-                goToPostion(28 * robot.COUNTS_PER_INCH, 35 * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
+                goToPostion(27 * robot.COUNTS_PER_INCH, 33 * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
                 leftAutoGrabStone();
                 sleep(250);
                 break;
         }
 
         //temporary sleep
-        sleep(5000);
-
         //going under the bridge to avoid hitting the claw against the bridge
         goToPostion(22 * robot.COUNTS_PER_INCH, 100 * robot.COUNTS_PER_INCH, .8, 180, 1 * robot.COUNTS_PER_INCH, false);
 

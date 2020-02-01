@@ -247,7 +247,7 @@ public class forceTeleOp extends OpMode {
            robot.IntakeRight.setPower(-1);
            robot.RevwhlLeft.setPosition(-1);
            robot.RevwhlRight.setPosition(-1);
-           twistServoPos = 0.649;  // 0.75;
+           twistServoPos = 0.689;  // 0.75;
            openServoPos = 0.84;
            intakeOn = true;
         }

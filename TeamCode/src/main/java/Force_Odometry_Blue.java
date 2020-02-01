@@ -15,6 +15,7 @@ public class Force_Odometry_Blue extends force_SkyStoneAutonomousMethods {
        initOdometryHardware(0,111,270);
        robot.rightStoneGrabberUpDown.setPosition(0);
        robot.rightStoneGrabberOpenClose.setPosition(0);
+       robot.leftStoneGrabberOpenClose.setPosition(0);
 
        telemetry.addData("Status", "Init Complete");
        telemetry.update();
@@ -27,6 +28,7 @@ public class Force_Odometry_Blue extends force_SkyStoneAutonomousMethods {
          //goToPostion(0 *COUNTS_PER_INCH,0*COUNTS_PER_INCH, 0.5, 0, 1*COUNTS_PER_INCH);
 
        robot.rightStoneGrabberOpenClose.setPosition(1.0);
+       robot.leftStoneGrabberOpenClose.setPosition(1.0);
        goToPostion(32 * robot.COUNTS_PER_INCH, 125 * robot.COUNTS_PER_INCH,.8, 270, 1 * robot.COUNTS_PER_INCH, false);
        robot.RightWaffle.setPosition(0);
        robot.LeftWaffle.setPosition(0);
