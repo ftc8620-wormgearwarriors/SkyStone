@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<Robot type="FirstInspires-FTC">
+    <LynxUsbDevice name="Expansion Hub Portal 1" serialNumber="DQ3D3SAJ" parentModuleAddress="3">
+        <LynxModule name="Expansion Hub 2" port="2">
+            <Matrix12vMotor name="backRightDrive" port="0" />
+            <Matrix12vMotor name="frontRightDrive" port="1" />
+            <goBILDA5202SeriesMotor name="LiftMotorRight" port="2" />
+            <Matrix12vMotor name="IntakeRight" port="3" />
+            <Servo name="RightWaffle" port="0" />
+            <Servo name="RevwhlRight" port="1" />
+            <Servo name="rightStoneGrabberUpDown" port="2" />
+            <Servo name="stoneGrabberOpenClose" port="3" />
+            <Servo name="leftStoneGrabberOpenClose" port="5" />
+            <AnalogInput name="armPos" port="0" />
+            <LynxEmbeddedIMU name="imu2" port="0" bus="0" />
+        </LynxModule>
+        <LynxModule name="Expansion Hub 3" port="3">
+            <Matrix12vMotor name="backLeftDrive" port="0" />
+            <Matrix12vMotor name="frontLeftDrive" port="1" />
+            <goBILDA5202SeriesMotor name="LiftMotorLeft" port="2" />
+            <Matrix12vMotor name="IntakeLeft" port="3" />
+            <Servo name="LeftWaffle" port="0" />
+            <Servo name="OpenServo" port="1" />
+            <Servo name="TwistServo" port="2" />
+            <Servo name="ExtendClaw" port="3" />
+            <Servo name="RevwhlLeft" port="4" />
+            <Servo name="leftStoneGrabberUpDown" port="5" />
+            <LynxEmbeddedIMU name="imu" port="0" bus="0" />
+        </LynxModule>
+    </LynxUsbDevice>
+</Robot>
